@@ -3,6 +3,7 @@ import hashlib
 import json
 from copy import copy
 import pandas as pd
+import numpy as np
 from pybaseball import bwar_pitch, chadwick_register, fangraphs_teams, pitching, pitching_post, pitching_stats, \
     pitching_stats_bref, pitching_stats_range, player_search_list, playerid_lookup, playerid_reverse_lookup, statcast, \
     statcast_pitcher, team_pitching_bref, cache
@@ -17,14 +18,16 @@ END_YEAR = datetime.date.today().year
 
 chadwick = chadwick_register()
 
-# Grab all players that started during or after our start_year
-player_ids = set(pd.unique(chadwick[chadwick["mlb_played_first"].gt(START_YEAR - 1)]["key_mlbam"]))
+# Grab all players whos last year is during or after our start_year
+player_ids = set(pd.unique(chadwick[chadwick["mlb_played_last"].gt(START_YEAR - 1)]["key_mlbam"]))
 
 # Not sure if all APIs take the teamID or franchID, so adding both to a set. If it's not used the API call should fail.
 team_df = pd.concat([fangraphs_teams(START_YEAR), fangraphs_teams(END_YEAR)])
 team_ids = set(pd.unique(team_df["teamID"]))
 team_ids.update(pd.unique(team_df["franchID"]))
 
+# pitch_types = ['SL', 'CH', 'FC', 'FF', 'FS']
+pitch_types = ["FF", "SIFT", "CH", "CUKC", "FC", "SL", "FS"]
 
 # We're using the dict returns od the iterators below to identify the calls. Using MD5 to give us an idempotent id.
 def dmd5(d: dict):
@@ -149,6 +152,30 @@ class TeamPitchingIterator:
         }
 
 
+class StatcastPitcherPitchMovementIterator:
+
+    def __init__(self, pitches=pitch_types):
+        self.pitches = iter(pitches)
+        self.current_pitch = next(self.pitches)
+        self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        try:
+            year = next(self.years)
+        except StopIteration:
+            self.current_pitch = next(self.pitches)
+            self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
+            year = next(self.years)
+
+        return {
+            "pitch_type": self.current_pitch,
+            "year": year,
+        }
+
+
 # A list of API methods and the iterable dicts of parameters used to "span" the API.
 api_methods = {
     playerid_reverse_lookup: [{
@@ -172,8 +199,8 @@ api_methods = {
     }],
     statcast: StatcastIterator(),
     statcast_pitcher: StatcastPitcherIterator(),
-    pitching_stats_bref: YearIterator(keys=["season"]),
-    pitching_stats_range: PitchingStatsIterator(),
+    pitching_stats_bref: YearIterator(keys=["season"], start=2008),
+    pitching_stats_range: PitchingStatsIterator(start=2008),
     bwar_pitch: [{
         "return_all": True
     }],
@@ -185,8 +212,41 @@ api_methods = {
     statcast_pitcher_expected_stats: YearIterator(keys=["year"]),
     statcast_pitcher_pitch_arsenal: YearIterator(keys=["year"]),
     statcast_pitcher_arsenal_stats: YearIterator(keys=["year"]),
-    statcast_pitcher_pitch_movement: YearIterator(keys=["year"]),
+    statcast_pitcher_pitch_movement: StatcastPitcherPitchMovementIterator(),
     statcast_pitcher_active_spin: YearIterator(keys=["year"]),
     statcast_pitcher_percentile_ranks: YearIterator(keys=["year"]),
     statcast_pitcher_spin_dir_comp: YearIterator(keys=["year"])
+}
+
+
+def copy_year(column):
+    def inner_copy_year(df):
+        ndf = df.dropna(subset=[column])
+        ndf["year"] = ndf[column].astype(pd.Int64Dtype())
+        return ndf
+    return inner_copy_year
+
+
+def chadwick_cleanup(df):
+    return df.dropna(subset=['mlb_played_first', 'mlb_played_last']).astype({"mlb_played_first": pd.Int64Dtype(), "mlb_played_first": pd.Int64Dtype()})
+
+
+# We want to introduce a consistent year column. Also a hook for any other cleanup.
+cleanup_methods = {
+    playerid_reverse_lookup: chadwick_cleanup,
+    player_search_list: chadwick_cleanup,
+    playerid_lookup: chadwick_cleanup,
+    chadwick_register: chadwick_cleanup,
+    fangraphs_teams: copy_year("yearID"),
+    statcast: copy_year("game_year"),
+    statcast_pitcher: copy_year("game_year"),
+    bwar_pitch: copy_year("year_ID"),
+    pitching_stats: copy_year("Season"),
+    team_pitching_bref: copy_year("Year"),
+    pitching: copy_year("yearID"),
+    pitching_post: copy_year("yearID"),
+    statcast_pitcher_expected_stats: copy_year("year"),
+    statcast_pitcher_pitch_movement: copy_year("year"),
+    statcast_pitcher_percentile_ranks: copy_year("year"),
+    statcast_pitcher_spin_dir_comp: copy_year("year")
 }

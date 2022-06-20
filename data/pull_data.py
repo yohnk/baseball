@@ -1,10 +1,16 @@
 import pandas as pd
 import pickle
-from boilerplate import api_methods, dmd5
+
+import pybaseball
+
+from boilerplate import api_methods, cleanup_methods, dmd5
 import lzma
 import logging_config
 import logging
 from os.path import join, exists
+
+import pybaseball
+chadwick = pybaseball.chadwick_register()
 
 
 def main():
@@ -22,7 +28,8 @@ def main():
                     df = method(**d)
                     with open(path, "wb") as file:
                         pickle.dump(df, file)
-                all_dataframes.append(df)
+                    logging.info("Cached request to {}".format(path))
+                all_dataframes.append(df.reset_index())
             except:
                 logging.exception("Failed to get df")
 
@@ -30,6 +37,8 @@ def main():
             logging.info("Concatenating dataframes for {}".format(method.__qualname__))
             ret = pd.concat(all_dataframes)
             ret = ret.reset_index()
+            if method in cleanup_methods:
+                ret = cleanup_methods[method](ret)
 
             path = join("data", "build", method.__qualname__ + ".pkl.xz")
             with lzma.open(path, "w") as file:
