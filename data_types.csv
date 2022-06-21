@@ -1,0 +1,864 @@
+method,parameter,output,
+FangraphsDataTable.fetch,IDfg,TRUE,int
+FangraphsDataTable.fetch,Season,TRUE,int
+FangraphsDataTable.fetch,Name,TRUE,str
+FangraphsDataTable.fetch,Team,TRUE,str
+FangraphsDataTable.fetch,Age,TRUE,int
+FangraphsDataTable.fetch,W,TRUE,int
+FangraphsDataTable.fetch,L,TRUE,int
+FangraphsDataTable.fetch,WAR,TRUE,float
+FangraphsDataTable.fetch,ERA,TRUE,float
+FangraphsDataTable.fetch,G,TRUE,int
+FangraphsDataTable.fetch,GS,TRUE,int
+FangraphsDataTable.fetch,CG,TRUE,int
+FangraphsDataTable.fetch,ShO,TRUE,int
+FangraphsDataTable.fetch,SV,TRUE,int
+FangraphsDataTable.fetch,BS,TRUE,float
+FangraphsDataTable.fetch,IP,TRUE,float
+FangraphsDataTable.fetch,TBF,TRUE,int
+FangraphsDataTable.fetch,H,TRUE,int
+FangraphsDataTable.fetch,R,TRUE,int
+FangraphsDataTable.fetch,ER,TRUE,int
+FangraphsDataTable.fetch,HR,TRUE,int
+FangraphsDataTable.fetch,BB,TRUE,int
+FangraphsDataTable.fetch,IBB,TRUE,int
+FangraphsDataTable.fetch,HBP,TRUE,int
+FangraphsDataTable.fetch,WP,TRUE,int
+FangraphsDataTable.fetch,BK,TRUE,int
+FangraphsDataTable.fetch,SO,TRUE,int
+FangraphsDataTable.fetch,GB,TRUE,float
+FangraphsDataTable.fetch,FB,TRUE,float
+FangraphsDataTable.fetch,LD,TRUE,float
+FangraphsDataTable.fetch,IFFB,TRUE,float
+FangraphsDataTable.fetch,Balls,TRUE,float
+FangraphsDataTable.fetch,Strikes,TRUE,float
+FangraphsDataTable.fetch,Pitches,TRUE,float
+FangraphsDataTable.fetch,RS,TRUE,float
+FangraphsDataTable.fetch,IFH,TRUE,float
+FangraphsDataTable.fetch,BU,TRUE,float
+FangraphsDataTable.fetch,BUH,TRUE,float
+FangraphsDataTable.fetch,K/9,TRUE,float
+FangraphsDataTable.fetch,BB/9,TRUE,float
+FangraphsDataTable.fetch,K/BB,TRUE,float
+FangraphsDataTable.fetch,H/9,TRUE,float
+FangraphsDataTable.fetch,HR/9,TRUE,float
+FangraphsDataTable.fetch,AVG,TRUE,float
+FangraphsDataTable.fetch,WHIP,TRUE,float
+FangraphsDataTable.fetch,BABIP,TRUE,float
+FangraphsDataTable.fetch,LOB%,TRUE,float
+FangraphsDataTable.fetch,FIP,TRUE,float
+FangraphsDataTable.fetch,GB/FB,TRUE,float
+FangraphsDataTable.fetch,LD%,TRUE,float
+FangraphsDataTable.fetch,GB%,TRUE,float
+FangraphsDataTable.fetch,FB%,TRUE,float
+FangraphsDataTable.fetch,IFFB%,TRUE,float
+FangraphsDataTable.fetch,HR/FB,TRUE,float
+FangraphsDataTable.fetch,IFH%,TRUE,float
+FangraphsDataTable.fetch,BUH%,TRUE,float
+FangraphsDataTable.fetch,Starting,TRUE,float
+FangraphsDataTable.fetch,Start-IP,TRUE,float
+FangraphsDataTable.fetch,Relieving,TRUE,float
+FangraphsDataTable.fetch,Relief-IP,TRUE,float
+FangraphsDataTable.fetch,RAR,TRUE,float
+FangraphsDataTable.fetch,Dollars,TRUE,str
+FangraphsDataTable.fetch,tERA,TRUE,float
+FangraphsDataTable.fetch,xFIP,TRUE,float
+FangraphsDataTable.fetch,WPA,TRUE,float
+FangraphsDataTable.fetch,#NAME?,TRUE,float
+FangraphsDataTable.fetch,#NAME?,TRUE,float
+FangraphsDataTable.fetch,RE24,TRUE,float
+FangraphsDataTable.fetch,REW,TRUE,float
+FangraphsDataTable.fetch,pLI,TRUE,float
+FangraphsDataTable.fetch,inLI,TRUE,float
+FangraphsDataTable.fetch,gmLI,TRUE,float
+FangraphsDataTable.fetch,exLI,TRUE,float
+FangraphsDataTable.fetch,Pulls,TRUE,int
+FangraphsDataTable.fetch,WPA/LI,TRUE,float
+FangraphsDataTable.fetch,Clutch,TRUE,float
+FangraphsDataTable.fetch,FB% 2,TRUE,float
+FangraphsDataTable.fetch,FBv,TRUE,float
+FangraphsDataTable.fetch,SL%,TRUE,float
+FangraphsDataTable.fetch,SLv,TRUE,float
+FangraphsDataTable.fetch,CT%,TRUE,float
+FangraphsDataTable.fetch,CTv,TRUE,float
+FangraphsDataTable.fetch,CB%,TRUE,float
+FangraphsDataTable.fetch,CBv,TRUE,float
+FangraphsDataTable.fetch,CH%,TRUE,float
+FangraphsDataTable.fetch,CHv,TRUE,float
+FangraphsDataTable.fetch,SF%,TRUE,float
+FangraphsDataTable.fetch,SFv,TRUE,float
+FangraphsDataTable.fetch,KN%,TRUE,float
+FangraphsDataTable.fetch,KNv,TRUE,float
+FangraphsDataTable.fetch,XX%,TRUE,float
+FangraphsDataTable.fetch,PO%,TRUE,float
+FangraphsDataTable.fetch,wFB,TRUE,float
+FangraphsDataTable.fetch,wSL,TRUE,float
+FangraphsDataTable.fetch,wCT,TRUE,float
+FangraphsDataTable.fetch,wCB,TRUE,float
+FangraphsDataTable.fetch,wCH,TRUE,float
+FangraphsDataTable.fetch,wSF,TRUE,float
+FangraphsDataTable.fetch,wKN,TRUE,float
+FangraphsDataTable.fetch,wFB/C,TRUE,float
+FangraphsDataTable.fetch,wSL/C,TRUE,float
+FangraphsDataTable.fetch,wCT/C,TRUE,float
+FangraphsDataTable.fetch,wCB/C,TRUE,float
+FangraphsDataTable.fetch,wCH/C,TRUE,float
+FangraphsDataTable.fetch,wSF/C,TRUE,float
+FangraphsDataTable.fetch,wKN/C,TRUE,float
+FangraphsDataTable.fetch,O-Swing%,TRUE,float
+FangraphsDataTable.fetch,Z-Swing%,TRUE,float
+FangraphsDataTable.fetch,Swing%,TRUE,float
+FangraphsDataTable.fetch,O-Contact%,TRUE,float
+FangraphsDataTable.fetch,Z-Contact%,TRUE,float
+FangraphsDataTable.fetch,Contact%,TRUE,float
+FangraphsDataTable.fetch,Zone%,TRUE,float
+FangraphsDataTable.fetch,F-Strike%,TRUE,float
+FangraphsDataTable.fetch,SwStr%,TRUE,float
+FangraphsDataTable.fetch,HLD,TRUE,float
+FangraphsDataTable.fetch,SD,TRUE,int
+FangraphsDataTable.fetch,MD,TRUE,int
+FangraphsDataTable.fetch,ERA-,TRUE,int
+FangraphsDataTable.fetch,FIP-,TRUE,int
+FangraphsDataTable.fetch,xFIP-,TRUE,float
+FangraphsDataTable.fetch,K%,TRUE,float
+FangraphsDataTable.fetch,BB%,TRUE,float
+FangraphsDataTable.fetch,SIERA,TRUE,float
+FangraphsDataTable.fetch,RS/9,TRUE,float
+FangraphsDataTable.fetch,E-F,TRUE,float
+FangraphsDataTable.fetch,FA% (sc),TRUE,float
+FangraphsDataTable.fetch,FT% (sc),TRUE,float
+FangraphsDataTable.fetch,FC% (sc),TRUE,float
+FangraphsDataTable.fetch,FS% (sc),TRUE,float
+FangraphsDataTable.fetch,FO% (sc),TRUE,float
+FangraphsDataTable.fetch,SI% (sc),TRUE,float
+FangraphsDataTable.fetch,SL% (sc),TRUE,float
+FangraphsDataTable.fetch,CU% (sc),TRUE,float
+FangraphsDataTable.fetch,KC% (sc),TRUE,float
+FangraphsDataTable.fetch,EP% (sc),TRUE,float
+FangraphsDataTable.fetch,CH% (sc),TRUE,float
+FangraphsDataTable.fetch,SC% (sc),TRUE,float
+FangraphsDataTable.fetch,KN% (sc),TRUE,float
+FangraphsDataTable.fetch,UN% (sc),TRUE,float
+FangraphsDataTable.fetch,vFA (sc),TRUE,float
+FangraphsDataTable.fetch,vFT (sc),TRUE,float
+FangraphsDataTable.fetch,vFC (sc),TRUE,float
+FangraphsDataTable.fetch,vFS (sc),TRUE,float
+FangraphsDataTable.fetch,vFO (sc),TRUE,float
+FangraphsDataTable.fetch,vSI (sc),TRUE,float
+FangraphsDataTable.fetch,vSL (sc),TRUE,float
+FangraphsDataTable.fetch,vCU (sc),TRUE,float
+FangraphsDataTable.fetch,vKC (sc),TRUE,float
+FangraphsDataTable.fetch,vEP (sc),TRUE,float
+FangraphsDataTable.fetch,vCH (sc),TRUE,float
+FangraphsDataTable.fetch,vSC (sc),TRUE,float
+FangraphsDataTable.fetch,vKN (sc),TRUE,float
+FangraphsDataTable.fetch,FA-X (sc),TRUE,float
+FangraphsDataTable.fetch,FT-X (sc),TRUE,float
+FangraphsDataTable.fetch,FC-X (sc),TRUE,float
+FangraphsDataTable.fetch,FS-X (sc),TRUE,float
+FangraphsDataTable.fetch,FO-X (sc),TRUE,float
+FangraphsDataTable.fetch,SI-X (sc),TRUE,float
+FangraphsDataTable.fetch,SL-X (sc),TRUE,float
+FangraphsDataTable.fetch,CU-X (sc),TRUE,float
+FangraphsDataTable.fetch,KC-X (sc),TRUE,float
+FangraphsDataTable.fetch,EP-X (sc),TRUE,float
+FangraphsDataTable.fetch,CH-X (sc),TRUE,float
+FangraphsDataTable.fetch,SC-X (sc),TRUE,float
+FangraphsDataTable.fetch,KN-X (sc),TRUE,float
+FangraphsDataTable.fetch,FA-Z (sc),TRUE,float
+FangraphsDataTable.fetch,FT-Z (sc),TRUE,float
+FangraphsDataTable.fetch,FC-Z (sc),TRUE,float
+FangraphsDataTable.fetch,FS-Z (sc),TRUE,float
+FangraphsDataTable.fetch,FO-Z (sc),TRUE,float
+FangraphsDataTable.fetch,SI-Z (sc),TRUE,float
+FangraphsDataTable.fetch,SL-Z (sc),TRUE,float
+FangraphsDataTable.fetch,CU-Z (sc),TRUE,float
+FangraphsDataTable.fetch,KC-Z (sc),TRUE,float
+FangraphsDataTable.fetch,EP-Z (sc),TRUE,float
+FangraphsDataTable.fetch,CH-Z (sc),TRUE,float
+FangraphsDataTable.fetch,SC-Z (sc),TRUE,float
+FangraphsDataTable.fetch,KN-Z (sc),TRUE,float
+FangraphsDataTable.fetch,wFA (sc),TRUE,float
+FangraphsDataTable.fetch,wFT (sc),TRUE,float
+FangraphsDataTable.fetch,wFC (sc),TRUE,float
+FangraphsDataTable.fetch,wFS (sc),TRUE,float
+FangraphsDataTable.fetch,wFO (sc),TRUE,float
+FangraphsDataTable.fetch,wSI (sc),TRUE,float
+FangraphsDataTable.fetch,wSL (sc),TRUE,float
+FangraphsDataTable.fetch,wCU (sc),TRUE,float
+FangraphsDataTable.fetch,wKC (sc),TRUE,float
+FangraphsDataTable.fetch,wEP (sc),TRUE,float
+FangraphsDataTable.fetch,wCH (sc),TRUE,float
+FangraphsDataTable.fetch,wSC (sc),TRUE,float
+FangraphsDataTable.fetch,wKN (sc),TRUE,float
+FangraphsDataTable.fetch,wFA/C (sc),TRUE,float
+FangraphsDataTable.fetch,wFT/C (sc),TRUE,float
+FangraphsDataTable.fetch,wFC/C (sc),TRUE,float
+FangraphsDataTable.fetch,wFS/C (sc),TRUE,float
+FangraphsDataTable.fetch,wFO/C (sc),TRUE,float
+FangraphsDataTable.fetch,wSI/C (sc),TRUE,float
+FangraphsDataTable.fetch,wSL/C (sc),TRUE,float
+FangraphsDataTable.fetch,wCU/C (sc),TRUE,float
+FangraphsDataTable.fetch,wKC/C (sc),TRUE,float
+FangraphsDataTable.fetch,wEP/C (sc),TRUE,float
+FangraphsDataTable.fetch,wCH/C (sc),TRUE,float
+FangraphsDataTable.fetch,wSC/C (sc),TRUE,float
+FangraphsDataTable.fetch,wKN/C (sc),TRUE,float
+FangraphsDataTable.fetch,O-Swing% (sc),TRUE,float
+FangraphsDataTable.fetch,Z-Swing% (sc),TRUE,float
+FangraphsDataTable.fetch,Swing% (sc),TRUE,float
+FangraphsDataTable.fetch,O-Contact% (sc),TRUE,float
+FangraphsDataTable.fetch,Z-Contact% (sc),TRUE,float
+FangraphsDataTable.fetch,Contact% (sc),TRUE,float
+FangraphsDataTable.fetch,Zone% (sc),TRUE,float
+FangraphsDataTable.fetch,Pace,TRUE,float
+FangraphsDataTable.fetch,RA9-WAR,TRUE,float
+FangraphsDataTable.fetch,BIP-Wins,TRUE,float
+FangraphsDataTable.fetch,LOB-Wins,TRUE,float
+FangraphsDataTable.fetch,FDP-Wins,TRUE,float
+FangraphsDataTable.fetch,Age Rng,TRUE,str
+FangraphsDataTable.fetch,K-BB%,TRUE,float
+FangraphsDataTable.fetch,Pull%,TRUE,float
+FangraphsDataTable.fetch,Cent%,TRUE,float
+FangraphsDataTable.fetch,Oppo%,TRUE,float
+FangraphsDataTable.fetch,Soft%,TRUE,float
+FangraphsDataTable.fetch,Med%,TRUE,float
+FangraphsDataTable.fetch,Hard%,TRUE,float
+FangraphsDataTable.fetch,kwERA,TRUE,float
+FangraphsDataTable.fetch,TTO%,TRUE,float
+FangraphsDataTable.fetch,CH% (pi),TRUE,float
+FangraphsDataTable.fetch,CS% (pi),TRUE,float
+FangraphsDataTable.fetch,CU% (pi),TRUE,float
+FangraphsDataTable.fetch,FA% (pi),TRUE,float
+FangraphsDataTable.fetch,FC% (pi),TRUE,float
+FangraphsDataTable.fetch,FS% (pi),TRUE,float
+FangraphsDataTable.fetch,KN% (pi),TRUE,float
+FangraphsDataTable.fetch,SB% (pi),TRUE,float
+FangraphsDataTable.fetch,SI% (pi),TRUE,float
+FangraphsDataTable.fetch,SL% (pi),TRUE,float
+FangraphsDataTable.fetch,XX% (pi),TRUE,float
+FangraphsDataTable.fetch,vCH (pi),TRUE,float
+FangraphsDataTable.fetch,vCS (pi),TRUE,float
+FangraphsDataTable.fetch,vCU (pi),TRUE,float
+FangraphsDataTable.fetch,vFA (pi),TRUE,float
+FangraphsDataTable.fetch,vFC (pi),TRUE,float
+FangraphsDataTable.fetch,vFS (pi),TRUE,float
+FangraphsDataTable.fetch,vKN (pi),TRUE,float
+FangraphsDataTable.fetch,vSB (pi),TRUE,float
+FangraphsDataTable.fetch,vSI (pi),TRUE,float
+FangraphsDataTable.fetch,vSL (pi),TRUE,float
+FangraphsDataTable.fetch,vXX (pi),TRUE,float
+FangraphsDataTable.fetch,CH-X (pi),TRUE,float
+FangraphsDataTable.fetch,CS-X (pi),TRUE,float
+FangraphsDataTable.fetch,CU-X (pi),TRUE,float
+FangraphsDataTable.fetch,FA-X (pi),TRUE,float
+FangraphsDataTable.fetch,FC-X (pi),TRUE,float
+FangraphsDataTable.fetch,FS-X (pi),TRUE,float
+FangraphsDataTable.fetch,KN-X (pi),TRUE,float
+FangraphsDataTable.fetch,SB-X (pi),TRUE,float
+FangraphsDataTable.fetch,SI-X (pi),TRUE,float
+FangraphsDataTable.fetch,SL-X (pi),TRUE,float
+FangraphsDataTable.fetch,XX-X (pi),TRUE,float
+FangraphsDataTable.fetch,CH-Z (pi),TRUE,float
+FangraphsDataTable.fetch,CS-Z (pi),TRUE,float
+FangraphsDataTable.fetch,CU-Z (pi),TRUE,float
+FangraphsDataTable.fetch,FA-Z (pi),TRUE,float
+FangraphsDataTable.fetch,FC-Z (pi),TRUE,float
+FangraphsDataTable.fetch,FS-Z (pi),TRUE,float
+FangraphsDataTable.fetch,KN-Z (pi),TRUE,float
+FangraphsDataTable.fetch,SB-Z (pi),TRUE,float
+FangraphsDataTable.fetch,SI-Z (pi),TRUE,float
+FangraphsDataTable.fetch,SL-Z (pi),TRUE,float
+FangraphsDataTable.fetch,XX-Z (pi),TRUE,float
+FangraphsDataTable.fetch,wCH (pi),TRUE,float
+FangraphsDataTable.fetch,wCS (pi),TRUE,float
+FangraphsDataTable.fetch,wCU (pi),TRUE,float
+FangraphsDataTable.fetch,wFA (pi),TRUE,float
+FangraphsDataTable.fetch,wFC (pi),TRUE,float
+FangraphsDataTable.fetch,wFS (pi),TRUE,float
+FangraphsDataTable.fetch,wKN (pi),TRUE,float
+FangraphsDataTable.fetch,wSB (pi),TRUE,float
+FangraphsDataTable.fetch,wSI (pi),TRUE,float
+FangraphsDataTable.fetch,wSL (pi),TRUE,float
+FangraphsDataTable.fetch,wXX (pi),TRUE,float
+FangraphsDataTable.fetch,wCH/C (pi),TRUE,float
+FangraphsDataTable.fetch,wCS/C (pi),TRUE,float
+FangraphsDataTable.fetch,wCU/C (pi),TRUE,float
+FangraphsDataTable.fetch,wFA/C (pi),TRUE,float
+FangraphsDataTable.fetch,wFC/C (pi),TRUE,float
+FangraphsDataTable.fetch,wFS/C (pi),TRUE,float
+FangraphsDataTable.fetch,wKN/C (pi),TRUE,float
+FangraphsDataTable.fetch,wSB/C (pi),TRUE,float
+FangraphsDataTable.fetch,wSI/C (pi),TRUE,float
+FangraphsDataTable.fetch,wSL/C (pi),TRUE,float
+FangraphsDataTable.fetch,wXX/C (pi),TRUE,float
+FangraphsDataTable.fetch,O-Swing% (pi),TRUE,float
+FangraphsDataTable.fetch,Z-Swing% (pi),TRUE,float
+FangraphsDataTable.fetch,Swing% (pi),TRUE,float
+FangraphsDataTable.fetch,O-Contact% (pi),TRUE,float
+FangraphsDataTable.fetch,Z-Contact% (pi),TRUE,float
+FangraphsDataTable.fetch,Contact% (pi),TRUE,float
+FangraphsDataTable.fetch,Zone% (pi),TRUE,float
+FangraphsDataTable.fetch,Pace (pi),TRUE,float
+FangraphsDataTable.fetch,FRM,TRUE,float
+FangraphsDataTable.fetch,K/9+,TRUE,int
+FangraphsDataTable.fetch,BB/9+,TRUE,int
+FangraphsDataTable.fetch,K/BB+,TRUE,int
+FangraphsDataTable.fetch,H/9+,TRUE,int
+FangraphsDataTable.fetch,HR/9+,TRUE,int
+FangraphsDataTable.fetch,AVG+,TRUE,int
+FangraphsDataTable.fetch,WHIP+,TRUE,int
+FangraphsDataTable.fetch,BABIP+,TRUE,int
+FangraphsDataTable.fetch,LOB%+,TRUE,int
+FangraphsDataTable.fetch,K%+,TRUE,int
+FangraphsDataTable.fetch,BB%+,TRUE,int
+FangraphsDataTable.fetch,LD%+,TRUE,float
+FangraphsDataTable.fetch,GB%+,TRUE,float
+FangraphsDataTable.fetch,FB%+,TRUE,float
+FangraphsDataTable.fetch,HR/FB%+,TRUE,float
+FangraphsDataTable.fetch,Pull%+,TRUE,float
+FangraphsDataTable.fetch,Cent%+,TRUE,float
+FangraphsDataTable.fetch,Oppo%+,TRUE,float
+FangraphsDataTable.fetch,Soft%+,TRUE,float
+FangraphsDataTable.fetch,Med%+,TRUE,float
+FangraphsDataTable.fetch,Hard%+,TRUE,float
+FangraphsDataTable.fetch,EV,TRUE,float
+FangraphsDataTable.fetch,LA,TRUE,float
+FangraphsDataTable.fetch,Barrels,TRUE,float
+FangraphsDataTable.fetch,Barrel%,TRUE,float
+FangraphsDataTable.fetch,maxEV,TRUE,float
+FangraphsDataTable.fetch,HardHit,TRUE,float
+FangraphsDataTable.fetch,HardHit%,TRUE,float
+FangraphsDataTable.fetch,Events,TRUE,int
+FangraphsDataTable.fetch,CStr%,TRUE,float
+FangraphsDataTable.fetch,CSW%,TRUE,float
+FangraphsDataTable.fetch,xERA,TRUE,float
+statcast_pitcher,start_dt,FALSE,str
+statcast_pitcher,end_dt,FALSE,str
+statcast_pitcher,player_id,FALSE,int
+statcast_pitcher,pitch_type,TRUE,str
+statcast_pitcher,game_date,TRUE,date
+statcast_pitcher,release_speed,TRUE,float
+statcast_pitcher,release_pos_x,TRUE,float
+statcast_pitcher,release_pos_z,TRUE,float
+statcast_pitcher,player_name,TRUE,str
+statcast_pitcher,batter,TRUE,int
+statcast_pitcher,pitcher,TRUE,int
+statcast_pitcher,events,TRUE,str
+statcast_pitcher,description,TRUE,str
+statcast_pitcher,spin_dir,TRUE,float
+statcast_pitcher,spin_rate_deprecated,TRUE,float
+statcast_pitcher,break_angle_deprecated,TRUE,float
+statcast_pitcher,break_length_deprecated,TRUE,float
+statcast_pitcher,zone,TRUE,int
+statcast_pitcher,des,TRUE,str
+statcast_pitcher,game_type,TRUE,str
+statcast_pitcher,stand,TRUE,str
+statcast_pitcher,p_throws,TRUE,str
+statcast_pitcher,home_team,TRUE,str
+statcast_pitcher,away_team,TRUE,str
+statcast_pitcher,type,TRUE,str
+statcast_pitcher,hit_location,TRUE,int
+statcast_pitcher,bb_type,TRUE,str
+statcast_pitcher,balls,TRUE,int
+statcast_pitcher,strikes,TRUE,int
+statcast_pitcher,game_year,TRUE,int
+statcast_pitcher,pfx_x,TRUE,float
+statcast_pitcher,pfx_z,TRUE,float
+statcast_pitcher,plate_x,TRUE,float
+statcast_pitcher,plate_z,TRUE,float
+statcast_pitcher,on_3b,TRUE,int
+statcast_pitcher,on_2b,TRUE,int
+statcast_pitcher,on_1b,TRUE,int
+statcast_pitcher,outs_when_up,TRUE,int
+statcast_pitcher,inning,TRUE,int
+statcast_pitcher,inning_topbot,TRUE,str
+statcast_pitcher,hc_x,TRUE,float
+statcast_pitcher,hc_y,TRUE,float
+statcast_pitcher,tfs_deprecated,TRUE,float
+statcast_pitcher,tfs_zulu_deprecated,TRUE,float
+statcast_pitcher,fielder_2,TRUE,int
+statcast_pitcher,umpire,TRUE,str
+statcast_pitcher,sv_id,TRUE,str
+statcast_pitcher,vx0,TRUE,float
+statcast_pitcher,vy0,TRUE,float
+statcast_pitcher,vz0,TRUE,float
+statcast_pitcher,ax,TRUE,float
+statcast_pitcher,ay,TRUE,float
+statcast_pitcher,az,TRUE,float
+statcast_pitcher,sz_top,TRUE,float
+statcast_pitcher,sz_bot,TRUE,float
+statcast_pitcher,hit_distance_sc,TRUE,int
+statcast_pitcher,launch_speed,TRUE,float
+statcast_pitcher,launch_angle,TRUE,int
+statcast_pitcher,effective_speed,TRUE,float
+statcast_pitcher,release_spin_rate,TRUE,int
+statcast_pitcher,release_extension,TRUE,float
+statcast_pitcher,game_pk,TRUE,int
+statcast_pitcher,pitcher.1,TRUE,int
+statcast_pitcher,fielder_2.1,TRUE,int
+statcast_pitcher,fielder_3,TRUE,int
+statcast_pitcher,fielder_4,TRUE,int
+statcast_pitcher,fielder_5,TRUE,int
+statcast_pitcher,fielder_6,TRUE,int
+statcast_pitcher,fielder_7,TRUE,int
+statcast_pitcher,fielder_8,TRUE,int
+statcast_pitcher,fielder_9,TRUE,int
+statcast_pitcher,release_pos_y,TRUE,float
+statcast_pitcher,estimated_ba_using_speedangle,TRUE,float
+statcast_pitcher,estimated_woba_using_speedangle,TRUE,float
+statcast_pitcher,woba_value,TRUE,float
+statcast_pitcher,woba_denom,TRUE,float
+statcast_pitcher,babip_value,TRUE,float
+statcast_pitcher,iso_value,TRUE,float
+statcast_pitcher,launch_speed_angle,TRUE,float
+statcast_pitcher,at_bat_number,TRUE,int
+statcast_pitcher,pitch_number,TRUE,int
+statcast_pitcher,pitch_name,TRUE,str
+statcast_pitcher,home_score,TRUE,int
+statcast_pitcher,away_score,TRUE,int
+statcast_pitcher,bat_score,TRUE,int
+statcast_pitcher,fld_score,TRUE,int
+statcast_pitcher,post_away_score,TRUE,int
+statcast_pitcher,post_home_score,TRUE,int
+statcast_pitcher,post_bat_score,TRUE,int
+statcast_pitcher,post_fld_score,TRUE,int
+statcast_pitcher,if_fielding_alignment,TRUE,str
+statcast_pitcher,of_fielding_alignment,TRUE,str
+statcast_pitcher,spin_axis,TRUE,float
+statcast_pitcher,delta_home_win_exp,TRUE,float
+statcast_pitcher,delta_run_exp,TRUE,float
+pitching,playerID,TRUE,str
+pitching,yearID,TRUE,int
+pitching,stint,TRUE,int
+pitching,teamID,TRUE,str
+pitching,lgID,TRUE,str
+pitching,W,TRUE,int
+pitching,L,TRUE,int
+pitching,G,TRUE,int
+pitching,GS,TRUE,int
+pitching,CG,TRUE,int
+pitching,SHO,TRUE,int
+pitching,SV,TRUE,int
+pitching,IPouts,TRUE,int
+pitching,H,TRUE,int
+pitching,ER,TRUE,int
+pitching,HR,TRUE,int
+pitching,BB,TRUE,int
+pitching,SO,TRUE,int
+pitching,BAOpp,TRUE,float
+pitching,ERA,TRUE,float
+pitching,IBB,TRUE,float
+pitching,WP,TRUE,int
+pitching,HBP,TRUE,float
+pitching,BK,TRUE,int
+pitching,BFP,TRUE,float
+pitching,GF,TRUE,int
+pitching,R,TRUE,int
+pitching,SH,TRUE,float
+pitching,SF,TRUE,float
+pitching,GIDP,TRUE,float
+team_pitching_bref,Pos,TRUE,str
+team_pitching_bref,Name,TRUE,str
+team_pitching_bref,Year,TRUE,int
+team_pitching_bref,Age,TRUE,int
+team_pitching_bref,W,TRUE,int
+team_pitching_bref,L,TRUE,int
+team_pitching_bref,W-L%,TRUE,float
+team_pitching_bref,ERA,TRUE,float
+team_pitching_bref,G,TRUE,float
+team_pitching_bref,GS,TRUE,float
+team_pitching_bref,GF,TRUE,float
+team_pitching_bref,CG,TRUE,float
+team_pitching_bref,SHO,TRUE,float
+team_pitching_bref,SV,TRUE,float
+team_pitching_bref,IP,TRUE,float
+team_pitching_bref,H,TRUE,float
+team_pitching_bref,R,TRUE,float
+team_pitching_bref,ER,TRUE,float
+team_pitching_bref,HR,TRUE,float
+team_pitching_bref,BB,TRUE,float
+team_pitching_bref,IBB,TRUE,float
+team_pitching_bref,SO,TRUE,float
+team_pitching_bref,HBP,TRUE,float
+team_pitching_bref,BK,TRUE,float
+team_pitching_bref,WP,TRUE,float
+team_pitching_bref,BF,TRUE,float
+team_pitching_bref,ERA+,TRUE,float
+team_pitching_bref,FIP,TRUE,float
+team_pitching_bref,WHIP,TRUE,float
+team_pitching_bref,H9,TRUE,float
+team_pitching_bref,HR9,TRUE,float
+team_pitching_bref,BB9,TRUE,float
+team_pitching_bref,SO9,TRUE,float
+team_pitching_bref,SO/W,TRUE,float
+pitching_stats_range,Name,TRUE,str
+pitching_stats_range,Age,TRUE,int
+pitching_stats_range,#days,TRUE,int
+pitching_stats_range,Lev,TRUE,str
+pitching_stats_range,Tm,TRUE,str
+pitching_stats_range,G,TRUE,int
+pitching_stats_range,GS,TRUE,int
+pitching_stats_range,W,TRUE,float
+pitching_stats_range,L,TRUE,float
+pitching_stats_range,SV,TRUE,float
+pitching_stats_range,IP,TRUE,float
+pitching_stats_range,H,TRUE,int
+pitching_stats_range,R,TRUE,int
+pitching_stats_range,ER,TRUE,int
+pitching_stats_range,BB,TRUE,int
+pitching_stats_range,SO,TRUE,int
+pitching_stats_range,HR,TRUE,int
+pitching_stats_range,HBP,TRUE,int
+pitching_stats_range,ERA,TRUE,float
+pitching_stats_range,AB,TRUE,float
+pitching_stats_range,2B,TRUE,float
+pitching_stats_range,3B,TRUE,float
+pitching_stats_range,IBB,TRUE,float
+pitching_stats_range,GDP,TRUE,float
+pitching_stats_range,SF,TRUE,float
+pitching_stats_range,SB,TRUE,float
+pitching_stats_range,CS,TRUE,float
+pitching_stats_range,PO,TRUE,float
+pitching_stats_range,BF,TRUE,float
+pitching_stats_range,Pit,TRUE,float
+pitching_stats_range,Str,TRUE,float
+pitching_stats_range,StL,TRUE,float
+pitching_stats_range,StS,TRUE,float
+pitching_stats_range,GB/FB,TRUE,float
+pitching_stats_range,LD,TRUE,float
+pitching_stats_range,PU,TRUE,float
+pitching_stats_range,WHIP,TRUE,float
+pitching_stats_range,BAbip,TRUE,float
+pitching_stats_range,SO9,TRUE,float
+pitching_stats_range,SO/W,TRUE,float
+statcast_pitcher_expected_stats,last_name,TRUE,str
+statcast_pitcher_expected_stats, first_name,TRUE,str
+statcast_pitcher_expected_stats,player_id,TRUE,int
+statcast_pitcher_expected_stats,pa,TRUE,int
+statcast_pitcher_expected_stats,bip,TRUE,int
+statcast_pitcher_expected_stats,ba,TRUE,float
+statcast_pitcher_expected_stats,est_ba,TRUE,float
+statcast_pitcher_expected_stats,est_ba_minus_ba_diff,TRUE,float
+statcast_pitcher_expected_stats,slg,TRUE,float
+statcast_pitcher_expected_stats,est_slg,TRUE,float
+statcast_pitcher_expected_stats,est_slg_minus_slg_diff,TRUE,float
+statcast_pitcher_expected_stats,woba,TRUE,float
+statcast_pitcher_expected_stats,est_woba,TRUE,float
+statcast_pitcher_expected_stats,est_woba_minus_woba_diff,TRUE,float
+statcast_pitcher_expected_stats,era,TRUE,float
+statcast_pitcher_expected_stats,xera,TRUE,float
+statcast_pitcher_expected_stats,era_minus_xera_diff,TRUE,float
+pitching_post,playerID,TRUE,str
+pitching_post,yearID,TRUE,int
+pitching_post,round,TRUE,str
+pitching_post,teamID,TRUE,str
+pitching_post,lgID,TRUE,str
+pitching_post,W,TRUE,int
+pitching_post,L,TRUE,int
+pitching_post,G,TRUE,int
+pitching_post,GS,TRUE,int
+pitching_post,CG,TRUE,int
+pitching_post,SHO,TRUE,int
+pitching_post,SV,TRUE,int
+pitching_post,IPouts,TRUE,int
+pitching_post,H,TRUE,int
+pitching_post,ER,TRUE,int
+pitching_post,HR,TRUE,int
+pitching_post,BB,TRUE,int
+pitching_post,SO,TRUE,int
+pitching_post,BAOpp,TRUE,float
+pitching_post,ERA,TRUE,float
+pitching_post,IBB,TRUE,float
+pitching_post,WP,TRUE,float
+pitching_post,HBP,TRUE,float
+pitching_post,BK,TRUE,float
+pitching_post,BFP,TRUE,float
+pitching_post,GF,TRUE,int
+pitching_post,R,TRUE,int
+pitching_post,SH,TRUE,float
+pitching_post,SF,TRUE,float
+pitching_post,GIDP,TRUE,float
+bwar_pitch,return_all,FALSE,bool
+bwar_pitch,name_common,TRUE,str
+bwar_pitch,age,TRUE,int
+bwar_pitch,mlb_ID,TRUE,int
+bwar_pitch,player_ID,TRUE,str
+bwar_pitch,year_ID,TRUE,int
+bwar_pitch,team_ID,TRUE,str
+bwar_pitch,stint_ID,TRUE,int
+bwar_pitch,lg_ID,TRUE,str
+bwar_pitch,G,TRUE,int
+bwar_pitch,GS,TRUE,int
+bwar_pitch,IPouts,TRUE,int
+bwar_pitch,IPouts_start,TRUE,float
+bwar_pitch,IPouts_relief,TRUE,float
+bwar_pitch,RA,TRUE,int
+bwar_pitch,xRA,TRUE,float
+bwar_pitch,xRA_sprp_adj,TRUE,float
+bwar_pitch,xRA_extras_adj,TRUE,float
+bwar_pitch,xRA_def_pitcher,TRUE,float
+bwar_pitch,PPF,TRUE,int
+bwar_pitch,PPF_custom,TRUE,float
+bwar_pitch,xRA_final,TRUE,float
+bwar_pitch,BIP,TRUE,float
+bwar_pitch,BIP_perc,TRUE,float
+bwar_pitch,RS_def_total,TRUE,float
+bwar_pitch,runs_above_avg,TRUE,float
+bwar_pitch,runs_above_avg_adj,TRUE,float
+bwar_pitch,runs_above_rep,TRUE,float
+bwar_pitch,RpO_replacement,TRUE,float
+bwar_pitch,GR_leverage_index_avg,TRUE,float
+bwar_pitch,WAR,TRUE,float
+bwar_pitch,salary,TRUE,float
+bwar_pitch,teamRpG,TRUE,float
+bwar_pitch,oppRpG,TRUE,float
+bwar_pitch,pyth_exponent,TRUE,float
+bwar_pitch,waa_win_perc,TRUE,float
+bwar_pitch,WAA,TRUE,float
+bwar_pitch,WAA_adj,TRUE,float
+bwar_pitch,oppRpG_rep,TRUE,float
+bwar_pitch,pyth_exponent_rep,TRUE,float
+bwar_pitch,waa_win_perc_rep,TRUE,float
+bwar_pitch,WAR_rep,TRUE,float
+bwar_pitch,ERA_plus,TRUE,float
+bwar_pitch,ER_lg,TRUE,float
+statcast,start_dt,FALSE,str
+statcast,end_dt,FALSE,str
+statcast,team,FALSE,str
+statcast,verbose,FALSE,bool
+statcast,parallel,FALSE,bool
+statcast,pitch_type,TRUE,str
+statcast,game_date,TRUE,date
+statcast,release_speed,TRUE,float
+statcast,release_pos_x,TRUE,float
+statcast,release_pos_z,TRUE,float
+statcast,player_name,TRUE,str
+statcast,batter,TRUE,int
+statcast,pitcher,TRUE,int
+statcast,events,TRUE,str
+statcast,description,TRUE,str
+statcast,spin_dir,TRUE,float
+statcast,spin_rate_deprecated,TRUE,float
+statcast,break_angle_deprecated,TRUE,float
+statcast,break_length_deprecated,TRUE,float
+statcast,zone,TRUE,int
+statcast,des,TRUE,str
+statcast,game_type,TRUE,str
+statcast,stand,TRUE,str
+statcast,p_throws,TRUE,str
+statcast,home_team,TRUE,str
+statcast,away_team,TRUE,str
+statcast,type,TRUE,str
+statcast,hit_location,TRUE,int
+statcast,bb_type,TRUE,str
+statcast,balls,TRUE,int
+statcast,strikes,TRUE,int
+statcast,game_year,TRUE,int
+statcast,pfx_x,TRUE,float
+statcast,pfx_z,TRUE,float
+statcast,plate_x,TRUE,float
+statcast,plate_z,TRUE,float
+statcast,on_3b,TRUE,int
+statcast,on_2b,TRUE,int
+statcast,on_1b,TRUE,int
+statcast,outs_when_up,TRUE,int
+statcast,inning,TRUE,int
+statcast,inning_topbot,TRUE,str
+statcast,hc_x,TRUE,float
+statcast,hc_y,TRUE,float
+statcast,tfs_deprecated,TRUE,float
+statcast,tfs_zulu_deprecated,TRUE,float
+statcast,fielder_2,TRUE,int
+statcast,umpire,TRUE,str
+statcast,sv_id,TRUE,str
+statcast,vx0,TRUE,float
+statcast,vy0,TRUE,float
+statcast,vz0,TRUE,float
+statcast,ax,TRUE,float
+statcast,ay,TRUE,float
+statcast,az,TRUE,float
+statcast,sz_top,TRUE,float
+statcast,sz_bot,TRUE,float
+statcast,hit_distance_sc,TRUE,float
+statcast,launch_speed,TRUE,float
+statcast,launch_angle,TRUE,float
+statcast,effective_speed,TRUE,float
+statcast,release_spin_rate,TRUE,float
+statcast,release_extension,TRUE,float
+statcast,game_pk,TRUE,int
+statcast,pitcher.1,TRUE,int
+statcast,fielder_2.1,TRUE,int
+statcast,fielder_3,TRUE,int
+statcast,fielder_4,TRUE,int
+statcast,fielder_5,TRUE,int
+statcast,fielder_6,TRUE,int
+statcast,fielder_7,TRUE,int
+statcast,fielder_8,TRUE,int
+statcast,fielder_9,TRUE,int
+statcast,release_pos_y,TRUE,int
+statcast,estimated_ba_using_speedangle,TRUE,float
+statcast,estimated_woba_using_speedangle,TRUE,float
+statcast,woba_value,TRUE,float
+statcast,woba_denom,TRUE,float
+statcast,babip_value,TRUE,float
+statcast,iso_value,TRUE,float
+statcast,launch_speed_angle,TRUE,float
+statcast,at_bat_number,TRUE,int
+statcast,pitch_number,TRUE,int
+statcast,pitch_name,TRUE,str
+statcast,home_score,TRUE,int
+statcast,away_score,TRUE,int
+statcast,bat_score,TRUE,int
+statcast,fld_score,TRUE,int
+statcast,post_away_score,TRUE,int
+statcast,post_home_score,TRUE,int
+statcast,post_bat_score,TRUE,int
+statcast,post_fld_score,TRUE,int
+statcast,if_fielding_alignment,TRUE,str
+statcast,of_fielding_alignment,TRUE,str
+statcast,spin_axis,TRUE,str
+statcast,delta_home_win_exp,TRUE,float
+statcast,delta_run_exp,TRUE,float
+statcast_pitcher_active_spin,last_name,TRUE,str
+statcast_pitcher_active_spin, first_name,TRUE,str
+statcast_pitcher_active_spin,pitch_hand,TRUE,str
+statcast_pitcher_active_spin,active_spin_fourseam,TRUE,float
+statcast_pitcher_active_spin,active_spin_sinker,TRUE,float
+statcast_pitcher_active_spin,active_spin_cutter,TRUE,float
+statcast_pitcher_active_spin,active_spin_changeup,TRUE,float
+statcast_pitcher_active_spin,active_spin_fastball,TRUE,float
+statcast_pitcher_active_spin,active_spin_slider,TRUE,float
+statcast_pitcher_active_spin,active_spin_curve,TRUE,float
+statcast_pitcher_percentile_ranks,player_name,TRUE,str
+statcast_pitcher_percentile_ranks,player_id,TRUE,int
+statcast_pitcher_percentile_ranks,xwoba,TRUE,float
+statcast_pitcher_percentile_ranks,xba,TRUE,float
+statcast_pitcher_percentile_ranks,xslg,TRUE,float
+statcast_pitcher_percentile_ranks,xiso,TRUE,float
+statcast_pitcher_percentile_ranks,xobp,TRUE,float
+statcast_pitcher_percentile_ranks,brl,TRUE,float
+statcast_pitcher_percentile_ranks,brl_percent,TRUE,float
+statcast_pitcher_percentile_ranks,exit_velocity,TRUE,float
+statcast_pitcher_percentile_ranks,hard_hit_percent,TRUE,float
+statcast_pitcher_percentile_ranks,k_percent,TRUE,float
+statcast_pitcher_percentile_ranks,bb_percent,TRUE,float
+statcast_pitcher_percentile_ranks,whiff_percent,TRUE,float
+statcast_pitcher_percentile_ranks,xera,TRUE,float
+statcast_pitcher_percentile_ranks,fb_velocity,TRUE,float
+statcast_pitcher_percentile_ranks,fb_spin,TRUE,float
+statcast_pitcher_percentile_ranks,curve_spin,TRUE,float
+pitching_stats_bref,season,FALSE,int
+pitching_stats_bref,Name,TRUE,str
+pitching_stats_bref,Age,TRUE,int
+pitching_stats_bref,#days,TRUE,int
+pitching_stats_bref,Lev,TRUE,str
+pitching_stats_bref,Tm,TRUE,str
+pitching_stats_bref,G,TRUE,int
+pitching_stats_bref,GS,TRUE,int
+pitching_stats_bref,W,TRUE,float
+pitching_stats_bref,L,TRUE,float
+pitching_stats_bref,SV,TRUE,float
+pitching_stats_bref,IP,TRUE,float
+pitching_stats_bref,H,TRUE,int
+pitching_stats_bref,R,TRUE,int
+pitching_stats_bref,ER,TRUE,int
+pitching_stats_bref,BB,TRUE,int
+pitching_stats_bref,SO,TRUE,int
+pitching_stats_bref,HR,TRUE,int
+pitching_stats_bref,HBP,TRUE,int
+pitching_stats_bref,ERA,TRUE,float
+pitching_stats_bref,AB,TRUE,int
+pitching_stats_bref,2B,TRUE,int
+pitching_stats_bref,3B,TRUE,int
+pitching_stats_bref,IBB,TRUE,int
+pitching_stats_bref,GDP,TRUE,int
+pitching_stats_bref,SF,TRUE,int
+pitching_stats_bref,SB,TRUE,int
+pitching_stats_bref,CS,TRUE,int
+pitching_stats_bref,PO,TRUE,int
+pitching_stats_bref,BF,TRUE,int
+pitching_stats_bref,Pit,TRUE,int
+pitching_stats_bref,Str,TRUE,float
+pitching_stats_bref,StL,TRUE,float
+pitching_stats_bref,StS,TRUE,float
+pitching_stats_bref,GB/FB,TRUE,float
+pitching_stats_bref,LD,TRUE,float
+pitching_stats_bref,PU,TRUE,float
+pitching_stats_bref,WHIP,TRUE,float
+pitching_stats_bref,BAbip,TRUE,float
+pitching_stats_bref,SO9,TRUE,float
+pitching_stats_bref,SO/W,TRUE,float
+statcast_pitcher_arsenal_stats,last_name,TRUE,str
+statcast_pitcher_arsenal_stats, first_name,TRUE,str
+statcast_pitcher_arsenal_stats,player_id,TRUE,int
+statcast_pitcher_arsenal_stats,team_name_alt,TRUE,str
+statcast_pitcher_arsenal_stats,pitch_type,TRUE,str
+statcast_pitcher_arsenal_stats,pitch_name,TRUE,str
+statcast_pitcher_arsenal_stats,run_value_per_100,TRUE,float
+statcast_pitcher_arsenal_stats,run_value,TRUE,int
+statcast_pitcher_arsenal_stats,pitches,TRUE,int
+statcast_pitcher_arsenal_stats,pitch_usage,TRUE,float
+statcast_pitcher_arsenal_stats,pa,TRUE,int
+statcast_pitcher_arsenal_stats,ba,TRUE,float
+statcast_pitcher_arsenal_stats,slg,TRUE,float
+statcast_pitcher_arsenal_stats,woba,TRUE,float
+statcast_pitcher_arsenal_stats,whiff_percent,TRUE,float
+statcast_pitcher_arsenal_stats,k_percent,TRUE,float
+statcast_pitcher_arsenal_stats,put_away,TRUE,float
+statcast_pitcher_arsenal_stats,est_ba,TRUE,float
+statcast_pitcher_arsenal_stats,est_slg,TRUE,float
+statcast_pitcher_arsenal_stats,est_woba,TRUE,float
+statcast_pitcher_arsenal_stats,hard_hit_percent,TRUE,float
+statcast_pitcher_pitch_arsenal,last_name,TRUE,str
+statcast_pitcher_pitch_arsenal, first_name,TRUE,str
+statcast_pitcher_pitch_arsenal,pitcher,TRUE,int
+statcast_pitcher_pitch_arsenal,ff_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,si_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,fc_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,sl_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,ch_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,cu_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,fs_avg_speed,TRUE,float
+statcast_pitcher_pitch_arsenal,kn_avg_speed,TRUE,float
+statcast_pitcher_exitvelo_barrels,last_name,TRUE,str
+statcast_pitcher_exitvelo_barrels, first_name,TRUE,str
+statcast_pitcher_exitvelo_barrels,player_id,TRUE,int
+statcast_pitcher_exitvelo_barrels,attempts,TRUE,int
+statcast_pitcher_exitvelo_barrels,avg_hit_angle,TRUE,float
+statcast_pitcher_exitvelo_barrels,anglesweetspotpercent,TRUE,float
+statcast_pitcher_exitvelo_barrels,max_hit_speed,TRUE,float
+statcast_pitcher_exitvelo_barrels,avg_hit_speed,TRUE,float
+statcast_pitcher_exitvelo_barrels,fbld,TRUE,float
+statcast_pitcher_exitvelo_barrels,gb,TRUE,float
+statcast_pitcher_exitvelo_barrels,max_distance,TRUE,float
+statcast_pitcher_exitvelo_barrels,avg_distance,TRUE,float
+statcast_pitcher_exitvelo_barrels,avg_hr_distance,TRUE,float
+statcast_pitcher_exitvelo_barrels,ev95plus,TRUE,float
+statcast_pitcher_exitvelo_barrels,ev95percent,TRUE,float
+statcast_pitcher_exitvelo_barrels,barrels,TRUE,float
+statcast_pitcher_exitvelo_barrels,brl_percent,TRUE,float
+statcast_pitcher_exitvelo_barrels,brl_pa,TRUE,float
+statcast_pitcher_pitch_movement,last_name,TRUE,str
+statcast_pitcher_pitch_movement, first_name,TRUE,str
+statcast_pitcher_pitch_movement,pitcher_id,TRUE,int
+statcast_pitcher_pitch_movement,team_name,TRUE,str
+statcast_pitcher_pitch_movement,team_name_abbrev,TRUE,str
+statcast_pitcher_pitch_movement,pitch_hand,TRUE,str
+statcast_pitcher_pitch_movement,avg_speed,TRUE,float
+statcast_pitcher_pitch_movement,pitches_thrown,TRUE,int
+statcast_pitcher_pitch_movement,total_pitches,TRUE,int
+statcast_pitcher_pitch_movement,pitches_per_game,TRUE,float
+statcast_pitcher_pitch_movement,pitch_per,TRUE,float
+statcast_pitcher_pitch_movement,pitch_type,TRUE,str
+statcast_pitcher_pitch_movement,pitch_type_name,TRUE,str
+statcast_pitcher_pitch_movement,pitcher_break_z,TRUE,float
+statcast_pitcher_pitch_movement,league_break_z,TRUE,float
+statcast_pitcher_pitch_movement,diff_z,TRUE,float
+statcast_pitcher_pitch_movement,rise,TRUE,int
+statcast_pitcher_pitch_movement,pitcher_break_x,TRUE,float
+statcast_pitcher_pitch_movement,league_break_x,TRUE,float
+statcast_pitcher_pitch_movement,diff_x,TRUE,float
+statcast_pitcher_pitch_movement,tail,TRUE,int
+statcast_pitcher_pitch_movement,percent_rank_diff_z,TRUE,float
+statcast_pitcher_pitch_movement,percent_rank_diff_x,TRUE,float

@@ -9,6 +9,7 @@ def main():
         tar.add(join("data", "build"), arcname="build")
         tar.add(join("data", "cache"), arcname="cache")
         tar.add(join("data", "csv"), arcname="csv")
+        tar.add(join("data", "raw"), arcname="raw")
 
 
 if __name__ == "__main__":

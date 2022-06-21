@@ -9,3 +9,5 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)
     ]
 )
+
+log = logging
