@@ -214,7 +214,7 @@ data_types = {
                  'effective_speed': 'float64', 'release_spin_rate': 'float64', 'release_extension': 'float64',
                  'game_pk': 'Int64', 'pitcher.1': 'Int64', 'fielder_2.1': 'Int64', 'fielder_3': 'Int64',
                  'fielder_4': 'Int64', 'fielder_5': 'Int64', 'fielder_6': 'Int64', 'fielder_7': 'Int64',
-                 'fielder_8': 'Int64', 'fielder_9': 'Int64', 'release_pos_y': 'Int64',
+                 'fielder_8': 'Int64', 'fielder_9': 'Int64', 'release_pos_y': 'float64',
                  'estimated_ba_using_speedangle': 'float64', 'estimated_woba_using_speedangle': 'float64',
                  'woba_value': 'float64', 'woba_denom': 'float64', 'babip_value': 'float64', 'iso_value': 'float64',
                  'launch_speed_angle': 'float64', 'at_bat_number': 'Int64', 'pitch_number': 'Int64',

@@ -1,0 +1,911 @@
+method,parameter,output,type,max,min,mean,median,std,%nan,first_year,last_year,items
+statcast_pitcher_percentile_ranks,player_name,True,string,,,,,,0.0,2015,2022,
+statcast_pitcher_percentile_ranks,player_id,True,Int64,693821,112526,568810.2407621248,592665.0,76741.46263894724,0.0,2015,2022,
+statcast_pitcher_percentile_ranks,xwoba,True,float64,100.0,1.0,49.60508888114325,nan,28.93714758193309,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,xba,True,float64,100.0,1.0,49.54618333914256,nan,28.952655014406826,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,xslg,True,float64,100.0,1.0,49.76681770651795,nan,28.9334822106796,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,xiso,True,float64,100.0,1.0,49.64935517601952,nan,28.91621561902101,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,xobp,True,float64,100.0,1.0,49.588009759498085,nan,28.945068992984254,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,brl,True,float64,100.0,1.0,48.02509585221331,nan,28.216203287358084,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,brl_percent,True,float64,100.0,1.0,49.34227953990938,nan,28.92161906459363,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,exit_velocity,True,float64,100.0,1.0,49.06029975601255,nan,28.986665172193973,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,hard_hit_percent,True,float64,100.0,1.0,49.696409898919484,nan,28.93775590182583,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,k_percent,True,float64,100.0,1.0,49.7682119205298,nan,28.974687940997722,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,bb_percent,True,float64,100.0,1.0,49.421052631578945,nan,28.878475006908882,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,whiff_percent,True,float64,100.0,1.0,49.732659463227606,nan,28.94747078354398,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,xera,True,float64,100.0,1.0,49.60508888114325,nan,28.93711144633407,0.44784449576597385,2015,2022,
+statcast_pitcher_percentile_ranks,fb_velocity,True,float64,100.0,1.0,49.46638412637257,nan,28.89448278534311,0.000962278675904542,2015,2022,
+statcast_pitcher_percentile_ranks,fb_spin,True,float64,100.0,1.0,49.919476016181854,nan,28.90540954589878,0.000962278675904542,2015,2022,
+statcast_pitcher_percentile_ranks,curve_spin,True,float64,100.0,1.0,49.954627133872414,nan,28.950870933806645,0.5715935334872979,2015,2022,
+pitching_stats_bref,season,False,,,,,,,,,
+pitching_stats_bref,Name,True,string,,,,,,0.0,,,
+pitching_stats_bref,Age,True,Int64,49,19,27.991237779007562,27.0,3.85388650703349,0.0,,,"[26, 25, 27, 29, 21, 30, 24, 31, 23, 28, 22, 34, 37, 35, 33, 41, 36, 32, 38, 42, 40, 44, 20, 45, 39, 43, 19, 46, 47, 49]"
+pitching_stats_bref,#days,True,Int64,5183,0,2361.7283711492346,2220.0,1558.5242204457443,0.0,,,
+pitching_stats_bref,Lev,True,string,,,,,,0.0,,,"['Maj-AL', 'Maj-NL', 'Maj-AL,Maj-NL']"
+pitching_stats_bref,Tm,True,string,,,,,,0.0,,,
+pitching_stats_bref,G,True,Int64,92,1,25.31294964028777,20.0,21.101954616653067,0.0,,,
+pitching_stats_bref,GS,True,Int64,35,0,6.163069544364508,0.0,10.284209240286097,0.0,,,"[0, 4, 3, 2, 1, 34, 31, 8, 21, 28, 15, 14, 32, 20, 27, 6, 22, 33, 12, 5, 10, 29, 30, 25, 7, 19, 26, 23, 11, 24, 13, 9, 16, 17, 18, 35]"
+pitching_stats_bref,W,True,float64,24.0,1.0,4.5715654077723045,nan,4.055505210013618,0.3259546209186497,,,"[4.0, nan, 1.0, 3.0, 2.0, 10.0, 15.0, 9.0, 6.0, 11.0, 12.0, 5.0, 16.0, 7.0, 18.0, 8.0, 17.0, 13.0, 14.0, 20.0, 22.0, 19.0, 21.0, 24.0]"
+pitching_stats_bref,L,True,float64,19.0,1.0,4.315293205889951,nan,3.4818674353806576,0.28592510606899096,,,"[2.0, 3.0, nan, 5.0, 1.0, 11.0, 10.0, 14.0, 6.0, 4.0, 7.0, 16.0, 12.0, 9.0, 8.0, 17.0, 15.0, 13.0, 18.0, 19.0]"
+pitching_stats_bref,SV,True,float64,62.0,1.0,7.72985347985348,nan,11.434729038488845,0.7985611510791367,,,
+pitching_stats_bref,IP,True,float64,253.0,0.0,54.70493451392732,36.2,56.19464901845111,0.0,,,
+pitching_stats_bref,H,True,Int64,262,0,53.191293119350675,36.0,54.66304967714936,0.0,,,
+pitching_stats_bref,R,True,Int64,129,0,27.35694521306032,19.0,27.10982300596967,0.0,,,
+pitching_stats_bref,ER,True,Int64,121,0,25.241007194244606,17.0,25.119014347197485,0.0,,,
+pitching_stats_bref,BB,True,Int64,105,0,19.49916989485335,14.0,18.307259113800402,0.0,,,
+pitching_stats_bref,SO,True,Int64,326,0,47.920771075447334,32.0,50.24570962544014,0.0,,,
+pitching_stats_bref,HR,True,Int64,46,0,6.644161593801882,4.0,7.150200141089466,0.0,,,"[4, 1, 7, 0, 9, 2, 3, 29, 36, 18, 8, 20, 12, 19, 6, 5, 25, 11, 14, 23, 22, 16, 10, 17, 31, 24, 13, 15, 30, 21, 28, 35, 26, 32, 27, 39, 37, 34, 46, 33, 40, 38, 41]"
+pitching_stats_bref,HBP,True,Int64,24,0,2.1788415421508947,1.0,2.618422421194382,0.0,,,"[5, 1, 0, 3, 2, 6, 4, 7, 9, 8, 10, 18, 14, 12, 11, 15, 13, 19, 16, 17, 24]"
+pitching_stats_bref,ERA,True,float64,inf,0.0,inf,nan,nan,0.00018446781036709093,,,
+pitching_stats_bref,AB,True,Int64,959,0,209.6098505810736,141.0,213.66835514507943,0.0,,,
+pitching_stats_bref,2B,True,Int64,62,0,10.574801697103855,7.0,11.363223152744933,0.0,,,
+pitching_stats_bref,3B,True,Int64,12,0,1.0648404353440324,0.0,1.553136117617546,0.0,,,"[1, 2, 0, 8, 4, 5, 6, 3, 7, 9, 10, 11, 12]"
+pitching_stats_bref,IBB,True,Int64,13,0,1.254473344401402,1.0,1.6641811768477415,0.0,,,"[2, 0, 5, 1, 4, 3, 6, 9, 7, 8, 13, 10, 12]"
+pitching_stats_bref,GDP,True,Int64,36,0,4.60302527209002,3.0,5.3970160985528555,0.0,,,"[4, 3, 7, 2, 1, 9, 0, 6, 20, 17, 11, 12, 5, 15, 10, 13, 18, 31, 19, 8, 34, 14, 22, 29, 16, 24, 25, 21, 28, 26, 27, 23, 30, 32, 36, 33]"
+pitching_stats_bref,SF,True,Int64,14,0,1.5741560597675706,1.0,1.904394439679018,0.0,,,"[2, 1, 0, 3, 6, 8, 4, 10, 11, 5, 12, 7, 9, 14, 13]"
+pitching_stats_bref,SB,True,Int64,48,0,3.418372993912562,2.0,4.613469889136411,0.0,,,"[3, 1, 2, 7, 5, 0, 4, 9, 8, 17, 6, 19, 10, 11, 22, 27, 13, 16, 23, 37, 15, 14, 12, 21, 28, 18, 20, 24, 26, 33, 25, 31, 36, 29, 30, 35, 38, 32, 44, 48, 42]"
+pitching_stats_bref,CS,True,Int64,14,0,1.1183361003504888,0.0,1.6817206532551097,0.0,,,"[0, 2, 1, 5, 3, 4, 6, 9, 10, 8, 7, 12, 14, 11, 13]"
+pitching_stats_bref,PO,True,Int64,11,0,0.35473159933591586,0.0,0.8449041159939874,0.0,,,"[0, 1, 2, 3, 5, 6, 4, 10, 8, 7, 9, 11]"
+pitching_stats_bref,BF,True,Int64,1023,1,234.4165283158089,160.0,235.20312802584496,0.0,,,
+pitching_stats_bref,Pit,True,Int64,3941,1,904.1154768492898,625.0,897.0356607760003,0.0,,,
+pitching_stats_bref,Str,True,float64,1.0,0.11,0.6249142224681793,0.63,0.04705922025415737,0.0,,,
+pitching_stats_bref,StL,True,float64,0.75,0.0,0.16653108282604684,0.17,0.03344957690714875,0.0,,,"[0.13, 0.19, 0.15, 0.18, 0.21, 0.17, 0.1, 0.16, 0.14, 0.22, 0.08, 0.2, 0.11, 0.12, 0.23, 0.03, 0.09, 0.29, 0.25, 0.05, 0.07, 0.27, 0.0, 0.24, 0.26, 0.33, 0.28, 0.06, 0.3, 0.75, 0.35, 0.31, 0.04, 0.5, 0.36, 0.02, 0.34]"
+pitching_stats_bref,StS,True,float64,0.75,0.0,0.09743405275779378,0.1,0.03575111159183472,0.0,,,"[0.11, 0.04, 0.08, 0.09, 0.03, 0.07, 0.05, 0.06, 0.1, 0.12, 0.17, 0.13, 0.14, 0.15, 0.18, 0.0, 0.02, 0.16, 0.01, 0.21, 0.25, 0.33, 0.36, 0.19, 0.2, 0.23, 0.26, 0.22, 0.5, 0.28, 0.4, 0.3, 0.75, 0.24]"
+pitching_stats_bref,GB/FB,True,float64,1.0,0.0,0.43136825572801185,nan,0.11957682688918686,0.0016602102933038186,,,
+pitching_stats_bref,LD,True,float64,1.0,0.0,0.2392137841832964,nan,0.08736292679261383,0.0016602102933038186,,,
+pitching_stats_bref,PU,True,float64,1.0,0.0,0.07356522542498153,nan,0.0566911586382125,0.0016602102933038186,,,"[0.09, 0.04, 0.12, 0.07, 0.1, 0.05, 0.06, 0.11, 0.03, 0.08, 0.13, 0.0, 0.02, 0.2, 0.14, 0.16, 0.21, 0.17, 0.01, 0.33, 0.19, 0.15, 0.22, 0.25, 0.18, 0.67, 0.29, 0.5, 0.27, 0.24, 1.0, 0.4, 0.35, nan, 0.23, 0.38, 0.28, 0.26, 0.31, 0.3]"
+pitching_stats_bref,WHIP,True,float64,21.0,0.0,1.525865176839967,nan,0.8251014467164333,0.001199040767386091,,,
+pitching_stats_bref,BAbip,True,float64,1.0,0.0,0.30236582886712254,nan,0.09124031718436451,0.0018446781036709095,,,
+pitching_stats_bref,SO9,True,float64,27.0,0.0,7.723187736633114,nan,3.085375911552865,0.001199040767386091,,,
+pitching_stats_bref,SO/W,True,float64,25.0,0.0,2.4610551165927927,nan,1.5881436354527847,0.042796532005165096,,,
+player_search_list,player_list,False,"typing.List[typing.Tuple[str, str]]",,,,,,,,
+player_search_list,name_last,True,object,,,,,,0.0,,,['kershaw']
+player_search_list,name_first,True,object,,,,,,0.0,,,['clayton']
+player_search_list,key_mlbam,True,int64,477132,477132,477132.0,477132.0,0.0,0.0,,,[477132]
+player_search_list,key_retro,True,object,,,,,,0.0,,,['kersc001']
+player_search_list,key_bbref,True,object,,,,,,0.0,,,['kershcl01']
+player_search_list,key_fangraphs,True,int64,2036,2036,2036.0,2036.0,0.0,0.0,,,[2036]
+player_search_list,mlb_played_first,True,Int64,2008,2008,2008.0,2008.0,0.0,0.0,,,[2008]
+player_search_list,mlb_played_last,True,float64,2022.0,2022.0,2022.0,2022.0,0.0,0.0,,,[2022.0]
+statcast_pitcher_exitvelo_barrels,last_name,True,string,,,,,,0.0,,,
+statcast_pitcher_exitvelo_barrels, first_name,True,string,,,,,,0.0,,,
+statcast_pitcher_exitvelo_barrels,player_id,True,Int64,693821,112526,560289.0372952248,572403.0,77723.53672176732,0.0,,,
+statcast_pitcher_exitvelo_barrels,attempts,True,Int64,696,34,242.1711397699547,187.0,154.94115521409205,0.0,,,
+statcast_pitcher_exitvelo_barrels,avg_hit_angle,True,float64,33.4,-10.9,12.121714883234576,12.1,5.404718165308755,0.0,,,
+statcast_pitcher_exitvelo_barrels,anglesweetspotpercent,True,float64,50.9,9.7,32.62202858138725,32.8,4.424668947200073,0.0,,,
+statcast_pitcher_exitvelo_barrels,max_hit_speed,True,float64,122.2,103.9,112.4531892645521,112.4,2.5581357116765617,0.0,,,
+statcast_pitcher_exitvelo_barrels,avg_hit_speed,True,float64,94.4,81.6,88.29222725688393,88.3,1.6809573227859516,0.0,,,
+statcast_pitcher_exitvelo_barrels,fbld,True,float64,98.8,85.6,92.42847682119206,92.5,1.626030353422246,0.0,,,
+statcast_pitcher_exitvelo_barrels,gb,True,float64,98.8,73.4,85.52861624259324,85.6,2.5240979122541787,0.0,,,
+statcast_pitcher_exitvelo_barrels,max_distance,True,float64,505.0,342.0,434.19972115719764,435.0,20.114577340880782,0.0,,,
+statcast_pitcher_exitvelo_barrels,avg_distance,True,float64,239.0,57.0,167.26420355524573,168.0,21.659133565761405,0.0,,,
+statcast_pitcher_exitvelo_barrels,avg_hr_distance,True,float64,455.0,337.0,399.92538896746817,nan,11.39435915108788,0.014290693621470896,,,
+statcast_pitcher_exitvelo_barrels,ev95plus,True,float64,287.0,8.0,85.65214360404322,67.0,55.04093612453926,0.0,,,
+statcast_pitcher_exitvelo_barrels,ev95percent,True,float64,59.0,14.0,35.794527710003486,35.6,5.489235452272653,0.0,,,
+statcast_pitcher_exitvelo_barrels,barrels,True,float64,59.0,0.0,15.866504008365284,13.0,11.011193503679026,0.0,,,
+statcast_pitcher_exitvelo_barrels,brl_percent,True,float64,20.0,0.0,6.69393516904845,6.5,2.4844693247659224,0.0,,,
+statcast_pitcher_exitvelo_barrels,brl_pa,True,float64,13.3,0.0,4.530742418961311,4.4,1.718059460276079,0.0,,,
+statcast_pitcher_expected_stats,last_name,True,string,,,,,,0.0,2015,2022,
+statcast_pitcher_expected_stats, first_name,True,string,,,,,,0.0,2015,2022,
+statcast_pitcher_expected_stats,player_id,True,Int64,693821,112526,560289.0372952248,572403.0,77723.53672176732,0.0,2015,2022,
+statcast_pitcher_expected_stats,pa,True,Int64,951,74,352.5723248518648,277.0,216.10601351474952,0.0,2015,2022,
+statcast_pitcher_expected_stats,bip,True,Int64,696,34,242.1711397699547,187.0,154.94115521409205,0.0,2015,2022,
+statcast_pitcher_expected_stats,ba,True,float64,0.408,0.075,0.24404600906239107,0.245,0.039879803405916944,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_ba,True,float64,0.352,0.108,0.24248204949459742,0.244,0.03249218650505137,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_ba_minus_ba_diff,True,float64,0.1119999999999999,-0.111,0.0015639595677936523,0.003,0.0241156554053357,0.0,2015,2022,
+statcast_pitcher_expected_stats,slg,True,float64,0.759,0.086,0.40211711397699546,0.401,0.07919958298831117,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_slg,True,float64,0.717,0.181,0.40317218543046357,0.402,0.0676480624163915,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_slg_minus_slg_diff,True,float64,0.2,-0.303,-0.0010550714534681089,0.001,0.048506985115423534,0.0,2015,2022,
+statcast_pitcher_expected_stats,woba,True,float64,0.47,0.113,0.3095012199372604,0.309,0.04301250657378935,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_woba,True,float64,0.452,0.182,0.31268455907981874,0.312,0.0368881455574209,0.0,2015,2022,
+statcast_pitcher_expected_stats,est_woba_minus_woba_diff,True,float64,0.108,-0.158,-0.003183339142558378,-0.003,0.025399763446415164,0.0,2015,2022,
+statcast_pitcher_expected_stats,era,True,float64,13.23,0.0,4.080223074241896,3.96,1.4218948738032484,0.0,2015,2022,
+statcast_pitcher_expected_stats,xera,True,float64,10.52,1.26,4.1778041129313355,4.08,1.0764910733445046,0.0,2015,2022,
+statcast_pitcher_expected_stats,era_minus_xera_diff,True,float64,6.755,-3.827,-0.0976880446148484,-0.141,0.9759518719670209,0.0,2015,2022,
+team_pitching_bref,Pos,True,string,,,,,,0.5800056111474796,2000,2022,"['SP', 'CL', 'RP', <NA>]"
+team_pitching_bref,Name,True,string,,,,,,0.0,2000,2022,
+team_pitching_bref,Year,True,Int64,2022,2000,2011.4266342467035,2012.0,6.65738954492239,0.0,2000,2022,"[2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]"
+team_pitching_bref,Age,True,Int64,49,19,28.304404750771532,28.0,4.131989132848849,0.0,2000,2022,"[31, 23, 32, 29, 26, 33, 34, 24, 22, 25, 30, 27, 35, 28, 36, 37, 38, 20, 40, 21, 19, 39, 41, 45, 42, 44, 49, 43, 46, 47]"
+team_pitching_bref,W,True,Int64,24,0,3.1141400916487423,2.0,4.075645332907935,0.0,2000,2022,"[11, 9, 14, 1, 5, 0, 4, 3, 6, 2, 10, 8, 15, 7, 12, 13, 16, 18, 17, 19, 21, 20, 22, 24, 23]"
+team_pitching_bref,L,True,Int64,21,0,3.050640606003928,2.0,3.5337821128267306,0.0,2000,2022,"[15, 13, 12, 7, 10, 8, 1, 5, 0, 3, 4, 2, 17, 6, 9, 14, 11, 18, 16, 21, 19]"
+team_pitching_bref,W-L%,True,float64,1.0,0.0,0.47278317833538047,nan,0.29424321010436993,0.20055176283549986,2000,2022,
+team_pitching_bref,ERA,True,float64,inf,0.0,inf,nan,nan,0.002478256803516319,2000,2022,
+team_pitching_bref,G,True,float64,94.0,0.0,24.457916393902554,20.0,20.633108745554292,0.0,2000,2022,
+team_pitching_bref,GS,True,float64,36.0,0.0,6.165528850649958,0.0,10.313740162019315,0.0,2000,2022,"[34.0, 32.0, 30.0, 20.0, 13.0, 16.0, 0.0, 2.0, 8.0, 4.0, 1.0, 31.0, 23.0, 12.0, 18.0, 9.0, 5.0, 6.0, 28.0, 19.0, 22.0, 11.0, 10.0, 3.0, 21.0, 26.0, 24.0, 17.0, 33.0, 27.0, 14.0, 7.0, 35.0, 29.0, 25.0, 15.0, 36.0]"
+team_pitching_bref,GF,True,float64,79.0,0.0,5.996446273262882,2.0,10.327589755680508,0.0,2000,2022,
+team_pitching_bref,CG,True,float64,11.0,0.0,0.16908257738707566,0.0,0.6570481060056045,0.0,2000,2022,"[6.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 9.0, 7.0, 8.0, 11.0]"
+team_pitching_bref,SHO,True,float64,6.0,0.0,0.07093425605536333,0.0,0.3297489142786832,0.0,2000,2022,"[1.0, 0.0, 2.0, 4.0, 3.0, 5.0, 6.0]"
+team_pitching_bref,SV,True,float64,57.0,0.0,1.5655569063873562,0.0,6.144875618180763,0.0,2000,2022,
+team_pitching_bref,IP,True,float64,266.0,0.0,54.7478771158702,35.0,57.62839628016607,0.0,2000,2022,
+team_pitching_bref,H,True,float64,271.0,0.0,54.052323950247825,34.0,56.932362954889,0.0,2000,2022,
+team_pitching_bref,R,True,float64,152.0,0.0,27.893247919199478,18.0,28.440440558639878,0.0,2000,2022,
+team_pitching_bref,ER,True,float64,145.0,0.0,25.694519779294865,17.0,26.265358181206704,0.0,2000,2022,
+team_pitching_bref,HR,True,float64,48.0,0.0,6.58000561114748,4.0,7.215288984993881,0.0,2000,2022,"[28.0, 30.0, 18.0, 15.0, 21.0, 14.0, 1.0, 6.0, 5.0, 7.0, 8.0, 2.0, 3.0, 0.0, 20.0, 10.0, 4.0, 13.0, 23.0, 26.0, 19.0, 12.0, 11.0, 22.0, 25.0, 24.0, 9.0, 33.0, 16.0, 32.0, 17.0, 35.0, 27.0, 29.0, 41.0, 40.0, 34.0, 31.0, 38.0, 36.0, 48.0, 37.0, 39.0, 43.0, 46.0, 44.0]"
+team_pitching_bref,BB,True,float64,125.0,0.0,19.876788553259143,14.0,19.336623292769964,0.0,2000,2022,
+team_pitching_bref,IBB,True,float64,17.0,0.0,1.437201907790143,1.0,1.884043385451722,0.0,2000,2022,"[0.0, 5.0, 1.0, 2.0, 8.0, 3.0, 4.0, 6.0, 9.0, 7.0, 12.0, 10.0, 13.0, 14.0, 11.0, 15.0, 17.0]"
+team_pitching_bref,SO,True,float64,372.0,0.0,45.29201346675395,29.0,48.77117568464966,0.0,2000,2022,
+team_pitching_bref,HBP,True,float64,24.0,0.0,2.196062844851772,1.0,2.716187163294849,0.0,2000,2022,"[3.0, 1.0, 5.0, 4.0, 0.0, 2.0, 13.0, 10.0, 6.0, 11.0, 8.0, 12.0, 7.0, 9.0, 15.0, 18.0, 16.0, 14.0, 17.0, 19.0, 24.0, 20.0, 21.0]"
+team_pitching_bref,BK,True,float64,6.0,0.0,0.19115309080707005,0.0,0.5109191232927031,0.0,2000,2022,"[0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]"
+team_pitching_bref,WP,True,float64,25.0,0.0,2.0418030487234637,1.0,2.5387544034421627,0.0,2000,2022,"[3.0, 5.0, 8.0, 0.0, 6.0, 1.0, 2.0, 9.0, 4.0, 7.0, 12.0, 10.0, 17.0, 15.0, 11.0, 13.0, 14.0, 18.0, 16.0, 20.0, 23.0, 21.0, 25.0]"
+team_pitching_bref,BF,True,float64,1071.0,0.0,235.73772561488823,152.0,242.52250114249637,0.0,2000,2022,
+team_pitching_bref,ERA+,True,float64,1375.0,2.0,108.70017516543402,nan,72.54657517919173,0.03899747498363415,2000,2022,
+team_pitching_bref,FIP,True,float64,129.09,-3.04,4.9677139639639645,nan,3.3563597470909006,0.0034602076124567475,2000,2022,
+team_pitching_bref,WHIP,True,float64,24.0,0.0,1.5564942286036034,nan,0.874014089650809,0.0034602076124567475,2000,2022,
+team_pitching_bref,H9,True,float64,189.0,0.0,9.835970345345347,nan,5.63540914236254,0.0034602076124567475,2000,2022,
+team_pitching_bref,HR9,True,float64,81.0,0.0,1.34702515015015,nan,1.8957048936112826,0.0034602076124567475,2000,2022,
+team_pitching_bref,BB9,True,float64,108.0,0.0,4.175990052552552,nan,3.866534539415838,0.0034602076124567475,2000,2022,
+team_pitching_bref,SO9,True,float64,27.0,0.0,7.398442192192191,nan,3.0433670142533,0.0034602076124567475,2000,2022,
+team_pitching_bref,SO/W,True,float64,25.0,0.0,2.3280018514909373,nan,1.5965458072698862,0.04030674272888806,2000,2022,
+statcast_pitcher_active_spin,last_name,True,string,,,,,,0.0,,,
+statcast_pitcher_active_spin, first_name,True,string,,,,,,0.0,,,
+statcast_pitcher_active_spin,pitch_hand,True,string,,,,,,0.0,,,"['R', 'L']"
+statcast_pitcher_active_spin,active_spin_fourseam,True,float64,100.0,25.2,86.6734561494551,nan,10.858942906146241,0.09445488721804511,,,
+statcast_pitcher_active_spin,active_spin_sinker,True,float64,100.0,48.9,88.83526570048309,nan,8.829761236578952,0.36771616541353386,,,
+statcast_pitcher_active_spin,active_spin_cutter,True,float64,100.0,11.8,46.71394101876676,nan,15.879761078290223,0.7370770676691729,,,
+statcast_pitcher_active_spin,active_spin_changeup,True,float64,100.0,18.7,86.69849160095988,nan,11.09078090600105,0.3146146616541353,,,
+statcast_pitcher_active_spin,active_spin_fastball,True,float64,nan,nan,nan,nan,nan,1.0,,,[nan]
+statcast_pitcher_active_spin,active_spin_slider,True,float64,100.0,8.9,37.71159466327828,nan,14.577970564948336,0.26033834586466165,,,
+statcast_pitcher_active_spin,active_spin_curve,True,float64,100.0,10.4,64.89404485692188,nan,17.881930030420012,0.3923872180451128,,,
+statcast,start_dt,False,<class 'str'>,,,,,,,,
+statcast,end_dt,False,<class 'str'>,,,,,,,,
+statcast,team,False,<class 'str'>,,,,,,,,
+statcast,verbose,False,<class 'bool'>,,,,,,,,
+statcast,parallel,False,<class 'bool'>,,,,,,,,
+statcast,pitch_type,True,string,,,,,,0.3643649713017852,2006,2022,"[<NA>, 'CU', 'FA', 'SL', 'CH', 'PO', 'SI', 'FS', 'IN', 'FF', 'FC', 'EP', 'KC', 'SC', 'FO', 'CS', 'KN', 'FT']"
+statcast,game_date,True,datetime64[ns],,,,,,0.0,2000,2022,
+statcast,release_speed,True,float64,105.8,30.1,88.3534892141357,nan,6.1387339279596125,0.3849651712782812,2008,2022,
+statcast,release_pos_x,True,float64,18.0,-6.62,-0.7688719876290444,nan,1.7761369492793826,0.3850156568172824,2008,2022,
+statcast,release_pos_z,True,float64,12.72,-1.84,5.915255537514667,nan,0.48382475372811495,0.3850156568172824,2008,2022,
+statcast,player_name,True,string,,,,,,0.0,2000,2022,
+statcast,batter,True,Int64,703715,110010,373559.42187589646,430681.0,183036.50324422785,0.0,2000,2022,
+statcast,pitcher,True,Int64,703106,110015,386621.7303891612,434628.0,178135.59014830648,0.0,2000,2022,
+statcast,events,True,string,,,,,,0.7349760370095122,2000,2022,"['field_out', <NA>, 'single', 'strikeout', 'double', 'walk', 'caught_stealing_2b', 'force_out', 'grounded_into_double_play', 'sac_bunt', 'field_error', 'sac_fly', 'hit_by_pitch', 'double_play', 'home_run', 'intent_walk', 'triple', 'fielders_choice_out', 'strikeout_double_play', 'triple_play', 'catcher_interf', 'stolen_base_2b', 'caught_stealing_3b', 'fielders_choice', 'caught_stealing_home', 'pickoff_3b', 'pickoff_1b', 'sac_fly_double_play', 'pickoff_caught_stealing_2b', 'other_out', 'pickoff_2b', 'pickoff_caught_stealing_home', 'passed_ball', 'sac_bunt_double_play', 'pickoff_caught_stealing_3b', 'balk', 'wild_pitch', 'ejection', 'game_advisory', 'runner_double_play', 'stolen_base_3b', 'stolen_base_home', 'strikeout_triple_play', 'pickoff_error_3b', 'pickoff_error_2b', 'other_advance']"
+statcast,description,True,string,,,,,,0.0,2000,2022,"['hit_into_play', 'ball', 'foul', 'called_strike', 'swinging_strike', 'foul_bunt', 'hit_by_pitch', 'intent_ball', 'foul_tip', 'blocked_ball', 'pitchout', 'missed_bunt', 'swinging_strike_blocked', 'bunt_foul_tip', 'swinging_pitchout', 'foul_pitchout']"
+statcast,spin_dir,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,spin_rate_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,break_angle_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,break_length_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,zone,True,Int64,14,1,9.115539588372117,,4.17156480468404,0.3850065845407231,2008,2022,"[<NA>, 2, 11, 4, 14, 13, 5, 3, 8, 9, 6, 12, 1, 7]"
+statcast,des,True,string,,,,,,5.1241562047777464e-06,2000,2022,
+statcast,game_type,True,string,,,,,,0.0,2000,2022,"['R', 'S', 'D', 'F', 'L', 'W']"
+statcast,stand,True,string,,,,,,0.0,2000,2022,"['R', 'L']"
+statcast,p_throws,True,string,,,,,,0.0,2000,2022,"['R', 'L']"
+statcast,home_team,True,string,,,,,,0.0,2000,2022,"['BAL', 'BOS', 'TEX', 'ANA', 'MIN', 'CLE', 'CWS', 'KC', 'DET', 'TB', 'TOR', 'PHI', 'NYY', 'SEA', 'OAK', 'NYM', 'MON', 'FLA', 'ATL', 'SF', 'ARI', 'STL', 'HOU', 'COL', 'LA', 'LAA', 'CIN', 'PIT', 'WSH', 'SD', 'LAD', 'CHC', 'MIL', 'MIA']"
+statcast,away_team,True,string,,,,,,0.0,2000,2022,"['NYY', 'TOR', 'BAL', 'OAK', 'SEA', 'DET', 'TB', 'KC', 'CWS', 'MIN', 'CLE', 'BOS', 'FLA', 'ATL', 'ANA', 'TEX', 'PHI', 'NYM', 'MON', 'SD', 'LA', 'MIL', 'CHC', 'SF', 'ARI', 'LAA', 'COL', 'HOU', 'WSH', 'STL', 'LAD', 'PIT', 'CIN', 'MIA']"
+statcast,type,True,string,,,,,,0.0,2000,2022,"['X', 'B', 'S']"
+statcast,hit_location,True,Int64,9,1,5.209116943494311,,2.6046820437317937,0.7688289009802175,2000,2022,"[7, <NA>, 8, 9, 2, 4, 3, 5, 6, 1]"
+statcast,bb_type,True,string,,,,,,0.8174101019295472,2000,2022,"['fly_ball', <NA>, 'ground_ball', 'line_drive', 'popup']"
+statcast,balls,True,Int64,4,0,0.8794160041174696,1.0,0.9660963777975637,0.0,2000,2022,"[3, 2, 1, 0, 4]"
+statcast,strikes,True,Int64,5,0,0.854616432127317,1.0,0.8217951872590107,0.0,2000,2022,"[2, 1, 0, 3, 5, 4]"
+statcast,game_year,True,Int64,2022,2000,2010.372927604325,2010.0,6.44042918377612,0.0,2000,2022,"[2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]"
+statcast,pfx_x,True,float64,5.07,-7.04,-0.23279670126884988,nan,0.8784031590554608,0.38500734056376973,2008,2022,
+statcast,pfx_z,True,float64,6.52,-9.86,0.8192535111055985,nan,0.7759042422733685,0.3850065845407231,2008,2022,
+statcast,plate_x,True,float64,9.11,-9.8,-0.021338422349455204,nan,0.9135112266806991,0.3850065845407231,2008,2022,
+statcast,plate_z,True,float64,13.58,-5.18,2.301646257468283,nan,0.9382434962536945,0.3850065845407231,2008,2022,
+statcast,on_3b,True,Int64,701496,110010,369577.3863302803,,182643.15136689125,0.8996090436820876,2000,2022,
+statcast,on_2b,True,Int64,702208,110010,369782.93368688604,,183150.59676931295,0.8051082629202868,2000,2022,
+statcast,on_1b,True,Int64,702472,110010,371181.82546208374,,183517.15574603,0.6933326075512086,2000,2022,
+statcast,outs_when_up,True,Int64,2,0,0.9863599161956853,1.0,0.8175043110883348,0.0,2000,2022,"[2, 1, 0]"
+statcast,inning,True,Int64,22,1,4.999888360596785,5.0,2.6708255958298097,0.0,2000,2022,"[9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 13, 12, 11, 15, 14, 17, 16, 18, 19, 22, 21, 20]"
+statcast,inning_topbot,True,string,,,,,,0.0,2000,2022,"['Top', 'Bot']"
+statcast,hc_x,True,float64,246.99,2.0,125.48382104076713,nan,38.583093505146486,0.8636126023665706,2004,2022,
+statcast,hc_y,True,float64,246.99,2.01,123.85976020719274,nan,42.08879784246967,0.8636126023665706,2004,2022,
+statcast,tfs_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,tfs_zulu_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast,fielder_2,True,Int64,702328,110184,361192.74040688656,431145.0,181267.7306493281,0.0,2000,2022,
+statcast,umpire,True,string,,,,,,1.0,<NA>,<NA>,[<NA>]
+statcast,sv_id,True,string,,,,,,0.6032022280167189,2008,2016,
+statcast,vx0,True,float64,25.15,-25.96093464845848,2.263839302944018,nan,5.902450205618499,0.3850065845407231,2008,2022,
+statcast,vy0,True,float64,-40.42249796468354,-154.09,-128.42420020331474,nan,8.876858327989519,0.3850065845407231,2008,2022,
+statcast,vz0,True,float64,27.82,-20.64,-4.344461938530158,nan,3.0988377989208593,0.3850065845407231,2008,2022,
+statcast,ax,True,float64,62.29,-80.5633612938245,-2.3200978261085488,nan,10.626820606944266,0.3850065845407231,2008,2022,
+statcast,ay,True,float64,87.63,-85.45930505253315,26.658744556812795,nan,4.436294501223849,0.3850065845407231,2008,2022,
+statcast,az,True,float64,43.70544954139829,-77.1714212303812,-23.03613126620853,nan,8.887430193086363,0.3850065845407231,2008,2022,
+statcast,sz_top,True,float64,4.5,2.5,3.4155524811958653,nan,0.20741897496405248,0.3850065845407231,2008,2022,
+statcast,sz_bot,True,float64,2.5,0.75,1.5871767802962586,nan,0.12942093665753793,0.3850065845407231,2008,2022,
+statcast,hit_distance_sc,True,float64,791.0,0.0,161.40663798853282,nan,123.5301200078024,0.9176322971029449,2015,2022,
+statcast,launch_speed,True,float64,123.9,2.0,83.45598077383923,nan,14.876226685774917,0.9144689286708216,2015,2022,
+statcast,launch_angle,True,float64,90.0,-89.0,15.884463203875582,nan,30.01312751829576,0.9144624604736451,2015,2022,
+statcast,effective_speed,True,float64,194.6,0.0,88.20763209770081,nan,7.622443262047267,0.6945458565358906,2015,2022,
+statcast,release_spin_rate,True,float64,3726.0,4.0,2217.696035031852,nan,334.05953201788276,0.7028149846119909,2015,2022,
+statcast,release_extension,True,float64,31.9,-0.2,6.101846100649895,nan,0.5055307961872268,0.6948680063563057,2015,2022,
+statcast,game_pk,True,Int64,707117,3213,268314.53748148057,265689.0,217683.8240175109,0.0,2000,2022,
+statcast,pitcher.1,True,Int64,703106,110015,386621.7303891612,434628.0,178135.59014830648,0.0,2000,2022,
+statcast,fielder_2.1,True,Int64,702328,110184,361192.74040688656,431145.0,181267.7306493281,0.0,2000,2022,
+statcast,fielder_3,True,Int64,702416,110214,364602.1826894411,425773.0,178062.8738742476,0.0,2000,2022,
+statcast,fielder_4,True,Int64,702331,110011,391305.02024789323,430637.0,175084.5551331886,0.0,2000,2022,
+statcast,fielder_5,True,Int64,702478,110011,363790.2737338525,429708.0,192657.23208866912,0.0,2000,2022,
+statcast,fielder_6,True,Int64,702416,110011,386936.82063160016,430592.0,182681.12679993568,0.0,2000,2022,
+statcast,fielder_7,True,Int64,702250,110029,378075.7734387095,430605.0,184772.8454936746,0.0,2000,2022,
+statcast,fielder_8,True,Int64,701634,110011,391137.7643306478,435622.0,179122.178230317,0.0,2000,2022,
+statcast,fielder_9,True,Int64,702250,110029,377189.8952680433,430897.0,181389.03512599927,0.0,2000,2022,
+statcast,release_pos_y,True,float64,59.94,28.58,51.555229060326155,nan,2.119541772642115,0.3850156568172824,2008,2022,
+statcast,estimated_ba_using_speedangle,True,float64,1.0,0.0,0.3255965801169962,nan,0.29339917871920973,0.9467965581462785,2015,2022,
+statcast,estimated_woba_using_speedangle,True,float64,2.053,0.0,0.36856045977374463,nan,0.39080618862791877,0.9467965581462785,2015,2022,
+statcast,woba_value,True,float64,2.0,0.0,0.32909173866147173,nan,0.5133482757546673,0.734974188953176,2000,2022,"[0.0, nan, 0.9, 1.25, 0.7, 2.0, 1.6]"
+statcast,woba_denom,True,float64,1.0,0.0,0.9953171994429967,nan,0.06827057884584463,0.923025765517436,2015,2022,"[nan, 1.0, 0.0]"
+statcast,babip_value,True,float64,1.0,0.0,0.20222264976594095,nan,0.4016573784801952,0.734974188953176,2000,2022,"[0.0, nan, 1.0]"
+statcast,iso_value,True,float64,3.0,0.0,0.1407831382392179,nan,0.5484240197323431,0.734974188953176,2000,2022,"[0.0, nan, 1.0, 3.0, 2.0]"
+statcast,launch_speed_angle,True,float64,6.0,1.0,3.151575340843603,nan,1.2504978384829815,0.9467965581462785,2015,2022,"[nan, 2.0, 3.0, 4.0, 6.0, 5.0, 1.0]"
+statcast,at_bat_number,True,Int64,171,1,39.41116111783552,39.0,23.358092725180246,0.0,2000,2022,
+statcast,pitch_number,True,Int64,19,1,2.8577419154045494,3.0,1.7123397678753591,0.0,2000,2022,"[7, 6, 5, 4, 3, 2, 1, 8, 9, 10, 12, 11, 15, 14, 13, 16, 17, 18, 19]"
+statcast,pitch_name,True,string,,,,,,0.3643649713017852,2006,2022,"[<NA>, 'Curveball', 'Fastball', 'Slider', 'Changeup', 'Pitch Out', 'Sinker', 'Split-Finger', 'Intentional Ball', '4-Seam Fastball', 'Cutter', 'Eephus', 'Knuckle Curve', 'Screwball', 'Forkball', 'Knuckleball', '2-Seam Fastball']"
+statcast,home_score,True,Int64,29,0,2.2922301243431105,1.0,2.6277412997619365,0.0,2000,2022,"[7, 5, 1, 0, 9, 6, 3, 2, 13, 10, 23, 22, 21, 16, 4, 8, 11, 14, 12, 15, 17, 18, 19, 20, 29, 25, 24]"
+statcast,away_score,True,Int64,30,0,2.4109483393491766,2.0,2.6642123922005565,0.0,2000,2022,"[3, 2, 1, 0, 4, 7, 6, 5, 12, 10, 9, 8, 14, 11, 13, 19, 17, 16, 15, 18, 30, 27, 26, 24, 21, 20, 23, 22, 25, 29, 28]"
+statcast,bat_score,True,Int64,30,0,2.316987107034971,2.0,2.5928866883907946,0.0,2000,2022,"[3, 2, 1, 0, 4, 7, 6, 5, 12, 10, 9, 8, 14, 11, 13, 19, 17, 16, 15, 18, 30, 27, 26, 24, 21, 20, 23, 22, 25]"
+statcast,fld_score,True,Int64,30,0,2.3861913566573163,2.0,2.6990077850201915,0.0,2000,2022,"[7, 5, 1, 0, 9, 6, 3, 2, 13, 10, 23, 22, 21, 16, 4, 11, 8, 12, 14, 15, 17, 18, 19, 30, 24, 20, 25, 29, 28]"
+statcast,post_away_score,True,Int64,30,0,2.426607004687931,2.0,2.670011739813296,0.0,2000,2022,"[3, 2, 1, 0, 4, 7, 6, 5, 12, 10, 9, 8, 14, 11, 13, 19, 17, 16, 15, 18, 30, 27, 26, 24, 21, 20, 23, 22, 25, 29, 28]"
+statcast,post_home_score,True,Int64,29,0,2.308206739374243,2.0,2.6342685469216582,0.0,2000,2022,"[7, 5, 1, 0, 9, 6, 3, 2, 13, 10, 23, 22, 21, 16, 8, 4, 12, 11, 14, 15, 17, 18, 19, 20, 29, 25, 24]"
+statcast,post_bat_score,True,Int64,30,0,2.3486223874048577,2.0,2.605761700948453,0.0,2000,2022,"[3, 2, 1, 0, 4, 8, 7, 6, 5, 12, 10, 9, 14, 11, 13, 19, 17, 16, 15, 18, 30, 27, 26, 24, 21, 20, 23, 22, 25]"
+statcast,post_fld_score,True,Int64,30,0,2.3861913566573163,2.0,2.6990077850201915,0.0,2000,2022,"[7, 5, 1, 0, 9, 6, 3, 2, 13, 10, 23, 22, 21, 16, 4, 11, 8, 12, 14, 15, 17, 18, 19, 30, 24, 20, 25, 29, 28]"
+statcast,if_fielding_alignment,True,string,,,,,,0.6966625530612676,2015,2022,"[<NA>, 'Standard', 'Infield shift', 'Strategic']"
+statcast,of_fielding_alignment,True,string,,,,,,0.6966625530612676,2015,2022,"[<NA>, 'Standard', 'Strategic', '4th outfielder', 'Extreme outfield shift']"
+statcast,spin_axis,True,string,,,,,,0.7381808187040774,2016,2022,
+statcast,delta_home_win_exp,True,float64,0.911,-0.776,0.0001172137017428539,nan,0.02840773362828782,6.2161894943205445e-06,2000,2022,
+statcast,delta_run_exp,True,float64,3.705,-1.919,5.2216831078693685e-06,nan,0.24530017126698223,0.01965861527322799,2000,2022,
+FangraphsDataTable.fetch,IDfg,True,Int64,1012824,3,9650.947546531303,2072.0,71493.62414137818,0.0,2000,2022,
+FangraphsDataTable.fetch,Season,True,Int64,2022,2000,2009.950366610265,2010.0,6.274849405378775,0.0,2000,2022,"[2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]"
+FangraphsDataTable.fetch,Name,True,string,,,,,,0.0,2000,2022,
+FangraphsDataTable.fetch,Team,True,string,,,,,,0.0,2000,2022,"['ARI', 'BOS', 'ATL', 'LAD', 'BAL', 'TOR', 'MON', 'NYM', '- - -', 'SFG', 'CLE', 'CHC', 'STL', 'SEA', 'TEX', 'MIN', 'NYY', 'PIT', 'CHW', 'OAK', 'COL', 'FLA', 'PHI', 'DET', 'HOU', 'TBD', 'KCR', 'CIN', 'SDP', 'MIL', 'ANA', 'LAA', 'WSN', 'TBR', 'MIA']"
+FangraphsDataTable.fetch,Age,True,Int64,46,20,28.7941342357586,28.0,4.251130966340495,0.0,2000,2022,"[36, 28, 34, 35, 31, 37, 23, 25, 27, 33, 30, 29, 24, 20, 32, 26, 38, 22, 39, 21, 40, 41, 42, 43, 44, 45, 46]"
+FangraphsDataTable.fetch,W,True,Int64,24,0,12.094190637337846,12.0,3.8468473745162624,0.0,2000,2022,"[19, 18, 13, 11, 20, 16, 21, 15, 17, 12, 10, 14, 9, 8, 7, 6, 4, 22, 5, 23, 24, 3, 2, 1, 0]"
+FangraphsDataTable.fetch,L,True,Int64,21,0,9.839255499153976,10.0,3.290862069820393,0.0,2000,2022,"[7, 6, 9, 15, 8, 11, 10, 12, 13, 16, 5, 17, 14, 19, 3, 4, 18, 21, 2, 1, 0]"
+FangraphsDataTable.fetch,WAR,True,float64,10.4,-1.6,2.921883812746757,2.7,1.6508984902749184,0.0,2000,2022,
+FangraphsDataTable.fetch,ERA,True,float64,6.99,1.42,3.9071968415115625,3.87,0.8296041664122392,0.0,2000,2022,
+FangraphsDataTable.fetch,G,True,Int64,45,10,30.76254935138184,32.0,5.077683791712989,0.0,2000,2022,"[35, 29, 33, 34, 31, 30, 32, 36, 28, 45, 23, 43, 26, 27, 38, 39, 37, 24, 41, 40, 25, 42, 12, 11, 13, 10, 14]"
+FangraphsDataTable.fetch,GS,True,Int64,36,10,30.218274111675125,32.0,4.9998605687711635,0.0,2000,2022,"[35, 29, 33, 34, 31, 30, 32, 28, 27, 26, 24, 23, 25, 22, 17, 36, 15, 12, 11, 13, 10, 14]"
+FangraphsDataTable.fetch,CG,True,Int64,11,0,1.266779469825155,1.0,1.5589223052996948,0.0,2000,2022,"[8, 7, 6, 5, 9, 2, 4, 3, 0, 1, 10, 11]"
+FangraphsDataTable.fetch,ShO,True,Int64,6,0,0.5087422447828539,0.0,0.8015476060072289,0.0,2000,2022,"[3, 4, 1, 2, 0, 5, 6]"
+FangraphsDataTable.fetch,SV,True,Int64,6,0,0.02763677382966723,0.0,0.28264901742535875,0.0,2000,2022,"[0, 1, 2, 4, 3, 6, 5]"
+FangraphsDataTable.fetch,BS,True,float64,2.0,0.0,0.013108614232209739,nan,0.12423227183986509,0.09644670050761421,2002,2022,"[nan, 0.0, 1.0, 2.0]"
+FangraphsDataTable.fetch,IP,True,float64,266.0,60.1,188.00535815002817,192.2,35.12184286279298,0.0,2000,2022,
+FangraphsDataTable.fetch,TBF,True,Int64,1071,240,792.5194585448393,817.0,145.6797253933524,0.0,2000,2022,
+FangraphsDataTable.fetch,H,True,Int64,271,32,182.84997179921038,188.0,39.841763244364074,0.0,2000,2022,
+FangraphsDataTable.fetch,R,True,Int64,152,11,88.44670050761421,90.0,22.355687643040966,0.0,2000,2022,
+FangraphsDataTable.fetch,ER,True,Int64,145,10,81.44049633389734,83.0,20.694034773793284,0.0,2000,2022,
+FangraphsDataTable.fetch,HR,True,Int64,48,2,21.191765369430343,21.0,6.962829348802767,0.0,2000,2022,"[23, 17, 19, 21, 28, 24, 18, 10, 27, 22, 36, 33, 20, 26, 32, 30, 13, 11, 35, 25, 29, 31, 34, 38, 12, 48, 37, 14, 16, 15, 9, 40, 7, 8, 43, 44, 39, 6, 46, 5, 41, 3, 2, 4]"
+FangraphsDataTable.fetch,BB,True,Int64,125,7,57.404399323181046,57.0,18.742910608388538,0.0,2000,2022,
+FangraphsDataTable.fetch,IBB,True,Int64,17,0,2.8539199097574732,2.0,2.5680984927323265,0.0,2000,2022,"[1, 0, 12, 10, 6, 2, 5, 4, 3, 7, 9, 11, 13, 14, 17, 8, 15]"
+FangraphsDataTable.fetch,HBP,True,Int64,21,0,6.552171460800903,6.0,3.6633906407804306,0.0,2000,2022,"[6, 14, 10, 9, 3, 8, 5, 11, 4, 1, 2, 13, 12, 7, 15, 16, 18, 0, 20, 21, 17, 19]"
+FangraphsDataTable.fetch,WP,True,Int64,25,0,5.373942470389171,5.0,3.6712842899121667,0.0,2000,2022,"[5, 1, 4, 3, 9, 0, 2, 10, 8, 7, 13, 12, 11, 16, 6, 23, 17, 14, 15, 18, 20, 25, 22]"
+FangraphsDataTable.fetch,BK,True,Int64,6,0,0.5752961082910322,0.0,0.8710412727210468,0.0,2000,2022,"[2, 0, 1, 3, 5, 4, 6]"
+FangraphsDataTable.fetch,SO,True,Int64,372,36,149.71855611957136,147.0,46.755345761806446,0.0,2000,2022,
+FangraphsDataTable.fetch,GB,True,float64,482.0,49.0,251.53370786516854,nan,67.4149053476363,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,FB,True,float64,334.0,27.0,195.20911360799002,nan,52.63309594117455,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,LD,True,float64,209.0,26.0,113.86953807740325,nan,26.739457458592646,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,IFFB,True,float64,51.0,1.0,19.905742821473158,nan,8.80977946438007,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Balls,True,float64,1560.0,297.0,1067.3352059925094,nan,217.93568871565944,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Strikes,True,float64,2635.0,593.0,1897.8976279650437,nan,361.1868157367304,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Pitches,True,float64,4009.0,930.0,2965.232833957553,nan,559.9831771109508,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,RS,True,float64,190.0,12.0,102.41136079900124,nan,27.51204381860906,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,IFH,True,float64,40.0,0.0,15.42134831460674,nan,5.8418925908879,0.09644670050761421,2002,2022,"[nan, 16.0, 19.0, 14.0, 36.0, 25.0, 30.0, 15.0, 21.0, 20.0, 6.0, 11.0, 32.0, 27.0, 10.0, 13.0, 23.0, 28.0, 17.0, 12.0, 22.0, 9.0, 18.0, 8.0, 29.0, 24.0, 26.0, 7.0, 33.0, 40.0, 5.0, 31.0, 3.0, 37.0, 4.0, 35.0, 34.0, 1.0, 2.0, 0.0]"
+FangraphsDataTable.fetch,BU,True,float64,40.0,0.0,11.98876404494382,nan,6.125090014513929,0.09644670050761421,2002,2022,"[nan, 15.0, 12.0, 7.0, 17.0, 20.0, 21.0, 16.0, 13.0, 22.0, 18.0, 11.0, 10.0, 14.0, 8.0, 6.0, 27.0, 28.0, 25.0, 31.0, 3.0, 19.0, 29.0, 23.0, 9.0, 26.0, 5.0, 30.0, 24.0, 4.0, 40.0, 2.0, 1.0, 0.0]"
+FangraphsDataTable.fetch,BUH,True,float64,12.0,0.0,2.8789013732833957,nan,2.0868332947340567,0.09644670050761421,2002,2022,"[nan, 3.0, 5.0, 4.0, 8.0, 2.0, 6.0, 1.0, 0.0, 7.0, 10.0, 9.0, 11.0, 12.0]"
+FangraphsDataTable.fetch,K/9,True,float64,14.2,2.13,7.203288212069938,7.12,1.8267115500994051,0.0,2000,2022,
+FangraphsDataTable.fetch,BB/9,True,float64,5.49,0.43,2.759627749576988,2.72,0.8045103236538402,0.0,2000,2022,
+FangraphsDataTable.fetch,K/BB,True,float64,11.63,0.79,2.8748843767625494,2.55,1.278838504078364,0.0,2000,2022,
+FangraphsDataTable.fetch,H/9,True,float64,12.85,4.55,8.736565143824027,8.74,1.14709116943756,0.0,2000,2022,
+FangraphsDataTable.fetch,HR/9,True,float64,2.24,0.24,1.0216807670614778,1.0,0.31173548677295054,0.0,2000,2022,
+FangraphsDataTable.fetch,AVG,True,float64,0.336,0.147,0.25008178228990413,0.251,0.02565222682094239,0.0,2000,2022,
+FangraphsDataTable.fetch,WHIP,True,float64,1.79,0.74,1.2773829667230683,1.28,0.15633791508082412,0.0,2000,2022,
+FangraphsDataTable.fetch,BABIP,True,float64,0.362,0.176,0.2892707275803723,0.29,0.02274565775808546,0.0,2000,2022,
+FangraphsDataTable.fetch,LOB%,True,float64,0.9109999999999999,0.585,0.7326063169768754,0.731,0.04569031344770709,0.0,2000,2022,
+FangraphsDataTable.fetch,FIP,True,float64,6.35,1.63,4.002453468697123,4.01,0.7107636826964729,0.0,2000,2022,
+FangraphsDataTable.fetch,GB/FB,True,float64,5.19,0.38,1.365593008739076,nan,0.4977307347308297,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,LD%,True,float64,0.28,0.135,0.20341260923845195,nan,0.022456147657130908,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,GB%,True,float64,0.67,0.223,0.44750873907615485,nan,0.06459176701078949,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,FB%,True,float64,0.5870000000000001,0.129,0.34905680399500627,nan,0.06302820163641736,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,IFFB%,True,float64,0.198,0.017,0.09965917602996255,nan,0.02838692783184826,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,HR/FB,True,float64,0.267,0.028999999999999998,0.10861610486891386,nan,0.029676395582020454,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,IFH%,True,float64,0.142,0.0,0.061430711610486896,nan,0.017666150953337144,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,BUH%,True,float64,1.0,0.0,0.2475274656679151,nan,0.17525480520875367,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Starting,True,float64,90.1,-16.3,28.02126339537507,26.4,15.07883791008289,0.0,2000,2022,
+FangraphsDataTable.fetch,Start-IP,True,float64,266.0,60.1,186.97050197405525,192.1,35.61096023901244,0.0,2000,2022,
+FangraphsDataTable.fetch,Relieving,True,float64,7.7,-5.9,0.3365930599369085,nan,1.4871643464628654,0.8212069937958263,2000,2022,
+FangraphsDataTable.fetch,Relief-IP,True,float64,65.1,0.0,5.518611987381703,nan,7.5993649471672855,0.8212069937958263,2000,2022,
+FangraphsDataTable.fetch,RAR,True,float64,90.9,-16.3,28.08133107727016,26.5,15.08094332914657,0.0,2000,2022,
+FangraphsDataTable.fetch,Dollars,True,string,,,,,,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,tERA,True,float64,7.8,1.84,4.312640449438202,nan,0.8042746792062289,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,xFIP,True,float64,5.78,2.01,3.9997752808988767,nan,0.5984295505984104,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,WPA,True,float64,7.61,-4.17,0.7990186125211505,0.72,1.7379403327877492,0.0,2000,2022,
+FangraphsDataTable.fetch,-WPA,True,float64,-2.24,-21.17,-13.225183305132544,-13.64,2.758390989160881,0.0,2000,2022,
+FangraphsDataTable.fetch,+WPA,True,float64,22.05,3.48,14.024145516074451,14.25,2.8330679113716633,0.0,2000,2022,
+FangraphsDataTable.fetch,RE24,True,float64,80.32,-49.75,8.14628877608573,7.96,17.493683890894246,0.0,2000,2022,
+FangraphsDataTable.fetch,REW,True,float64,7.51,-4.88,0.8246474901297236,0.81,1.7634637992225026,0.0,2000,2022,
+FangraphsDataTable.fetch,pLI,True,float64,1.19,0.72,0.9766328257191202,0.98,0.05690949251356758,0.0,2000,2022,"[1.08, 0.97, 1.01, 0.99, 0.98, 0.96, 1.1, 0.95, 1.09, 0.93, 1.06, 0.87, 1.0, 1.04, 0.92, 1.02, 0.94, 1.03, 0.91, 0.88, 1.12, 1.05, 0.9, 0.86, 1.07, 0.89, 0.84, 0.8, 0.85, 0.78, 1.19, 1.11, 1.14, 1.13, 1.15, 0.83, 0.82, 0.77, 0.81, 0.72, 0.75]"
+FangraphsDataTable.fetch,inLI,True,float64,1.07,0.72,0.9083474337281444,0.91,0.048907165882812347,0.0,2000,2022,"[0.99, 0.97, 0.94, 0.92, 0.93, 0.95, 0.96, 0.91, 0.9, 0.89, 0.85, 1.01, 0.88, 0.98, 0.86, 0.83, 0.87, 0.84, 1.05, 1.0, 0.78, 1.03, 0.8, 1.02, 0.81, 0.79, 0.82, 0.75, 0.72, 0.77, 1.06, 1.04, 1.07]"
+FangraphsDataTable.fetch,gmLI,True,float64,1.26,0.73,0.873942470389171,0.87,0.026131928421218222,0.0,2000,2022,"[0.87, 0.88, 0.86, 0.91, 0.89, 0.85, 0.83, 0.82, 0.9, 0.98, 1.12, 1.13, 0.84, 0.92, 1.16, 0.96, 0.93, 0.99, 0.8, 0.95, 0.81, 0.77, 0.94, 1.02, 1.18, 0.76, 1.0, 0.97, 1.26, 0.78, 0.75, 0.73, 1.04, 1.07]"
+FangraphsDataTable.fetch,exLI,True,float64,1.84,0.37,1.095589396503102,1.09,0.17857888131904312,0.0,2000,2022,
+FangraphsDataTable.fetch,Pulls,True,Int64,40,8,29.309644670050762,31.0,4.911570250090002,0.0,2000,2022,"[27, 22, 29, 28, 26, 31, 30, 21, 32, 36, 33, 35, 19, 25, 34, 23, 40, 24, 17, 20, 12, 9, 11, 13, 10, 8, 14]"
+FangraphsDataTable.fetch,WPA/LI,True,float64,8.09,-4.72,0.7492216582064298,0.7,1.7186138195469964,0.0,2000,2022,
+FangraphsDataTable.fetch,Clutch,True,float64,2.65,-2.81,0.05750141003948109,0.07,0.7450865680810801,0.0,2000,2022,
+FangraphsDataTable.fetch,FB% 2,True,float64,0.895,0.071,0.565149188514357,nan,0.10791046059388167,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,FBv,True,float64,98.6,72.2,90.85755305867664,nan,3.045556474143479,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,SL%,True,float64,0.534,0.0,0.16515622583139986,nan,0.09558199001618468,0.2707275803722504,2002,2022,
+FangraphsDataTable.fetch,SLv,True,float64,92.5,52.5,83.12246320681642,nan,3.291550642018377,0.2718556119571348,2002,2022,
+FangraphsDataTable.fetch,CT%,True,float64,0.5579999999999999,0.0,0.11948619631901841,nan,0.11010895939156244,0.6322617033276932,2004,2022,
+FangraphsDataTable.fetch,CTv,True,float64,95.3,78.0,86.94299065420562,nan,2.5408787015984533,0.637901861252115,2004,2022,
+FangraphsDataTable.fetch,CB%,True,float64,0.40299999999999997,0.0,0.12650994318181819,nan,0.07950094634226032,0.20586576424139877,2002,2022,
+FangraphsDataTable.fetch,CBv,True,float64,86.1,45.4,76.28256227758007,nan,3.8439713649638994,0.20755781161872533,2002,2022,
+FangraphsDataTable.fetch,CH%,True,float64,0.45,0.0,0.12537541091387247,nan,0.07755381851877433,0.14213197969543148,2002,2022,
+FangraphsDataTable.fetch,CHv,True,float64,93.7,32.0,82.77032894736843,nan,3.6282709231524635,0.14269599548787365,2002,2022,
+FangraphsDataTable.fetch,SF%,True,float64,0.373,0.0,0.08932958801498127,nan,0.08740252990139132,0.8494077834179357,2002,2022,
+FangraphsDataTable.fetch,SFv,True,float64,93.0,69.8,84.34864864864866,nan,3.1451175785836587,0.8539199097574732,2002,2022,
+FangraphsDataTable.fetch,KN%,True,float64,0.8859999999999999,0.0,0.5953809523809523,nan,0.37653374934936834,0.988155668358714,2002,2019,"[nan, 0.8859999999999999, 0.8140000000000001, 0.001, 0.84, 0.005, 0.818, 0.836, 0.826, 0.002, 0.812, 0.838, 0.753, 0.8540000000000001, 0.87, 0.855, 0.785, 0.0]"
+FangraphsDataTable.fetch,KNv,True,float64,79.5,60.0,71.39999999999999,nan,5.484957785139453,0.988155668358714,2002,2019,"[nan, 65.7, 67.9, 72.7, 65.5, 76.0, 67.7, 60.0, 66.8, 70.5, 65.1, 75.9, 76.1, 77.1, 75.6, 79.5, 77.2, 64.0]"
+FangraphsDataTable.fetch,XX%,True,float64,0.262,0.0,0.02246046186144157,nan,0.035021007552262506,0.19402143260011281,2002,2022,
+FangraphsDataTable.fetch,PO%,True,float64,0.011000000000000001,0.0,0.0018160919540229888,nan,0.0016384653292708452,0.8037225042301185,2003,2008,"[nan, 0.0, 0.001, 0.003, 0.002, 0.005, 0.004, 0.011000000000000001, 0.01, 0.008, 0.009000000000000001, 0.006, 0.006999999999999999]"
+FangraphsDataTable.fetch,wFB,True,float64,44.7,-34.0,1.0154182272159802,nan,12.05483127359416,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,wSL,True,float64,44.3,-18.6,3.3150812064965196,nan,7.1398707268217185,0.2707275803722504,2002,2022,
+FangraphsDataTable.fetch,wCT,True,float64,30.5,-14.1,1.008435582822086,nan,5.293010150028471,0.6322617033276932,2004,2022,
+FangraphsDataTable.fetch,wCB,True,float64,38.2,-15.2,1.16796875,nan,5.622478310433591,0.20586576424139877,2002,2022,
+FangraphsDataTable.fetch,wCH,True,float64,36.1,-17.8,1.138395792241946,nan,6.17378275304082,0.14213197969543148,2002,2022,
+FangraphsDataTable.fetch,wSF,True,float64,22.5,-9.8,2.149063670411985,nan,5.238801956532266,0.8494077834179357,2002,2022,
+FangraphsDataTable.fetch,wKN,True,float64,25.2,-29.2,-0.20000000000000023,nan,11.750460983864988,0.988155668358714,2002,2019,"[nan, 25.2, -29.2, -0.4, 0.5, -10.0, 5.3, -0.1, -6.7, 4.4, 10.8, -7.4, -1.1, -4.0, 0.1, 7.9, -9.5, -15.6, 0.0]"
+FangraphsDataTable.fetch,wFB/C,True,float64,2.99,-4.22,0.033245942571785266,nan,0.7647668698564969,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,wSL/C,True,float64,21.09,-46.78,0.26399071925754064,nan,2.8882756047472444,0.2707275803722504,2002,2022,
+FangraphsDataTable.fetch,wCT/C,True,float64,34.0,-88.53,-0.5594478527607362,nan,7.184081563846023,0.6322617033276932,2004,2022,
+FangraphsDataTable.fetch,wCB/C,True,float64,17.86,-87.93,-0.16392045454545456,nan,3.281935140492541,0.20586576424139877,2002,2022,
+FangraphsDataTable.fetch,wCH/C,True,float64,41.81,-51.57,-0.1896318211702827,nan,2.7846212156783468,0.14213197969543148,2002,2022,
+FangraphsDataTable.fetch,wSF/C,True,float64,27.16,-15.91,1.3382397003745319,nan,4.652039250263203,0.8494077834179357,2002,2022,
+FangraphsDataTable.fetch,wKN/C,True,float64,4.79,-9.56,-0.4985714285714286,nan,2.8348583330931163,0.988155668358714,2002,2019,"[nan, 1.18, -1.25, -9.56, 0.02, 4.51, -0.44, 0.19, -3.68, -0.29, -2.34, 0.2, 0.5, -0.31, 0.88, -0.04, -0.13, 4.79, 0.28, -0.41, -0.68, -3.89]"
+FangraphsDataTable.fetch,O-Swing%,True,float64,0.46399999999999997,0.087,0.2753470661672909,nan,0.05415007254437583,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Z-Swing%,True,float64,0.774,0.541,0.6658489388264669,nan,0.03225173536346625,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Swing%,True,float64,0.574,0.374,0.4639288389513108,nan,0.025744784663181572,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,O-Contact%,True,float64,0.851,0.275,0.6237178526841448,nan,0.08825425217574163,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Z-Contact%,True,float64,0.9490000000000001,0.716,0.874249063670412,nan,0.033053994562707564,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Contact%,True,float64,0.9129999999999999,0.598,0.7983027465667915,nan,0.04339551982659807,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Zone%,True,float64,0.626,0.33799999999999997,0.4767478152309613,nan,0.05276449997653347,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,F-Strike%,True,float64,0.728,0.44799999999999995,0.6091004993757801,nan,0.036786192821117975,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,SwStr%,True,float64,0.21600000000000003,0.036000000000000004,0.09363607990012485,nan,0.022530113494964647,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,HLD,True,float64,5.0,0.0,0.041822721598002495,nan,0.2894286826321312,0.09644670050761421,2002,2022,"[nan, 0.0, 1.0, 2.0, 5.0, 3.0, 4.0]"
+FangraphsDataTable.fetch,SD,True,Int64,11,0,0.1460800902425268,0.0,0.6944974513168565,0.0,2000,2022,"[0, 1, 2, 4, 7, 8, 3, 5, 11, 10]"
+FangraphsDataTable.fetch,MD,True,Int64,8,0,0.10885504794134236,0.0,0.5037876703314194,0.0,2000,2022,"[0, 1, 7, 2, 4, 3, 8, 5]"
+FangraphsDataTable.fetch,ERA-,True,Int64,160,35,92.20699379582628,92.0,18.607760470652615,0.0,2000,2022,
+FangraphsDataTable.fetch,FIP-,True,Int64,146,38,94.4624929498026,95.0,15.820673641933862,0.0,2000,2022,
+FangraphsDataTable.fetch,xFIP-,True,float64,137.0,45.0,95.13295880149813,nan,13.450205939307706,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,K%,True,float64,0.41100000000000003,0.055,0.19105019740552737,0.187,0.05232380274923056,0.0,2000,2022,
+FangraphsDataTable.fetch,BB%,True,float64,0.133,0.012,0.07244275239706711,0.07200000000000001,0.019750580097691307,0.0,2000,2022,
+FangraphsDataTable.fetch,SIERA,True,float64,5.88,2.09,4.063901373283395,nan,0.6049750649605996,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,RS/9,True,float64,7.97,1.58,4.921716604244694,nan,0.9204997758228094,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,E-F,True,float64,2.09,-2.01,-0.09530174844895657,-0.12,0.5290928948214868,0.0,2000,2022,
+FangraphsDataTable.fetch,FA% (sc),True,float64,0.752,0.0,0.3459751773049645,nan,0.17319859902142032,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,FT% (sc),True,float64,0.643,0.0,0.1933984126984127,nan,0.1363207294116406,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,FC% (sc),True,float64,0.698,0.0,0.12953321678321678,nan,0.11536877909708332,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,FS% (sc),True,float64,0.355,0.0,0.11788815789473685,nan,0.09004498505440907,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,FO% (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,SI% (sc),True,float64,0.701,0.0,0.293755980861244,nan,0.18959800782047384,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,SL% (sc),True,float64,0.534,0.0,0.18042141230068337,nan,0.09584979040434392,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,CU% (sc),True,float64,0.38299999999999995,0.0,0.11911085714285716,nan,0.0783914299022696,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,KC% (sc),True,float64,0.40299999999999997,0.0,0.1580119760479042,nan,0.0859267190935338,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,EP% (sc),True,float64,0.052000000000000005,0.0,0.009431818181818182,nan,0.012716127425211455,0.9751833051325437,2008,2021,"[nan, 0.001, 0.0, 0.035, 0.005, 0.004, 0.002, 0.026000000000000002, 0.015, 0.025, 0.038, 0.009000000000000001, 0.052000000000000005, 0.011000000000000001, 0.024, 0.013000000000000001, 0.027000000000000003, 0.006999999999999999, 0.018000000000000002]"
+FangraphsDataTable.fetch,CH% (sc),True,float64,0.46799999999999997,0.0,0.12664528301886796,nan,0.07980731882557794,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,SC% (sc),True,float64,0.009000000000000001,0.0,0.003666666666666667,nan,0.0038586123009300755,0.9983079526226735,2014,2016,"[nan, 0.0, 0.002, 0.009000000000000001]"
+FangraphsDataTable.fetch,KN% (sc),True,float64,0.981,0.736,0.8366,nan,0.05865696889543474,0.9943598420755781,2007,2017,"[nan, 0.981, 0.81, 0.812, 0.736, 0.85, 0.836, 0.8170000000000001, 0.866, 0.846]"
+FangraphsDataTable.fetch,UN% (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,vFA (sc),True,float64,98.6,73.0,91.59680851063831,nan,2.7886530008368746,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,vFT (sc),True,float64,97.1,82.2,91.44095238095238,nan,2.3951814818643196,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,vFC (sc),True,float64,96.0,60.1,87.70332167832169,nan,3.1818002141581365,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,vFS (sc),True,float64,90.2,57.4,84.4388157894737,nan,3.1910039944165334,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,vFO (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,vSI (sc),True,float64,97.8,81.4,90.97464114832535,nan,2.7113844678447014,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,vSL (sc),True,float64,95.8,68.4,83.74749430523917,nan,3.0816728970642875,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,vCU (sc),True,float64,85.1,59.1,76.33302857142857,nan,3.7934462995744513,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,vKC (sc),True,float64,86.1,68.5,79.13233532934132,nan,2.5846916785533587,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,vEP (sc),True,float64,81.3,47.4,62.39090909090908,nan,5.74617731357189,0.9751833051325437,2008,2021,"[nan, 58.8, 47.4, 59.3, 67.1, 61.6, 64.2, 57.0, 60.0, 61.0, 62.6, 56.5, 66.5, 57.9, 64.1, 52.4, 64.6, 68.6, 66.3, 53.1, 57.7, 59.6, 69.6, 65.7, 63.4, 65.6, 63.3, 62.8, 64.4, 64.0, 62.9, 81.3, 64.8, 65.4, 65.9, 67.0, 68.5, 63.5, 63.7, 53.2, 52.2]"
+FangraphsDataTable.fetch,vCH (sc),True,float64,92.6,45.7,83.66792452830188,nan,3.2646663896657886,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,vSC (sc),True,float64,79.3,78.5,78.93333333333334,nan,0.3299831645537211,0.9983079526226735,2014,2016,"[nan, 79.3, 79.0, 78.5]"
+FangraphsDataTable.fetch,vKN (sc),True,float64,77.3,65.1,74.4,nan,4.134005321718878,0.9943598420755781,2007,2017,"[nan, 67.4, 65.1, 75.8, 76.5, 77.2, 75.9, 76.2, 76.1, 77.3]"
+FangraphsDataTable.fetch,FA-X (sc),True,float64,10.1,-10.6,-1.90718085106383,nan,4.693560912379308,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,FT-X (sc),True,float64,12.5,-16.4,-2.9403174603174604,nan,8.021389652841396,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,FC-X (sc),True,float64,6.5,-8.6,0.43671328671328674,nan,1.8044472164506034,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,FS-X (sc),True,float64,9.1,-15.3,-5.349342105263158,nan,3.5511302261342075,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,FO-X (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,SI-X (sc),True,float64,11.5,-13.2,-4.327751196172249,nan,7.311686602391371,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,SL-X (sc),True,float64,10.7,-8.2,1.4841685649202732,nan,2.777974291675093,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,CU-X (sc),True,float64,11.4,-13.0,2.5837714285714286,nan,4.777979196783716,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,KC-X (sc),True,float64,10.3,-6.9,3.467664670658683,nan,3.580356745699566,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,EP-X (sc),True,float64,8.8,-9.3,1.9590909090909088,nan,4.329986257684375,0.9751833051325437,2008,2021,"[nan, 1.7, 0.7, 4.0, -5.2, 4.2, 5.2, 2.8, -3.0, 5.7, 0.8, -2.9, -4.0, 8.8, 0.1, -7.2, -9.3, 3.6, 4.3, 8.6, 5.6, 4.5, 0.9, 4.7, 3.2, 1.5, -5.3, 4.1, 4.4, 0.3, -4.9, -0.7, 6.9, 4.6, -1.6, 6.6, 7.5, 8.1, 0.4, 1.6]"
+FangraphsDataTable.fetch,CH-X (sc),True,float64,12.7,-12.6,-2.5108490566037736,nan,7.284609340339881,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,SC-X (sc),True,float64,8.7,-6.9,2.8666666666666667,nan,6.949500381722095,0.9983079526226735,2014,2016,"[nan, -6.9, 6.8, 8.7]"
+FangraphsDataTable.fetch,KN-X (sc),True,float64,1.8,-1.1,0.15000000000000002,nan,0.8028075734570521,0.9943598420755781,2007,2017,"[nan, 1.1, 1.8, 0.6, 0.2, 0.0, -0.6, -0.5, -1.1]"
+FangraphsDataTable.fetch,FA-Z (sc),True,float64,14.8,-3.4,8.934574468085106,nan,1.7085391492723685,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,FT-Z (sc),True,float64,12.3,0.7,6.638730158730159,nan,1.8394508256227189,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,FC-Z (sc),True,float64,12.9,-3.1,5.623776223776224,nan,2.631392198242815,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,FS-Z (sc),True,float64,9.3,-7.3,3.2342105263157896,nan,1.97614408112437,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,FO-Z (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,SI-Z (sc),True,float64,12.4,-5.7,5.9839712918660295,nan,2.3737311431258803,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,SL-Z (sc),True,float64,14.4,-8.8,1.4637813211845103,nan,2.3668622111705298,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,CU-Z (sc),True,float64,7.0,-12.2,-5.037714285714285,nan,2.80288329680531,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,KC-Z (sc),True,float64,0.8,-11.3,-5.767664670658682,nan,2.6170163900437893,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,EP-Z (sc),True,float64,16.4,-13.2,-2.634090909090909,nan,5.778366519017219,0.9751833051325437,2008,2021,"[nan, -1.0, 3.3, -5.5, -4.9, -6.3, -7.3, 1.2, -8.2, -5.6, -0.5, -8.1, -6.8, -9.9, -0.1, 6.4, -4.2, -5.3, -4.1, -13.2, -3.5, -3.8, -2.3, -2.9, -3.1, -1.5, 0.0, 3.7, -3.3, -7.7, 0.9, 5.3, 16.4, -5.7, 1.0, -6.2, -10.2, 1.9, -7.1, -7.9, -5.8, -8.7, 7.5, 11.0]"
+FangraphsDataTable.fetch,CH-Z (sc),True,float64,13.0,-3.0,4.849245283018869,nan,2.2480241631151228,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,SC-Z (sc),True,float64,4.7,1.3,3.0,nan,1.3880441875771343,0.9983079526226735,2014,2016,"[nan, 3.0, 1.3, 4.7]"
+FangraphsDataTable.fetch,KN-Z (sc),True,float64,2.9,-0.3,1.3699999999999999,nan,0.9154780172128657,0.9943598420755781,2007,2017,"[nan, 2.9, 1.9, -0.3, 0.3, 0.9, 0.7, 1.4, 1.8, 2.2]"
+FangraphsDataTable.fetch,wFA (sc),True,float64,39.8,-28.1,1.7492907801418442,nan,8.748270317014695,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,wFT (sc),True,float64,23.9,-17.7,0.7623809523809524,nan,6.564444684328252,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,wFC (sc),True,float64,28.0,-16.1,1.67027972027972,nan,5.489604727265589,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,wFS (sc),True,float64,21.3,-7.7,1.355263157894737,nan,4.743358091413667,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,wFO (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,wSI (sc),True,float64,29.5,-22.8,0.8255980861244017,nan,7.517834632455896,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,wSL (sc),True,float64,33.7,-17.7,3.819476082004556,nan,7.266271267367941,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,wCU (sc),True,float64,39.8,-14.4,1.1422857142857143,nan,5.477550592171278,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,wKC (sc),True,float64,23.3,-10.6,1.1125748502994013,nan,5.978135607879253,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,wEP (sc),True,float64,5.3,-2.2,0.24772727272727274,nan,1.2194426141709984,0.9751833051325437,2008,2021,"[nan, -0.1, 0.0, 2.6, 0.2, -0.3, 0.4, 0.8, 0.1, -1.3, -2.2, 2.0, 0.5, -0.4, 2.8, 0.7, 1.2, -0.8, -1.1, -1.0, -2.1, -0.5, 1.0, 5.3, 1.4]"
+FangraphsDataTable.fetch,wCH (sc),True,float64,29.1,-13.9,1.275188679245283,nan,5.915065308676615,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,wSC (sc),True,float64,0.0,-1.0,-0.3666666666666667,nan,0.4496912521077347,0.9983079526226735,2014,2016,"[nan, 0.0, -0.1, -1.0]"
+FangraphsDataTable.fetch,wKN (sc),True,float64,29.8,-16.5,4.1,nan,11.729450114988342,0.9943598420755781,2007,2017,"[nan, 8.3, 5.6, 11.1, -2.0, 29.8, -3.7, -1.4, 11.7, -1.9, -16.5]"
+FangraphsDataTable.fetch,wFA/C (sc),True,float64,11.68,-18.17,0.04736702127659573,nan,1.3867429185083193,0.3637901861252115,2007,2022,
+FangraphsDataTable.fetch,wFT/C (sc),True,float64,30.73,-46.98,-0.10109523809523809,nan,3.228248516300007,0.6446700507614214,2008,2019,
+FangraphsDataTable.fetch,wFC/C (sc),True,float64,37.37,-78.16,0.1167307692307692,nan,5.211741515733056,0.6773829667230682,2007,2022,
+FangraphsDataTable.fetch,wFS/C (sc),True,float64,36.92,-18.5,0.5510526315789473,nan,5.022826861583071,0.9142695995487874,2007,2022,
+FangraphsDataTable.fetch,wFO/C (sc),True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+FangraphsDataTable.fetch,wSI/C (sc),True,float64,17.22,-37.52,-0.10057416267942583,nan,3.8292825611979997,0.7642413987591653,2007,2022,
+FangraphsDataTable.fetch,wSL/C (sc),True,float64,26.56,-81.94,0.3485876993166287,nan,4.163583862424134,0.5047941342357586,2007,2022,
+FangraphsDataTable.fetch,wCU/C (sc),True,float64,13.28,-51.66,-0.12294857142857145,nan,3.14351708262953,0.5064861816130851,2007,2022,
+FangraphsDataTable.fetch,wKC/C (sc),True,float64,7.62,-7.17,-0.09329341317365271,nan,1.7421854411954831,0.9058093626621545,2008,2022,
+FangraphsDataTable.fetch,wEP/C (sc),True,float64,24.76,-44.78,-0.9125000000000001,nan,10.348411631523678,0.9751833051325437,2008,2021,"[nan, -4.3, -3.79, 2.65, 1.57, 1.32, 1.67, -3.11, -2.26, 5.49, 1.02, 4.69, -44.78, 6.78, -4.35, -3.52, 1.37, 2.43, 10.73, -3.62, -38.6, -3.57, -3.22, 2.11, -2.88, 2.94, 3.08, 0.63, 2.29, -5.41, 3.06, -1.44, -2.44, 24.76, 2.92, -2.87, -0.53, -9.53, 1.93, 6.66, 0.21, 5.17, -1.19, 1.3, 4.48]"
+FangraphsDataTable.fetch,wCH/C (sc),True,float64,29.16,-37.59,-0.24467924528301888,nan,2.8975906697753637,0.4021432600112803,2007,2022,
+FangraphsDataTable.fetch,wSC/C (sc),True,float64,-0.85,-3.26,-2.1166666666666667,nan,0.9877359071240764,0.9983079526226735,2014,2016,"[nan, -2.24, -0.85, -3.26]"
+FangraphsDataTable.fetch,wKN/C (sc),True,float64,1.05,-0.71,0.18400000000000002,nan,0.4733962399512696,0.9943598420755781,2007,2017,"[nan, 0.65, 0.26, 0.53, -0.09, 1.05, -0.13, -0.05, 0.41, -0.08, -0.71]"
+FangraphsDataTable.fetch,O-Swing% (sc),True,float64,0.43200000000000005,0.2,0.2832260569456428,nan,0.029007284989599647,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Z-Swing% (sc),True,float64,0.745,0.529,0.6327290767903365,nan,0.03171811416642732,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Swing% (sc),True,float64,0.575,0.374,0.46384037963761865,nan,0.02625778934897642,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,O-Contact% (sc),True,float64,0.846,0.374,0.6240060396893875,nan,0.08145692847968435,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Z-Contact% (sc),True,float64,0.946,0.7020000000000001,0.8671095772217428,nan,0.033684947003221916,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Contact% (sc),True,float64,0.912,0.598,0.7945737704918033,nan,0.0446242044480963,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Zone% (sc),True,float64,0.629,0.38799999999999996,0.5165496117342537,nan,0.030964324392680542,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Pace,True,float64,27.8,15.6,21.54037963761864,nan,1.8842131102482211,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,RA9-WAR,True,float64,12.2,-2.4,3.118330513254371,2.9,2.0388104449989717,0.0,2000,2022,
+FangraphsDataTable.fetch,BIP-Wins,True,float64,4.0,-2.6,0.2525098702763677,0.2,0.996627514263399,0.0,2000,2022,
+FangraphsDataTable.fetch,LOB-Wins,True,float64,3.1,-3.2,-0.05640157924421885,-0.1,0.8830035913857958,0.0,2000,2022,
+FangraphsDataTable.fetch,FDP-Wins,True,float64,4.7,-3.6,0.1963338973491258,0.2,1.1844132891196326,0.0,2000,2022,
+FangraphsDataTable.fetch,Age Rng,True,string,,,,,,0.0,2000,2022,"['36 - 36', '28 - 28', '34 - 34', '35 - 35', '31 - 31', '37 - 37', '23 - 23', '25 - 25', '27 - 27', '33 - 33', '30 - 30', '29 - 29', '24 - 24', '20 - 20', '32 - 32', '26 - 26', '38 - 38', '22 - 22', '39 - 39', '21 - 21', '40 - 40', '41 - 41', '42 - 42', '43 - 43', '44 - 44', '45 - 45', '46 - 46']"
+FangraphsDataTable.fetch,K-BB%,True,float64,0.34,-0.02,0.11861872532430907,0.114,0.056232968886607455,0.0,2000,2022,
+FangraphsDataTable.fetch,Pull%,True,float64,0.536,0.3,0.40944319600499374,nan,0.038717754340177726,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Cent%,True,float64,0.434,0.22699999999999998,0.333585518102372,nan,0.034190265751705834,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Oppo%,True,float64,0.38799999999999996,0.154,0.25697003745318353,nan,0.03318322532650734,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Soft%,True,float64,0.337,0.071,0.17191635455680399,nan,0.034971084823421955,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Med%,True,float64,0.718,0.377,0.5446616729088639,nan,0.05381996289658828,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Hard%,True,float64,0.43799999999999994,0.149,0.28342634207240947,nan,0.04591513509388248,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,kwERA,True,float64,5.76,1.85,4.089966159052453,4.12,0.6324768444849732,0.0,2000,2022,
+FangraphsDataTable.fetch,TTO%,True,float64,0.505,0.14,0.29037789058093627,0.287,0.05515299345078651,0.0,2000,2022,
+FangraphsDataTable.fetch,CH% (pi),True,float64,0.413,0.0,0.11250092936802976,nan,0.08080614394193382,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,CS% (pi),True,float64,0.16899999999999998,0.0,0.02143939393939394,nan,0.04144405823841403,0.9627749576988156,2007,2022,"[nan, 0.0, 0.152, 0.002, 0.001, 0.079, 0.003, 0.005, 0.025, 0.114, 0.02, 0.006999999999999999, 0.019, 0.126, 0.024, 0.004, 0.087, 0.156, 0.026000000000000002, 0.16899999999999998, 0.009000000000000001, 0.008, 0.107, 0.091, 0.018000000000000002, 0.034]"
+FangraphsDataTable.fetch,CU% (pi),True,float64,0.408,0.0,0.11715148609779483,nan,0.08141303652958148,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,FA% (pi),True,float64,0.762,0.0,0.3127813871817384,nan,0.1729630799069385,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,FC% (pi),True,float64,0.7020000000000001,0.0,0.12442857142857144,nan,0.1201491167154518,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,FS% (pi),True,float64,0.381,0.0,0.08138970588235295,nan,0.09177114861197147,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,KN% (pi),True,float64,0.89,0.0,0.14072727272727273,nan,0.3057691615668416,0.9689791314156796,2007,2017,"[nan, 0.0, 0.001, 0.313, 0.778, 0.807, 0.767, 0.851, 0.89, 0.885, 0.877, 0.809, 0.752]"
+FangraphsDataTable.fetch,SB% (pi),True,float64,0.002,0.0,0.0006000000000000001,nan,0.0008,0.9971799210377891,2009,2015,"[nan, 0.0, 0.001, 0.002]"
+FangraphsDataTable.fetch,SI% (pi),True,float64,0.7170000000000001,0.0,0.22511649580615098,nan,0.1628478224274457,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,SL% (pi),True,float64,0.534,0.0,0.15265010570824525,nan,0.11040177052704724,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,XX% (pi),True,float64,0.034,0.0,0.0014149659863945578,nan,0.00454807058952238,0.8341793570219966,2007,2022,"[nan, 0.002, 0.005, 0.0, 0.006, 0.001, 0.003, 0.006999999999999999, 0.004, 0.026000000000000002, 0.03, 0.027999999999999997, 0.032, 0.034, 0.01, 0.015, 0.017]"
+FangraphsDataTable.fetch,vCH (pi),True,float64,97.5,64.8,84.29990706319703,nan,3.4705224410263624,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,vCS (pi),True,float64,91.7,57.0,68.47575757575757,nan,5.943166705274642,0.9627749576988156,2007,2022,
+FangraphsDataTable.fetch,vCU (pi),True,float64,98.1,0.0,77.87612655800575,nan,5.142233488060225,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,vFA (pi),True,float64,98.9,72.1,92.06602282704128,nan,2.9477681745802267,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,vFC (pi),True,float64,97.6,0.0,87.56246200607903,nan,5.140896698294785,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,vFS (pi),True,float64,97.9,0.0,85.45183823529412,nan,6.635050390141324,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,vKN (pi),True,float64,95.8,0.0,83.95272727272727,nan,13.900043878877172,0.9689791314156796,2007,2017,"[nan, 82.9, 94.9, 88.3, 88.8, 88.5, 85.9, 91.3, 84.3, 89.5, 95.1, 94.3, 85.5, 90.8, 81.7, 87.8, 92.6, 92.5, 91.2, 0.0, 67.1, 88.7, 95.8, 92.7, 79.7, 93.5, 78.8, 62.0, 93.9, 90.4, 65.2, 81.5, 73.4, 93.1, 93.4, 76.7, 91.1, 91.7, 77.9, 94.0, 76.1, 76.5, 88.2, 83.4, 87.7, 85.6, 76.6, 79.4, 77.6]"
+FangraphsDataTable.fetch,vSB (pi),True,float64,94.0,66.6,80.58,nan,9.792731998783589,0.9971799210377891,2009,2015,"[nan, 81.1, 66.6, 94.0, 87.8, 73.4]"
+FangraphsDataTable.fetch,vSI (pi),True,float64,98.5,67.4,91.35023299161229,nan,3.0437662514137314,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,vSL (pi),True,float64,95.5,68.9,84.47515856236787,nan,3.5388938660482547,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,vXX (pi),True,float64,98.3,0.0,14.239115646258504,nan,30.171436472427942,0.8341793570219966,2007,2022,
+FangraphsDataTable.fetch,CH-X (pi),True,float64,11.9,-10.9,-2.4355018587360595,nan,6.949828421098632,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,CS-X (pi),True,float64,10.1,-8.5,4.281818181818181,nan,5.591603800149939,0.9627749576988156,2007,2022,"[nan, 0.8, -7.6, 9.3, 10.1, 4.4, 6.6, 9.0, 7.0, 7.9, 5.8, 9.4, 9.1, 6.3, 7.2, 5.6, 3.4, -6.1, 4.6, 6.2, -4.4, -8.1, 7.3, 8.3, -7.9, 5.4, 8.2, 8.1, -7.8, 6.5, 8.7, 4.7, -2.4, 2.5, -6.8, 5.9, 7.1, 6.9, -6.3, 7.5, -8.5, 9.2, -0.3, 8.4, 6.8, -7.5, 7.4, 9.5, 4.5, -2.5]"
+FangraphsDataTable.fetch,CU-X (pi),True,float64,10.6,-10.8,2.715340364333653,nan,5.118774735995185,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,FA-X (pi),True,float64,10.2,-9.0,-1.6539947322212467,nan,4.3768094789553285,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,FC-X (pi),True,float64,12.0,-10.0,0.30364741641337384,nan,3.0673323474622305,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,FS-X (pi),True,float64,11.9,-11.4,-3.625367647058824,nan,4.672201491438521,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,KN-X (pi),True,float64,11.6,-10.3,-0.7090909090909091,nan,5.924502978072514,0.9689791314156796,2007,2017,"[nan, 9.8, 6.6, -4.6, -5.3, -8.0, 1.0, -7.5, -2.1, -6.1, -2.8, -4.2, -4.3, -9.4, -4.8, 2.2, -9.0, -9.3, -10.3, 0.0, 2.7, 4.7, 10.2, -10.1, -8.5, 11.3, 11.6, 4.1, -3.9, -6.2, 2.5, 3.3, 5.8, 0.7, -5.5, -2.3, 0.2, -0.5, 4.8, 0.1, -0.1, -0.3, 5.4, -0.4, -7.1, 8.0, -6.6, 3.5, 0.5]"
+FangraphsDataTable.fetch,SB-X (pi),True,float64,11.9,-9.5,-8.881784197001253e-17,nan,8.289028893664202,0.9971799210377891,2009,2015,"[nan, -3.6, 11.9, -9.5, -6.4, 7.6]"
+FangraphsDataTable.fetch,SI-X (pi),True,float64,11.7,-10.6,-3.0341099720410067,nan,7.275118877595961,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,SL-X (pi),True,float64,10.8,-11.4,1.5334038054968286,nan,3.7110748543763803,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,XX-X (pi),True,float64,10.7,-14.9,-0.16156462585034015,nan,2.149098593092067,0.8341793570219966,2007,2022,
+FangraphsDataTable.fetch,CH-Z (pi),True,float64,10.6,-7.4,3.504460966542751,nan,2.2091392180909777,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,CS-Z (pi),True,float64,8.6,-13.7,-7.918181818181819,nan,3.8385567478332385,0.9627749576988156,2007,2022,
+FangraphsDataTable.fetch,CU-Z (pi),True,float64,9.7,-14.3,-6.214765100671141,nan,3.7800471035342085,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,FA-Z (pi),True,float64,11.9,-3.3,7.938893766461808,nan,1.5466656781792627,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,FC-Z (pi),True,float64,11.3,-15.0,3.7949848024316113,nan,2.6932634213741315,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,FS-Z (pi),True,float64,12.7,-9.0,2.745220588235294,nan,3.544928952020088,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,KN-Z (pi),True,float64,12.3,-11.3,3.416363636363636,nan,5.125790888380539,0.9689791314156796,2007,2017,"[nan, 1.1, 7.6, 5.0, 7.0, 1.9, 0.3, -3.8, 12.2, 1.4, 12.3, 11.5, 2.2, 8.4, 10.0, 1.6, -0.1, 10.9, 4.8, 2.9, 0.0, 0.2, 3.9, 6.2, 8.0, 6.8, 8.9, -5.0, -0.6, 8.5, -0.9, -2.8, -10.4, 5.8, 8.3, -1.0, 7.1, -0.8, 0.4, 10.6, 7.8, 0.7, 2.7, 10.1, 5.6, -11.3, 0.1]"
+FangraphsDataTable.fetch,SB-Z (pi),True,float64,7.5,-11.7,-1.1400000000000001,nan,7.0207122145833605,0.9971799210377891,2009,2015,"[nan, -6.4, 0.6, 7.5, 4.3, -11.7]"
+FangraphsDataTable.fetch,SI-Z (pi),True,float64,12.3,-13.0,5.157781919850884,nan,2.044745845835778,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,SL-Z (pi),True,float64,12.6,-12.6,0.3576109936575053,nan,2.853396440779169,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,XX-Z (pi),True,float64,11.5,-13.4,0.5384353741496599,nan,2.67756849812475,0.8341793570219966,2007,2022,
+FangraphsDataTable.fetch,wCH (pi),True,float64,27.1,-12.3,0.4078996282527882,nan,3.889343324935354,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,wCS (pi),True,float64,4.8,-2.9,0.1727272727272727,nan,1.008531103251603,0.9627749576988156,2007,2022,"[nan, 0.0, 1.9, -0.1, 3.9, -0.2, 0.6, -0.3, 0.1, 1.4, -0.5, 0.8, 2.3, 0.2, -0.4, 1.0, -2.9, 0.3, -0.8, -1.1, 1.5, 4.8, -0.7]"
+FangraphsDataTable.fetch,wCU (pi),True,float64,27.4,-9.8,0.2367209971236817,nan,3.927226739284951,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,wFA (pi),True,float64,35.6,-25.6,2.985864793678666,nan,6.486585226793717,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,wFC (pi),True,float64,26.1,-12.3,1.0434650455927055,nan,3.641390082380747,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,wFS (pi),True,float64,20.1,-6.3,-0.08933823529411763,nan,2.968696411827401,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,wKN (pi),True,float64,12.3,-12.6,0.32363636363636367,nan,2.9818824826769865,0.9689791314156796,2007,2017,"[nan, 0.0, -0.1, 0.3, 0.1, 0.2, -0.7, 8.4, -1.1, 3.4, 1.2, 1.3, 12.3, 1.9, 3.1, 5.8, -7.1, -12.6]"
+FangraphsDataTable.fetch,wSB (pi),True,float64,0.1,-0.3,-0.039999999999999994,nan,0.13564659966250536,0.9971799210377891,2009,2015,"[nan, 0.0, 0.1, -0.3]"
+FangraphsDataTable.fetch,wSI (pi),True,float64,29.2,-21.2,1.2572227399813607,nan,4.769087955673672,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,wSL (pi),True,float64,38.0,-12.2,2.0397463002114167,nan,5.625044565396592,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,wXX (pi),True,float64,1.5,-1.5,0.003061224489795917,nan,0.2757009921416468,0.8341793570219966,2007,2022,"[nan, 0.1, 0.7, 0.2, 1.4, -0.5, 0.0, 0.3, -0.4, -0.1, -1.5, -1.4, -0.6, 0.8, 0.4, -0.8, 1.0, -0.2, 1.5, -0.7, -0.3]"
+FangraphsDataTable.fetch,wCH/C (pi),True,float64,24.06,-51.57,-0.1769888475836431,nan,2.686689420228512,0.3931190073322053,2007,2022,
+FangraphsDataTable.fetch,wCS/C (pi),True,float64,11.01,-29.47,-1.3087878787878786,nan,5.857810252560643,0.9627749576988156,2007,2022,
+FangraphsDataTable.fetch,wCU/C (pi),True,float64,40.2,-39.27,-0.11171620325982744,nan,3.0565575777771135,0.41173152848279754,2007,2022,
+FangraphsDataTable.fetch,wFA/C (pi),True,float64,13.39,-6.76,0.21062335381913957,nan,1.1104682895702904,0.3575860124083474,2007,2022,
+FangraphsDataTable.fetch,wFC/C (pi),True,float64,76.88,-125.95,-0.27024316109422497,nan,8.063879985912171,0.6288776085730401,2007,2022,
+FangraphsDataTable.fetch,wFS/C (pi),True,float64,35.12,-70.52,-0.46301470588235294,nan,9.035385447021856,0.8465877044557247,2007,2022,
+FangraphsDataTable.fetch,wKN/C (pi),True,float64,23.61,-107.96,-0.003454545454545155,nan,19.27555665680636,0.9689791314156796,2007,2017,"[nan, 4.2, -6.38, 0.24, -1.83, 14.52, 5.29, 4.81, 19.97, -2.64, 5.91, 22.04, 15.94, 6.37, -4.2, 6.28, 0.53, 23.61, -74.24, 6.65, -3.72, 0.94, 7.74, -9.94, -107.96, -2.51, -3.79, 1.41, 4.28, 5.08, 0.16, -3.85, 4.34, -3.11, 0.05, -4.92, 0.0, 0.06, 0.43, 7.43, 3.81, 0.1, -3.05, 0.2, 4.21, 15.66, -0.32, 17.43, -0.57]"
+FangraphsDataTable.fetch,wSB/C (pi),True,float64,6.09,-4.34,0.9440000000000002,nan,3.6295707735212988,0.9971799210377891,2009,2015,"[nan, 0.0, -0.75, 6.09, -4.34, 3.72]"
+FangraphsDataTable.fetch,wSI/C (pi),True,float64,32.83,-50.22,0.14150978564771666,nan,2.8722577268318146,0.3948110547095319,2007,2022,
+FangraphsDataTable.fetch,wSL/C (pi),True,float64,79.55,-64.07,0.28725158562367864,nan,5.055935813416707,0.4664410603496898,2007,2022,
+FangraphsDataTable.fetch,wXX/C (pi),True,float64,79.55,-137.69,-0.5640476190476189,nan,13.607144217389425,0.8341793570219966,2007,2022,
+FangraphsDataTable.fetch,O-Swing% (pi),True,float64,0.429,0.203,0.2828490077653149,nan,0.02943140452568575,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Z-Swing% (pi),True,float64,0.7440000000000001,0.527,0.6316928386540122,nan,0.03106219443038017,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Swing% (pi),True,float64,0.575,0.374,0.46386885245901643,nan,0.02628029810822673,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,O-Contact% (pi),True,float64,0.845,0.377,0.6226876617773942,nan,0.08138053294238996,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Z-Contact% (pi),True,float64,0.9440000000000001,0.7,0.8671898188093184,nan,0.03350108802608946,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Contact% (pi),True,float64,0.912,0.598,0.7946082830025885,nan,0.044633800558230956,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Zone% (pi),True,float64,0.63,0.384,0.51862812769629,nan,0.03125359993811185,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,Pace (pi),True,float64,27.8,15.6,21.54037963761864,nan,1.8842131102482211,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,FRM,True,float64,9.3,-8.4,0.16487488415199258,nan,2.1473519175364157,0.39142695995487875,2008,2022,
+FangraphsDataTable.fetch,K/9+,True,Int64,192,35,98.59503666102651,97.0,21.948964496830953,0.0,2000,2022,
+FangraphsDataTable.fetch,BB/9+,True,Int64,173,14,84.77382966723069,83.0,24.15752853306883,0.0,2000,2022,
+FangraphsDataTable.fetch,K/BB+,True,Int64,531,41,127.23688663282572,115.0,53.3368468999908,0.0,2000,2022,
+FangraphsDataTable.fetch,H/9+,True,Int64,144,54,97.99153976311337,98.0,12.157011747488177,0.0,2000,2022,
+FangraphsDataTable.fetch,HR/9+,True,Int64,231,21,94.95375070501974,94.0,27.723396139182213,0.0,2000,2022,
+FangraphsDataTable.fetch,AVG+,True,Int64,129,61,98.30118443316412,99.0,9.506526019014094,0.0,2000,2022,
+FangraphsDataTable.fetch,WHIP+,True,Int64,134,49,94.45234066553863,95.0,10.916005593092432,0.0,2000,2022,
+FangraphsDataTable.fetch,BABIP+,True,Int64,127,62,98.43372814438804,99.0,7.665506535373969,0.0,2000,2022,"[111, 79, 93, 87, 99, 109, 115, 94, 90, 105, 95, 97, 103, 101, 96, 100, 104, 108, 88, 98, 92, 86, 113, 110, 114, 102, 89, 84, 106, 112, 82, 119, 83, 85, 107, 91, 81, 80, 116, 77, 117, 118, 74, 73, 72, 122, 124, 127, 62, 63]"
+FangraphsDataTable.fetch,LOB%+,True,Int64,127,83,101.81725888324873,102.0,6.179893524134577,0.0,2000,2022,"[109, 124, 105, 110, 100, 106, 107, 104, 99, 102, 98, 95, 103, 108, 101, 94, 92, 90, 93, 91, 96, 97, 112, 118, 113, 111, 89, 86, 114, 87, 85, 88, 116, 83, 115, 84, 117, 120, 121, 123, 126, 127, 119, 125, 122]"
+FangraphsDataTable.fetch,K%+,True,Int64,220,35,100.92724196277496,99.0,24.187573245363613,0.0,2000,2022,
+FangraphsDataTable.fetch,BB%+,True,Int64,163,15,86.0389170896785,85.0,23.009479822783174,0.0,2000,2022,
+FangraphsDataTable.fetch,LD%+,True,float64,133.0,65.0,99.71473158551811,nan,9.628253534595748,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,GB%+,True,float64,157.0,51.0,101.67665418227216,nan,14.584561357956762,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,FB%+,True,float64,165.0,34.0,98.1023720349563,nan,17.33857618394051,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,HR/FB%+,True,float64,197.0,26.0,97.57615480649189,nan,23.61733542401306,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Pull%+,True,float64,127.0,75.0,100.76716604244695,nan,8.67545481161708,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Cent%+,True,float64,125.0,74.0,99.76966292134831,nan,6.778555708215006,0.09644670050761421,2002,2022,"[nan, 92.0, 104.0, 100.0, 105.0, 90.0, 99.0, 107.0, 94.0, 110.0, 101.0, 106.0, 96.0, 108.0, 114.0, 87.0, 98.0, 83.0, 97.0, 116.0, 89.0, 102.0, 109.0, 103.0, 93.0, 111.0, 112.0, 113.0, 91.0, 115.0, 81.0, 88.0, 95.0, 86.0, 85.0, 125.0, 120.0, 82.0, 117.0, 122.0, 84.0, 119.0, 118.0, 75.0, 80.0, 124.0, 74.0, 79.0, 78.0]"
+FangraphsDataTable.fetch,Oppo%+,True,float64,137.0,61.0,99.0692883895131,nan,11.83425140155403,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Soft%+,True,float64,174.0,55.0,101.03682896379526,nan,14.655060676355982,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,Med%+,True,float64,122.0,83.0,100.51810237203496,nan,5.394081409442413,0.09644670050761421,2002,2022,"[nan, 106.0, 99.0, 108.0, 100.0, 97.0, 98.0, 114.0, 94.0, 93.0, 103.0, 104.0, 107.0, 101.0, 102.0, 95.0, 92.0, 105.0, 112.0, 109.0, 91.0, 110.0, 88.0, 96.0, 118.0, 113.0, 90.0, 115.0, 87.0, 84.0, 111.0, 89.0, 116.0, 122.0, 83.0, 119.0, 117.0]"
+FangraphsDataTable.fetch,Hard%+,True,float64,137.0,62.0,98.49063670411985,nan,10.488694334046532,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,EV,True,float64,91.4,84.6,88.15914893617023,nan,1.2263036134196552,0.7349125775521714,2015,2022,
+FangraphsDataTable.fetch,LA,True,float64,22.9,-4.0,11.610851063829786,nan,4.2462936678930046,0.7349125775521714,2015,2022,
+FangraphsDataTable.fetch,Barrels,True,float64,56.0,0.0,10.969801553062986,nan,14.788061057190593,0.34630569655950366,2007,2022,"[nan, 0.0, 15.0, 13.0, 27.0, 30.0, 21.0, 31.0, 24.0, 22.0, 25.0, 26.0, 20.0, 23.0, 18.0, 16.0, 34.0, 17.0, 19.0, 32.0, 28.0, 35.0, 38.0, 33.0, 29.0, 37.0, 36.0, 12.0, 14.0, 41.0, 42.0, 40.0, 39.0, 44.0, 50.0, 46.0, 49.0, 47.0, 43.0, 53.0, 51.0, 45.0, 56.0, 11.0, 10.0, 8.0, 9.0, 6.0, 7.0, 5.0]"
+FangraphsDataTable.fetch,Barrel%,True,float64,0.12300000000000001,0.022000000000000002,0.059944680851063824,nan,0.0168921838718969,0.7349125775521714,2015,2022,
+FangraphsDataTable.fetch,maxEV,True,float64,121.1,106.9,113.64425531914893,nan,2.0328888831925553,0.7349125775521714,2015,2022,
+FangraphsDataTable.fetch,HardHit,True,float64,287.0,0.0,65.15789473684211,nan,85.6462622103152,0.34630569655950366,2007,2022,
+FangraphsDataTable.fetch,HardHit%,True,float64,0.48700000000000004,0.244,0.34929361702127654,nan,0.04097304461215321,0.7349125775521714,2015,2022,
+FangraphsDataTable.fetch,Events,True,Int64,696,0,123.29272419627749,0.0,219.53458059960025,0.0,2000,2022,
+FangraphsDataTable.fetch,CStr%,True,float64,0.249,0.113,0.17444382022471908,nan,0.015512699558044941,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,CSW%,True,float64,0.34700000000000003,0.21100000000000002,0.26807927590511865,nan,0.022891222605718343,0.09644670050761421,2002,2022,
+FangraphsDataTable.fetch,xERA,True,float64,6.15,2.0,3.9689574468085107,nan,0.7818055876703812,0.7349125775521714,2015,2022,
+team_ids,season,False,typing.Optional[int],,,,,,,,
+team_ids,league,False,<class 'str'>,,,,,,,,
+team_ids,yearID,True,int64,2020,1871,1958.2328257191202,1967.0,42.741903641174986,0.0,1871,2020,
+team_ids,lgID,True,object,,,,,,0.01692047377326565,1876,2020,"[nan, 'NL', 'AA', 'UA', 'PL', 'AL', 'FL']"
+team_ids,teamID,True,object,,,,,,0.0,1871,2020,
+team_ids,franchID,True,object,,,,,,0.0,1871,2020,
+team_ids,teamIDfg,True,int64,1090,1,95.65685279187818,17.0,275.6122782737967,0.0,1871,2020,
+team_ids,teamIDBR,True,object,,,,,,0.0,1871,2020,
+team_ids,teamIDretro,True,object,,,,,,0.0,1871,2020,
+pitching_post,playerID,True,string,,,,,,0.0,1884,2021,
+pitching_post,yearID,True,Int64,2021,1884,1993.490488268865,2002.0,27.686184254186678,0.0,1884,2021,
+pitching_post,round,True,string,,,,,,0.0,1884,2021,"['WS', 'CS', 'ALCS', 'NLCS', 'NEDIV', 'AWDIV', 'AEDIV', 'NWDIV', 'ALDS1', 'NLDS2', 'NLDS1', 'ALDS2', 'NLWC', 'ALWC', 'NLWC2', 'NLWC3', 'NLWC4', 'ALWC1', 'ALWC4', 'ALWC3', 'ALWC2', 'NLWC1']"
+pitching_post,teamID,True,string,,,,,,0.0,1884,2021,"['NY4', 'PRO', 'SL4', 'CHN', 'DTN', 'NY1', 'BR3', 'LS2', 'BRO', 'CL4', 'BSN', 'BOS', 'PIT', 'PHA', 'CHA', 'DET', 'PHI', 'CIN', 'CLE', 'NYA', 'WS1', 'SLN', 'SLA', 'ML1', 'LAN', 'SFN', 'MIN', 'BAL', 'ATL', 'NYN', 'OAK', 'KCA', 'CAL', 'HOU', 'MON', 'ML4', 'SDN', 'TOR', 'SEA', 'COL', 'TEX', 'FLO', 'ARI', 'ANA', 'LAA', 'TBA', 'MIL', 'WAS', 'MIA']"
+pitching_post,lgID,True,string,,,,,,0.0,1884,2021,"['AA', 'NL', 'AL']"
+pitching_post,W,True,Int64,4,0,0.2796448953709575,0.0,0.5398963011010115,0.0,1884,2021,"[0, 3, 1, 2, 4]"
+pitching_post,L,True,Int64,4,0,0.2796448953709575,0.0,0.5161787067352533,0.0,1884,2021,"[1, 2, 0, 4, 3]"
+pitching_post,G,True,Int64,8,1,1.9196258719086874,2.0,1.0193320264416446,0.0,1884,2021,"[1, 2, 3, 4, 5, 8, 6, 7]"
+pitching_post,GS,True,Int64,8,0,0.5611921369689283,0.0,0.7850234796025313,0.0,1884,2021,"[1, 2, 3, 4, 5, 0, 8, 6]"
+pitching_post,CG,True,Int64,8,0,0.10478757133798351,0.0,0.4361108556316218,0.0,1884,2021,"[1, 2, 3, 4, 5, 0, 8, 6]"
+pitching_post,SHO,True,Int64,3,0,0.022669625871908686,0.0,0.15612532743360993,0.0,1884,2021,"[0, 1, 2, 3]"
+pitching_post,SV,True,Int64,4,0,0.10573874445149017,0.0,0.4100188408083555,0.0,1884,2021,"[0, 1, 2, 3, 4]"
+pitching_post,IPouts,True,Int64,213,0,15.059131261889664,11.0,14.483963012028738,0.0,1884,2021,
+pitching_post,H,True,Int64,64,0,4.5546924540266325,3.0,4.525313343820422,0.0,1884,2021,"[9, 10, 11, 25, 15, 30, 27, 18, 16, 3, 13, 8, 4, 28, 64, 31, 36, 61, 26, 52, 5, 12, 37, 29, 14, 17, 47, 6, 24, 21, 38, 1, 7, 23, 2, 19, 20, 0, 22]"
+pitching_post,ER,True,Int64,26,0,1.995878249841471,1.0,2.2726312981908845,0.0,1884,2021,"[7, 6, 0, 2, 8, 5, 1, 17, 11, 10, 16, 26, 4, 9, 3, 25, 15, 12, 14, 13]"
+pitching_post,HR,True,Int64,5,0,0.4984147114774889,0.0,0.7964115925305146,0.0,1884,2021,"[0, 1, 3, 2, 4, 5]"
+pitching_post,BB,True,Int64,32,0,1.7940710209258084,1.0,1.9639868869476977,0.0,1884,2021,"[2, 3, 0, 4, 1, 9, 6, 12, 10, 15, 16, 32, 14, 18, 8, 5, 7, 11, 13]"
+pitching_post,SO,True,Int64,35,0,3.809131261889664,3.0,3.8287740578668963,0.0,1884,2021,"[1, 12, 17, 16, 15, 14, 19, 28, 7, 3, 4, 2, 10, 6, 21, 13, 5, 30, 8, 9, 0, 22, 18, 11, 20, 23, 31, 29, 26, 35, 25]"
+pitching_post,BAOpp,True,float64,1.0,0.0,0.2481797338464005,nan,0.16680629625741722,0.01125554850982879,1903,2021,
+pitching_post,ERA,True,float64,inf,0.0,inf,nan,nan,0.00538998097653773,1884,2021,
+pitching_post,IBB,True,float64,4.0,0.0,0.19319271332694152,nan,0.4745740398182054,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 2.0, 3.0, 4.0]"
+pitching_post,WP,True,float64,5.0,0.0,0.14717162032598274,nan,0.4145513459406254,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0]"
+pitching_post,HBP,True,float64,4.0,0.0,0.15867689357622244,nan,0.4153175046907973,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 2.0, 3.0, 4.0]"
+pitching_post,BK,True,float64,1.0,0.0,0.011984659635666348,nan,0.10881648574128636,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0]"
+pitching_post,BFP,True,float64,178.0,0.0,20.612176414189836,nan,17.77603713851404,0.007926442612555484,1903,2021,
+pitching_post,GF,True,Int64,6,0,0.45640456563094484,0.0,0.820339418859747,0.0,1884,2021,"[0, 1, 2, 3, 6, 4, 5]"
+pitching_post,R,True,Int64,36,0,2.2604629042485733,2.0,2.656844675260305,0.0,1884,2021,"[12, 9, 3, 18, 14, 20, 22, 15, 11, 8, 16, 29, 27, 23, 17, 36, 10, 6, 19, 26, 4, 7, 34, 1, 13, 0, 2, 5]"
+pitching_post,SH,True,float64,7.0,0.0,0.23058485139022053,nan,0.5664907787457346,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 3.0, 2.0, 7.0, 6.0, 5.0, 4.0]"
+pitching_post,SF,True,float64,3.0,0.0,0.116331096196868,nan,0.35016111937050454,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 2.0, 3.0]"
+pitching_post,GIDP,True,float64,6.0,0.0,0.3555449025247683,nan,0.666975710393876,0.007926442612555484,1903,2021,"[nan, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]"
+statcast_pitcher_arsenal_stats,last_name,True,string,,,,,,0.0,,,
+statcast_pitcher_arsenal_stats, first_name,True,string,,,,,,0.0,,,
+statcast_pitcher_arsenal_stats,player_id,True,Int64,693821,112526,575139.0413785412,593974.0,72276.22910287457,0.0,,,
+statcast_pitcher_arsenal_stats,team_name_alt,True,string,,,,,,0.0,,,"['ATL', 'BAL', 'TB', 'HOU', 'TOR', 'MIL', 'CHC', 'SF', 'MIN', 'TEX', 'COL', 'OAK', 'ARI', 'BOS', 'SEA', 'STL', 'SD', 'PIT', 'NYY', 'CWS', 'WSH', 'LAA', 'KC', 'LAD', 'CIN', 'CLE', 'PHI', 'MIA', 'NYM', 'DET']"
+statcast_pitcher_arsenal_stats,pitch_type,True,string,,,,,,0.0,,,"['KN', 'FF', 'SL', 'SIFT', 'CH', 'CUKC', 'FC', 'FS']"
+statcast_pitcher_arsenal_stats,pitch_name,True,string,,,,,,0.0,,,"['Knuckleball', '4-Seamer', 'Slider', 'Sinker', 'Changeup', 'Curveball', 'Cutter', 'Splitter']"
+statcast_pitcher_arsenal_stats,run_value_per_100,True,float64,11.1,-7.3,0.04752397947802812,-0.1,1.9161982548761054,0.0,,,
+statcast_pitcher_arsenal_stats,run_value,True,Int64,26,-36,-0.4367610974793665,0.0,5.482249289901973,0.0,,,
+statcast_pitcher_arsenal_stats,pitches,True,Int64,2329,57,339.9383225518626,250.0,267.6329385444352,0.0,,,
+statcast_pitcher_arsenal_stats,pitch_usage,True,float64,96.4,2.5,32.61778942672318,29.9,17.018141743550416,0.0,,,
+statcast_pitcher_arsenal_stats,pa,True,Int64,629,25,87.57996877091233,64.0,68.85021433912067,0.0,,,
+statcast_pitcher_arsenal_stats,ba,True,float64,0.636,0.0,0.24753903635958063,0.2455,0.07580990896488776,0.0,,,
+statcast_pitcher_arsenal_stats,slg,True,float64,1.269,0.0,0.4156641757751506,0.406,0.15026109993032358,0.0,,,
+statcast_pitcher_arsenal_stats,woba,True,float64,0.763,0.0,0.3281720945795226,0.328,0.08926369906010703,0.0,,,
+statcast_pitcher_arsenal_stats,whiff_percent,True,float64,66.7,0.0,25.74485835378095,24.5,10.77654702897615,0.0,,,
+statcast_pitcher_arsenal_stats,k_percent,True,float64,84.8,0.0,22.929656480035693,21.3,11.988487973581202,0.0,,,
+statcast_pitcher_arsenal_stats,put_away,True,float64,56.8,0.0,19.078440776265893,18.8,6.869969780661476,0.0,,,
+statcast_pitcher_arsenal_stats,est_ba,True,float64,0.507,0.025,0.24509703323667187,0.246,0.0608606461073168,0.0,,,
+statcast_pitcher_arsenal_stats,est_slg,True,float64,1.067,0.034,0.4122966763328128,0.405,0.1293446731941877,0.0,,,
+statcast_pitcher_arsenal_stats,est_woba,True,float64,0.661,0.027,0.3169927503903636,0.317,0.07672010577140559,0.0,,,
+statcast_pitcher_arsenal_stats,hard_hit_percent,True,float64,76.9,0.0,35.45883337051082,35.4,10.67665160598681,0.0,,,
+pitching_stats_range,Name,True,string,,,,,,0.0,,,
+pitching_stats_range,Age,True,Int64,49,19,27.991237779007562,27.0,3.85388650703349,0.0,,,"[26, 25, 27, 29, 21, 30, 24, 31, 23, 28, 22, 34, 37, 35, 33, 41, 36, 32, 38, 42, 40, 44, 20, 45, 39, 43, 19, 46, 47, 49]"
+pitching_stats_range,#days,True,Int64,5183,0,2361.7283711492346,2220.0,1558.5242204457443,0.0,,,
+pitching_stats_range,Lev,True,string,,,,,,0.0,,,"['Maj-AL', 'Maj-NL', 'Maj-AL,Maj-NL']"
+pitching_stats_range,Tm,True,string,,,,,,0.0,,,
+pitching_stats_range,G,True,Int64,92,1,25.31294964028777,20.0,21.101954616653067,0.0,,,
+pitching_stats_range,GS,True,Int64,35,0,6.163069544364508,0.0,10.284209240286097,0.0,,,"[0, 4, 3, 2, 1, 34, 31, 8, 21, 28, 15, 14, 32, 20, 27, 6, 22, 33, 12, 5, 10, 29, 30, 25, 7, 19, 26, 23, 11, 24, 13, 9, 16, 17, 18, 35]"
+pitching_stats_range,W,True,float64,24.0,1.0,4.5715654077723045,nan,4.055505210013618,0.3259546209186497,,,"[4.0, nan, 1.0, 3.0, 2.0, 10.0, 15.0, 9.0, 6.0, 11.0, 12.0, 5.0, 16.0, 7.0, 18.0, 8.0, 17.0, 13.0, 14.0, 20.0, 22.0, 19.0, 21.0, 24.0]"
+pitching_stats_range,L,True,float64,19.0,1.0,4.315293205889951,nan,3.4818674353806576,0.28592510606899096,,,"[2.0, 3.0, nan, 5.0, 1.0, 11.0, 10.0, 14.0, 6.0, 4.0, 7.0, 16.0, 12.0, 9.0, 8.0, 17.0, 15.0, 13.0, 18.0, 19.0]"
+pitching_stats_range,SV,True,float64,62.0,1.0,7.72985347985348,nan,11.434729038488845,0.7985611510791367,,,
+pitching_stats_range,IP,True,float64,253.0,0.0,54.70493451392732,36.2,56.19464901845111,0.0,,,
+pitching_stats_range,H,True,Int64,262,0,53.191293119350675,36.0,54.66304967714936,0.0,,,
+pitching_stats_range,R,True,Int64,129,0,27.35694521306032,19.0,27.10982300596967,0.0,,,
+pitching_stats_range,ER,True,Int64,121,0,25.241007194244606,17.0,25.119014347197485,0.0,,,
+pitching_stats_range,BB,True,Int64,105,0,19.49916989485335,14.0,18.307259113800402,0.0,,,
+pitching_stats_range,SO,True,Int64,326,0,47.920771075447334,32.0,50.24570962544014,0.0,,,
+pitching_stats_range,HR,True,Int64,46,0,6.644161593801882,4.0,7.150200141089466,0.0,,,"[4, 1, 7, 0, 9, 2, 3, 29, 36, 18, 8, 20, 12, 19, 6, 5, 25, 11, 14, 23, 22, 16, 10, 17, 31, 24, 13, 15, 30, 21, 28, 35, 26, 32, 27, 39, 37, 34, 46, 33, 40, 38, 41]"
+pitching_stats_range,HBP,True,Int64,24,0,2.1788415421508947,1.0,2.618422421194382,0.0,,,"[5, 1, 0, 3, 2, 6, 4, 7, 9, 8, 10, 18, 14, 12, 11, 15, 13, 19, 16, 17, 24]"
+pitching_stats_range,ERA,True,float64,inf,0.0,inf,nan,nan,0.00018446781036709093,,,
+pitching_stats_range,AB,True,float64,959.0,0.0,209.6098505810736,141.0,213.66835514507943,0.0,,,
+pitching_stats_range,2B,True,float64,62.0,0.0,10.574801697103855,7.0,11.363223152744933,0.0,,,
+pitching_stats_range,3B,True,float64,12.0,0.0,1.0648404353440324,0.0,1.553136117617546,0.0,,,"[1.0, 2.0, 0.0, 8.0, 4.0, 5.0, 6.0, 3.0, 7.0, 9.0, 10.0, 11.0, 12.0]"
+pitching_stats_range,IBB,True,float64,13.0,0.0,1.254473344401402,1.0,1.6641811768477415,0.0,,,"[2.0, 0.0, 5.0, 1.0, 4.0, 3.0, 6.0, 9.0, 7.0, 8.0, 13.0, 10.0, 12.0]"
+pitching_stats_range,GDP,True,float64,36.0,0.0,4.60302527209002,3.0,5.3970160985528555,0.0,,,"[4.0, 3.0, 7.0, 2.0, 1.0, 9.0, 0.0, 6.0, 20.0, 17.0, 11.0, 12.0, 5.0, 15.0, 10.0, 13.0, 18.0, 31.0, 19.0, 8.0, 34.0, 14.0, 22.0, 29.0, 16.0, 24.0, 25.0, 21.0, 28.0, 26.0, 27.0, 23.0, 30.0, 32.0, 36.0, 33.0]"
+pitching_stats_range,SF,True,float64,14.0,0.0,1.5741560597675706,1.0,1.904394439679018,0.0,,,"[2.0, 1.0, 0.0, 3.0, 6.0, 8.0, 4.0, 10.0, 11.0, 5.0, 12.0, 7.0, 9.0, 14.0, 13.0]"
+pitching_stats_range,SB,True,float64,48.0,0.0,3.418372993912562,2.0,4.613469889136411,0.0,,,"[3.0, 1.0, 2.0, 7.0, 5.0, 0.0, 4.0, 9.0, 8.0, 17.0, 6.0, 19.0, 10.0, 11.0, 22.0, 27.0, 13.0, 16.0, 23.0, 37.0, 15.0, 14.0, 12.0, 21.0, 28.0, 18.0, 20.0, 24.0, 26.0, 33.0, 25.0, 31.0, 36.0, 29.0, 30.0, 35.0, 38.0, 32.0, 44.0, 48.0, 42.0]"
+pitching_stats_range,CS,True,float64,14.0,0.0,1.1183361003504888,0.0,1.6817206532551097,0.0,,,"[0.0, 2.0, 1.0, 5.0, 3.0, 4.0, 6.0, 9.0, 10.0, 8.0, 7.0, 12.0, 14.0, 11.0, 13.0]"
+pitching_stats_range,PO,True,float64,11.0,0.0,0.35473159933591586,0.0,0.8449041159939874,0.0,,,"[0.0, 1.0, 2.0, 3.0, 5.0, 6.0, 4.0, 10.0, 8.0, 7.0, 9.0, 11.0]"
+pitching_stats_range,BF,True,float64,1023.0,1.0,234.4165283158089,160.0,235.20312802584496,0.0,,,
+pitching_stats_range,Pit,True,float64,3941.0,1.0,904.1154768492898,625.0,897.0356607760003,0.0,,,
+pitching_stats_range,Str,True,float64,1.0,0.11,0.6249142224681793,0.63,0.04705922025415737,0.0,,,
+pitching_stats_range,StL,True,float64,0.75,0.0,0.16653108282604684,0.17,0.03344957690714875,0.0,,,"[0.13, 0.19, 0.15, 0.18, 0.21, 0.17, 0.1, 0.16, 0.14, 0.22, 0.08, 0.2, 0.11, 0.12, 0.23, 0.03, 0.09, 0.29, 0.25, 0.05, 0.07, 0.27, 0.0, 0.24, 0.26, 0.33, 0.28, 0.06, 0.3, 0.75, 0.35, 0.31, 0.04, 0.5, 0.36, 0.02, 0.34]"
+pitching_stats_range,StS,True,float64,0.75,0.0,0.09743405275779378,0.1,0.03575111159183472,0.0,,,"[0.11, 0.04, 0.08, 0.09, 0.03, 0.07, 0.05, 0.06, 0.1, 0.12, 0.17, 0.13, 0.14, 0.15, 0.18, 0.0, 0.02, 0.16, 0.01, 0.21, 0.25, 0.33, 0.36, 0.19, 0.2, 0.23, 0.26, 0.22, 0.5, 0.28, 0.4, 0.3, 0.75, 0.24]"
+pitching_stats_range,GB/FB,True,float64,1.0,0.0,0.43136825572801185,nan,0.11957682688918686,0.0016602102933038186,,,
+pitching_stats_range,LD,True,float64,1.0,0.0,0.2392137841832964,nan,0.08736292679261383,0.0016602102933038186,,,
+pitching_stats_range,PU,True,float64,1.0,0.0,0.07356522542498153,nan,0.0566911586382125,0.0016602102933038186,,,"[0.09, 0.04, 0.12, 0.07, 0.1, 0.05, 0.06, 0.11, 0.03, 0.08, 0.13, 0.0, 0.02, 0.2, 0.14, 0.16, 0.21, 0.17, 0.01, 0.33, 0.19, 0.15, 0.22, 0.25, 0.18, 0.67, 0.29, 0.5, 0.27, 0.24, 1.0, 0.4, 0.35, nan, 0.23, 0.38, 0.28, 0.26, 0.31, 0.3]"
+pitching_stats_range,WHIP,True,float64,21.0,0.0,1.525865176839967,nan,0.8251014467164333,0.001199040767386091,,,
+pitching_stats_range,BAbip,True,float64,1.0,0.0,0.30236582886712254,nan,0.09124031718436451,0.0018446781036709095,,,
+pitching_stats_range,SO9,True,float64,27.0,0.0,7.723187736633114,nan,3.085375911552865,0.001199040767386091,,,
+pitching_stats_range,SO/W,True,float64,25.0,0.0,2.4610551165927927,nan,1.5881436354527847,0.042796532005165096,,,
+statcast_pitcher_pitch_movement,last_name,True,string,,,,,,0.0,2016,2022,
+statcast_pitcher_pitch_movement, first_name,True,string,,,,,,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitcher_id,True,Int64,693821,112526,570102.165329584,592773.0,74497.7576151841,0.0,2016,2022,
+statcast_pitcher_pitch_movement,team_name,True,string,,,,,,0.0,2016,2022,"['Tigers', 'Royals', 'Orioles', 'Nationals', 'Blue Jays', 'D-backs', 'Rays', 'Giants', 'Cubs', 'Rockies', 'Marlins', 'Twins', 'White Sox', 'Yankees', 'Reds', 'Braves', 'Pirates', 'Guardians', 'Mariners', 'Brewers', 'Phillies', 'Athletics', 'Cardinals', 'Astros', 'Rangers', 'Red Sox', 'Mets', 'Dodgers', 'Padres', 'Angels']"
+statcast_pitcher_pitch_movement,team_name_abbrev,True,string,,,,,,0.0,2016,2022,"['DET', 'KC', 'BAL', 'WSH', 'TOR', 'ARI', 'TB', 'SF', 'CHC', 'COL', 'MIA', 'MIN', 'CWS', 'NYY', 'CIN', 'ATL', 'PIT', 'CLE', 'SEA', 'MIL', 'PHI', 'OAK', 'STL', 'HOU', 'TEX', 'BOS', 'NYM', 'LAD', 'SD', 'LAA']"
+statcast_pitcher_pitch_movement,pitch_hand,True,string,,,,,,0.0,2016,2022,"['R', 'L']"
+statcast_pitcher_pitch_movement,avg_speed,True,float64,101.1,65.8,87.36800926308825,87.5,5.943114993717273,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitches_thrown,True,Int64,2146,11,306.655859730378,219.0,278.3231392311334,0.0,2016,2022,
+statcast_pitcher_pitch_movement,total_pitches,True,Int64,3687,181,1206.8957075510712,968.0,827.2240839171632,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitches_per_game,True,float64,23.466666666666665,3.0,8.995015303228678,6.95679012345679,5.04882022155518,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitch_per,True,float64,0.963855421686747,0.05,0.26981857288744404,0.2296747967479674,0.1664876120840583,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitch_type,True,string,,,,,,0.0,2016,2022,"['FF', 'SIFT', 'CH', 'CUKC', 'FC', 'SL', 'FS']"
+statcast_pitcher_pitch_movement,pitch_type_name,True,string,,,,,,0.0,2016,2022,"['4-Seamer', 'Sinker', 'Changeup', 'Curveball', 'Cutter', 'Slider', 'Splitter']"
+statcast_pitcher_pitch_movement,pitcher_break_z,True,float64,78.9,6.9,30.31041270366388,28.6,13.612747371367009,0.0,2016,2022,
+statcast_pitcher_pitch_movement,league_break_z,True,float64,-9.0,-74.7,-30.21144653047721,-29.3,13.179174316432148,0.0,2016,2022,
+statcast_pitcher_pitch_movement,diff_z,True,float64,16.4,-15.1,-0.11304275907699941,-0.1,3.207052144135767,0.0,2016,2022,
+statcast_pitcher_pitch_movement,rise,True,Int64,53,-78,-0.7780167066413034,0.0,11.472549960681492,0.0,2016,2022,
+statcast_pitcher_pitch_movement,pitcher_break_x,True,float64,22.8,0.0,9.228194524853196,9.3,5.015066362472661,0.0,2016,2022,
+statcast_pitcher_pitch_movement,league_break_x,True,float64,22.7,-19.9,-4.042610205938301,-7.2,9.264432629840279,0.0,2016,2022,
+statcast_pitcher_pitch_movement,diff_x,True,float64,15.1,-15.2,-0.08043172607724754,0.0,2.926656033094899,0.0,2016,2022,
+statcast_pitcher_pitch_movement,tail,True,Int64,13351,-5848,-2.8778430237366637,0.0,185.4432900993465,0.0,2016,2022,
+statcast_pitcher_pitch_movement,percent_rank_diff_z,True,float64,1.0,0.0,0.4949534997791606,0.4911660777385159,0.2897157197418376,0.0,2016,2022,
+statcast_pitcher_pitch_movement,percent_rank_diff_x,True,float64,1.0,0.0,0.49471028052346816,0.4921630094043887,0.2896096375514066,0.0,2016,2022,
+pitching,playerID,True,string,,,,,,0.0,1871,2021,
+pitching,yearID,True,Int64,2021,1871,1973.2147076674084,1984.0,38.64048811307835,0.0,1871,2021,
+pitching,stint,True,Int64,5,1,1.0821565850697956,1.0,0.29014991583724314,0.0,1871,2021,"[1, 2, 3, 4, 5]"
+pitching,teamID,True,string,,,,,,0.0,1871,2021,
+pitching,lgID,True,string,,,,,,0.002670443050778879,1876,2021,"[<NA>, 'NL', 'AA', 'UA', 'PL', 'AL', 'FL']"
+pitching,W,True,Int64,60,0,4.504309124013757,2.0,5.675022348841812,0.0,1871,2021,
+pitching,L,True,Int64,48,0,4.504309124013757,3.0,4.890387798661211,0.0,1871,2021,"[2, 15, 0, 16, 1, 11, 5, 17, 10, 9, 7, 28, 20, 18, 14, 8, 6, 36, 4, 3, 23, 19, 25, 32, 22, 26, 30, 12, 21, 13, 38, 29, 35, 34, 31, 40, 27, 33, 24, 42, 48, 41, 37]"
+pitching,G,True,Int64,106,1,23.416993728504956,21.0,18.547613804823627,0.0,1871,2021,
+pitching,GS,True,Int64,75,0,9.058587902083755,2.0,12.085331451074476,0.0,1871,2021,
+pitching,CG,True,Int64,75,0,2.871151122799919,0.0,6.813566516956116,0.0,1871,2021,
+pitching,SHO,True,Int64,16,0,0.41035808213635444,0.0,1.0668747162459153,0.0,1871,2021,"[0, 1, 3, 2, 4, 6, 5, 7, 16, 8, 9, 11, 12, 10, 13]"
+pitching,SV,True,Int64,62,0,1.4747319441634634,0.0,4.957451860990813,0.0,1871,2021,
+pitching,IPouts,True,Int64,2040,0,242.3733158001214,155.0,251.6928975384961,0.0,1871,2021,
+pitching,H,True,Int64,772,0,80.87076674084564,51.0,82.77764766665928,0.0,1871,2021,
+pitching,ER,True,Int64,291,0,34.66661946186527,23.0,32.83694635568687,0.0,1871,2021,
+pitching,HR,True,Int64,50,0,6.3931013554521545,4.0,6.9793670765943,0.0,1871,2021,"[0, 4, 3, 5, 9, 2, 7, 6, 1, 8, 15, 12, 10, 14, 11, 17, 16, 35, 13, 23, 20, 18, 21, 19, 22, 24, 27, 26, 29, 25, 28, 30, 32, 31, 39, 36, 34, 38, 41, 33, 46, 43, 40, 37, 42, 50, 48, 44]"
+pitching,BB,True,Int64,289,0,28.607991098523165,20.0,27.593620106740357,0.0,1871,2021,
+pitching,SO,True,Int64,513,0,45.98850900262998,30.0,49.16369035975507,0.0,1871,2021,
+pitching,BAOpp,True,float64,9.99,0.0,0.3110201160283625,nan,0.6066250702686435,0.08984422415537123,1911,2021,
+pitching,ERA,True,float64,189.0,0.0,5.1515973080899204,nan,5.543694116535317,0.0019623710297390247,1871,2021,
+pitching,IBB,True,float64,23.0,0.0,2.204808906232067,nan,2.682713032473319,0.2949221120776856,1955,2021,"[nan, 1.0, 0.0, 4.0, 5.0, 6.0, 2.0, 3.0, 9.0, 7.0, 8.0, 10.0, 11.0, 12.0, 15.0, 18.0, 13.0, 16.0, 14.0, 19.0, 20.0, 17.0, 23.0]"
+pitching,WP,True,Int64,83,0,2.559275743475622,1.0,3.6387995645989406,0.0,1871,2021,
+pitching,HBP,True,float64,54.0,0.0,2.3514046328240514,nan,3.1271805729541056,0.014849281812664374,1884,2021,"[nan, 10.0, 0.0, 13.0, 5.0, 2.0, 1.0, 3.0, 4.0, 14.0, 7.0, 9.0, 16.0, 15.0, 12.0, 18.0, 11.0, 32.0, 26.0, 20.0, 8.0, 35.0, 19.0, 6.0, 27.0, 22.0, 17.0, 24.0, 37.0, 30.0, 23.0, 29.0, 42.0, 40.0, 21.0, 34.0, 25.0, 28.0, 43.0, 54.0, 31.0, 33.0, 39.0]"
+pitching,BK,True,Int64,16,0,0.28964191786364557,0.0,0.7350395644300292,0.0,1871,2021,"[0, 2, 1, 3, 4, 5, 6, 8, 7, 11, 9, 12, 10, 16, 13, 15]"
+pitching,BFP,True,float64,2906.0,0.0,345.8048637384426,nan,352.48910625828955,6.06918875177018e-05,1871,2021,
+pitching,GF,True,Int64,84,0,6.184038033582844,2.0,9.830354265282244,0.0,1871,2021,
+pitching,R,True,Int64,519,0,41.1236698361319,26.0,42.27122644538577,0.0,1871,2021,
+pitching,SH,True,float64,27.0,0.0,2.594650001653275,nan,3.2110037471156265,0.38816508193404814,1970,2021,"[nan, 2.0, 4.0, 9.0, 0.0, 6.0, 1.0, 5.0, 3.0, 8.0, 7.0, 12.0, 14.0, 11.0, 10.0, 13.0, 15.0, 16.0, 18.0, 17.0, 23.0, 21.0, 19.0, 22.0, 20.0, 27.0]"
+pitching,SF,True,float64,17.0,0.0,2.105908805343385,nan,2.3276256762583363,0.38816508193404814,1970,2021,"[nan, 0.0, 2.0, 1.0, 11.0, 3.0, 4.0, 6.0, 5.0, 7.0, 12.0, 8.0, 9.0, 10.0, 13.0, 15.0, 14.0, 17.0, 16.0]"
+pitching,GIDP,True,float64,47.0,0.0,5.664193459741687,nan,6.238220984093747,0.4110459235282217,1973,2021,"[nan, 0.0, 4.0, 10.0, 5.0, 23.0, 1.0, 3.0, 19.0, 33.0, 6.0, 9.0, 18.0, 13.0, 17.0, 14.0, 32.0, 28.0, 15.0, 8.0, 20.0, 7.0, 2.0, 21.0, 29.0, 11.0, 27.0, 16.0, 12.0, 22.0, 25.0, 31.0, 24.0, 41.0, 47.0, 40.0, 37.0, 26.0, 30.0, 35.0, 39.0, 34.0, 36.0, 38.0, 45.0]"
+playerid_reverse_lookup,player_ids,False,typing.List[str],,,,,,,,
+playerid_reverse_lookup,key_type,False,<class 'str'>,,,,,,,,
+playerid_reverse_lookup,name_last,True,object,,,,,,0.0,,,['kershaw']
+playerid_reverse_lookup,name_first,True,object,,,,,,0.0,,,['clayton']
+playerid_reverse_lookup,key_mlbam,True,int64,477132,477132,477132.0,477132.0,0.0,0.0,,,[477132]
+playerid_reverse_lookup,key_retro,True,object,,,,,,0.0,,,['kersc001']
+playerid_reverse_lookup,key_bbref,True,object,,,,,,0.0,,,['kershcl01']
+playerid_reverse_lookup,key_fangraphs,True,int64,2036,2036,2036.0,2036.0,0.0,0.0,,,[2036]
+playerid_reverse_lookup,mlb_played_first,True,Int64,2008,2008,2008.0,2008.0,0.0,0.0,,,[2008]
+playerid_reverse_lookup,mlb_played_last,True,float64,2022.0,2022.0,2022.0,2022.0,0.0,0.0,,,[2022.0]
+statcast_pitcher_pitch_arsenal,last_name,True,string,,,,,,0.0,,,
+statcast_pitcher_pitch_arsenal, first_name,True,string,,,,,,0.0,,,
+statcast_pitcher_pitch_arsenal,pitcher,True,Int64,693821,110683,501562.23532382277,502165.0,116236.31794266473,0.0,,,
+statcast_pitcher_pitch_arsenal,ff_avg_speed,True,float64,101.1,72.9,92.59657950343372,nan,2.7351505966224776,0.04406009342254766,,,
+statcast_pitcher_pitch_arsenal,si_avg_speed,True,float64,101.1,78.9,92.14691146724755,nan,2.7122719625991465,0.18861254892059084,,,
+statcast_pitcher_pitch_arsenal,fc_avg_speed,True,float64,100.2,77.0,88.90222487087803,nan,3.0173427690708254,0.682237091276354,,,
+statcast_pitcher_pitch_arsenal,sl_avg_speed,True,float64,97.4,68.8,84.01605638366819,nan,3.1086810800950886,0.22080545385683625,,,
+statcast_pitcher_pitch_arsenal,ch_avg_speed,True,float64,95.7,63.0,84.4942210671151,nan,3.2803753583109496,0.17422042671379875,,,
+statcast_pitcher_pitch_arsenal,cu_avg_speed,True,float64,92.5,52.2,77.77627054600416,nan,3.618639936978632,0.3317762908723646,,,
+statcast_pitcher_pitch_arsenal,fs_avg_speed,True,float64,96.1,57.8,85.19810810810812,nan,2.9037062410406778,0.906577452341876,,,
+statcast_pitcher_pitch_arsenal,kn_avg_speed,True,float64,79.4,65.5,74.18333333333334,nan,4.133266128485909,0.9969700795354122,,,"[nan, 65.5, 73.9, 77.5, 65.6, 75.5, 71.3, 76.3, 66.3, 79.4, 71.5, 77.0, 66.2, 77.8, 76.5, 75.3, 76.7, 75.1, 76.6, 74.8, 77.3, 73.6, 75.9]"
+bwar_pitch,return_all,False,,,,,,,,,
+bwar_pitch,name_common,True,string,,,,,,0.0,1871,2022,
+bwar_pitch,age,True,Int64,58,15,27.692268575195403,,4.45345914506031,0.00975418702674475,1871,2022,"[22, 24, 25, 26, 27, 28, 30, 31, 33, 23, 29, 32, 34, 35, 21, 36, 20, 37, 38, 39, 40, 41, 42, 43, 44, 19, <NA>, 47, 18, 16, 17, 46, 45, 48, 49, 15, 58, 52, 51, 50]"
+bwar_pitch,mlb_ID,True,Int64,693821,110003,224833.27166527597,,178710.20097043886,0.061248088328546384,1871,2022,
+bwar_pitch,player_ID,True,string,,,,,,0.0,1871,2022,
+bwar_pitch,year_ID,True,Int64,2022,1871,1971.3355403036294,1980.0,38.88879817015503,0.0,1871,2022,
+bwar_pitch,team_ID,True,string,,,,,,0.0,1871,2022,
+bwar_pitch,stint_ID,True,Int64,5,0,1.0338505725689133,1.0,0.3772692344342618,0.0,1871,2022,"[1, 2, 3, 0, 5, 4]"
+bwar_pitch,lg_ID,True,string,,,,,,0.0025364616360177552,1876,2022,"['NL', 'AL', 'AA', 'FL', 'NSL', 'NAL', 'NN2', 'ECL', 'ANL', 'NNL', 'EWL', <NA>, 'UA', 'PL']"
+bwar_pitch,G,True,Int64,106,0,22.210377112163826,19.0,18.410853018321156,0.0,1871,2022,
+bwar_pitch,GS,True,Int64,75,0,8.689339400947443,2.0,11.760737121472198,0.0,1871,2022,
+bwar_pitch,IPouts,True,Int64,2040,0,232.12240292439105,145.0,246.73757472668444,0.0,1871,2022,
+bwar_pitch,IPouts_start,True,float64,1332.0,0.0,169.64926191480387,nan,238.88822187388556,0.115595508970868,1901,2022,
+bwar_pitch,IPouts_relief,True,float64,625.0,-15.0,60.899472796288485,nan,72.09904058330386,0.115595508970868,1901,2022,
+bwar_pitch,RA,True,Int64,519,0,39.641295833488755,25.0,41.442023452304504,0.0,1871,2022,
+bwar_pitch,xRA,True,float64,510.712,0.0,39.558256816740645,24.627,43.98810663807888,0.0,1871,2022,
+bwar_pitch,xRA_sprp_adj,True,float64,5.904,-7.695,-0.005337983512999361,0.0,1.4319768228803207,0.0,1871,2022,
+bwar_pitch,xRA_extras_adj,True,float64,5.611,0.0,0.2643243135694389,nan,0.6036759963665219,0.9531314110932896,2020,2022,
+bwar_pitch,xRA_def_pitcher,True,float64,62.616,-72.465,0.0886285643204348,nan,3.3430326099329672,0.025439218173001606,1871,2022,
+bwar_pitch,PPF,True,Int64,138,61,100.08896266179268,100.0,4.533325460122069,0.0,1871,2022,"[101, 103, 104, 106, 95, 98, 111, 96, 97, 99, 100, 93, 102, 105, 92, 107, 94, 108, 91, 112, 110, 113, 128, 122, 114, 88, 90, 109, 89, 118, 117, 115, 123, 116, 125, 127, 61, 87, 119, 120, 138]"
+bwar_pitch,PPF_custom,True,float64,150.0,76.0,100.37578894716806,nan,5.4043758705952945,0.11816927151329777,1901,2022,
+bwar_pitch,xRA_final,True,float64,478.687,-0.018,39.53966557872357,23.901,44.42036339757276,0.0,1871,2022,
+bwar_pitch,BIP,True,float64,2733.0,0.0,258.4320114122682,nan,280.66730044186426,0.01945242269387146,1871,2022,
+bwar_pitch,BIP_perc,True,float64,1.0,0.0,0.0618353152639087,nan,0.07201950375136222,0.01945242269387146,1871,2022,
+bwar_pitch,RS_def_total,True,float64,118.8,-138.5,0.3113675508095074,nan,37.74074318721406,0.025439218173001606,1871,2022,
+bwar_pitch,runs_above_avg,True,float64,164.872,-108.664,-0.10163025476519078,-1.12,12.183830343286491,0.0,1871,2022,
+bwar_pitch,runs_above_avg_adj,True,float64,170.202,-107.295,5.595135961883596e-07,-1.088,12.252915846098935,0.0,1871,2022,
+bwar_pitch,runs_above_rep,True,float64,211.011,-72.037,7.158450781453989,2.0015,16.914259525079576,0.0,1871,2022,
+bwar_pitch,RpO_replacement,True,float64,0.457,0.145,0.20239289044723788,0.2,0.026675504752554265,0.0,1871,2022,
+bwar_pitch,GR_leverage_index_avg,True,float64,10.72,0.0,0.999307562758775,1.0,0.5525392437038334,0.0,1871,2022,
+bwar_pitch,WAR,True,float64,20.45,-5.45,0.720656624251497,nan,1.6806056817980526,0.003319780670670297,1871,2022,
+bwar_pitch,salary,True,float64,43333333.0,216.0,1580049.695364549,nan,3410554.2041322994,0.602484240367041,1871,2022,
+bwar_pitch,teamRpG,True,float64,10.36538,3.32215,4.595253341228691,4.55336,0.6020629723068425,0.0,1871,2022,
+bwar_pitch,oppRpG,True,float64,35.39682,1.0,4.878942387537425,nan,1.3613744753735186,0.003319780670670297,1871,2022,
+bwar_pitch,pyth_exponent,True,float64,2.934,1.529,1.8922427956586827,nan,0.09153249753453056,0.003319780670670297,1871,2022,
+bwar_pitch,waa_win_perc,True,float64,0.9577,0.0041,0.48072825598802393,nan,0.0878556632600802,0.003319780670670297,1871,2022,
+bwar_pitch,WAA,True,float64,16.8912,-6.8709,0.05374978480538922,nan,1.2556295978036547,0.003319780670670297,1871,2022,
+bwar_pitch,WAA_adj,True,float64,2.6175,-1.5944,-0.053571550598679546,-0.0512,0.13058562776853508,0.0,1871,2022,
+bwar_pitch,oppRpG_rep,True,float64,12.30047,3.34365,4.933232971369761,nan,0.7244555768809232,0.003319780670670297,1871,2022,
+bwar_pitch,pyth_exponent_rep,True,float64,2.434,1.717,1.8977156250000002,nan,0.07048334110004889,0.003319780670670297,1871,2022,
+bwar_pitch,waa_win_perc_rep,True,float64,0.5086,0.3714,0.46685064184131736,nan,0.021708768595761648,0.003319780670670297,1871,2022,
+bwar_pitch,WAR_rep,True,float64,6.3574,0.0,0.7204922771832674,nan,0.7533364314366667,0.0030959752321981426,1871,2022,
+bwar_pitch,ERA_plus,True,float64,1374.9,2.125,102.45907117052987,nan,58.69074374675768,0.034223581633033684,1871,2022,
+bwar_pitch,ER_lg,True,float64,282.936,0.17,33.52474327651162,21.634500000000003,34.464498746235364,0.0,1871,2022,
+chadwick_register,name_last,True,object,,,,,,0.0,,,
+chadwick_register,name_first,True,object,,,,,,0.01757631822386679,,,
+chadwick_register,key_mlbam,True,int64,693821,-1,194219.58433549182,118957.0,183174.46235971613,0.0,,,
+chadwick_register,key_retro,True,object,,,,,,0.09572265538963041,,,
+chadwick_register,key_bbref,True,object,,,,,,8.810184573366812e-05,,,
+chadwick_register,key_fangraphs,True,int64,1014471,-1,642307.6755209022,1003090.0,482133.8311146457,0.0,,,
+chadwick_register,mlb_played_first,True,Int64,2022,1871,1957.1427690410114,1956.0,42.09646681890557,0.0,,,
+chadwick_register,mlb_played_last,True,float64,2022.0,1871.0,1961.7437557816836,1962.0,42.70806980877245,0.0,,,
+playerid_lookup,last,False,<class 'str'>,,,,,,,,
+playerid_lookup,first,False,<class 'str'>,,,,,,,,
+playerid_lookup,fuzzy,False,<class 'bool'>,,,,,,,,
+playerid_lookup,name_last,True,object,,,,,,0.0,,,['kershaw']
+playerid_lookup,name_first,True,object,,,,,,0.0,,,['clayton']
+playerid_lookup,key_mlbam,True,int64,477132,477132,477132.0,477132.0,0.0,0.0,,,[477132]
+playerid_lookup,key_retro,True,object,,,,,,0.0,,,['kersc001']
+playerid_lookup,key_bbref,True,object,,,,,,0.0,,,['kershcl01']
+playerid_lookup,key_fangraphs,True,int64,2036,2036,2036.0,2036.0,0.0,0.0,,,[2036]
+playerid_lookup,mlb_played_first,True,Int64,2008,2008,2008.0,2008.0,0.0,0.0,,,[2008]
+playerid_lookup,mlb_played_last,True,float64,2022.0,2022.0,2022.0,2022.0,0.0,0.0,,,[2022.0]
+statcast_pitcher,start_dt,False,typing.Optional[str],,,,,,,,
+statcast_pitcher,end_dt,False,typing.Optional[str],,,,,,,,
+statcast_pitcher,player_id,False,typing.Optional[int],,,,,,,,
+statcast_pitcher,pitch_type,True,string,,,,,,0.375148753108346,2006,2022,"[<NA>, 'FF', 'SL', 'CU', 'CH', 'PO', 'SI', 'FC', 'IN', 'FS', 'KC', 'FA', 'CS', 'KN', 'EP', 'FT', 'FO', 'SC']"
+statcast_pitcher,game_date,True,datetime64[ns],,,,,,0.0,2000,2022,
+statcast_pitcher,release_speed,True,float64,105.8,30.1,88.3346766696482,nan,6.1200524717575115,0.394782825367969,2008,2022,
+statcast_pitcher,release_pos_x,True,float64,18.0,-17.12,-0.7523530947650927,nan,1.8040537465954967,0.39483914207122367,2008,2022,
+statcast_pitcher,release_pos_z,True,float64,12.72,-1.84,5.913414569672312,nan,0.48971326879716276,0.39483914207122367,2008,2022,
+statcast_pitcher,player_name,True,string,,,,,,0.0,2000,2022,
+statcast_pitcher,batter,True,Int64,703715,110010,383208.98940003087,433898.0,180574.37793457622,0.0,2000,2022,
+statcast_pitcher,pitcher,True,Int64,693821,110015,398462.19897589233,444935.0,172990.04035473865,0.0,2000,2022,
+statcast_pitcher,events,True,string,,,,,,0.72300138888765,2000,2022,"['strikeout', <NA>, 'field_out', 'sac_fly', 'hit_by_pitch', 'triple', 'double', 'walk', 'single', 'home_run', 'force_out', 'field_error', 'sac_bunt', 'caught_stealing_2b', 'intent_walk', 'grounded_into_double_play', 'strikeout_double_play', 'double_play', 'fielders_choice', 'sac_fly_double_play', 'fielders_choice_out', 'other_out', 'wild_pitch', 'caught_stealing_3b', 'pickoff_caught_stealing_home', 'pickoff_1b', 'game_advisory', 'catcher_interf', 'caught_stealing_home', 'triple_play', 'pickoff_caught_stealing_3b', 'pickoff_2b', 'balk', 'pickoff_caught_stealing_2b', 'pickoff_3b', 'passed_ball', 'sac_bunt_double_play', 'ejection', 'stolen_base_2b', 'runner_double_play', 'strikeout_triple_play', 'stolen_base_3b', 'error', 'pickoff_error_2b', 'pickoff_error_3b', 'pickoff_error_1b', 'defensive_indiff', 'other_advance', 'stolen_base_home', 'injury']"
+statcast_pitcher,description,True,string,,,,,,0.0,2000,2022,"['called_strike', 'ball', 'foul', 'swinging_strike', 'hit_into_play', 'hit_by_pitch', 'foul_bunt', 'intent_ball', 'blocked_ball', 'foul_tip', 'swinging_strike_blocked', 'pitchout', 'missed_bunt', 'bunt_foul_tip', 'swinging_pitchout', 'foul_pitchout']"
+statcast_pitcher,spin_dir,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,spin_rate_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,break_angle_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,break_length_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,zone,True,Int64,14,1,9.106284642782951,,4.173682457230286,0.3948266536787385,2008,2022,"[<NA>, 12, 6, 5, 14, 7, 11, 2, 8, 4, 1, 3, 13, 9]"
+statcast_pitcher,des,True,string,,,,,,6.244196242599512e-06,2000,2022,
+statcast_pitcher,game_type,True,string,,,,,,0.0,2000,2022,"['R', 'S', 'D', 'L', 'F', 'W']"
+statcast_pitcher,stand,True,string,,,,,,0.0,2000,2022,"['R', 'L']"
+statcast_pitcher,p_throws,True,string,,,,,,0.0,2000,2022,"['L', 'R']"
+statcast_pitcher,home_team,True,string,,,,,,0.0,2000,2022,"['NYM', 'FLA', 'MON', 'PHI', 'STL', 'CIN', 'LA', 'SD', 'HOU', 'BOS', 'TB', 'CHC', 'COL', 'ARI', 'LAD', 'KC', 'MIA', 'CLE', 'SF', 'SEA', 'MIL', 'LAA', 'TEX', 'DET', 'ATL', 'OAK', 'NYY', 'PIT', 'CWS', 'WSH', 'TOR', 'BAL', 'MIN', 'ANA']"
+statcast_pitcher,away_team,True,string,,,,,,0.0,2000,2022,"['MON', 'ATL', 'NYM', 'ARI', 'HOU', 'SF', 'COL', 'STL', 'CIN', 'TOR', 'FLA', 'PHI', 'PIT', 'LAD', 'MIA', 'DET', 'SD', 'CWS', 'CLE', 'CHC', 'WSH', 'SEA', 'TEX', 'KC', 'LAA', 'MIL', 'OAK', 'NYY', 'MIN', 'TB', 'BAL', 'BOS', 'LA', 'ANA']"
+statcast_pitcher,type,True,string,,,,,,0.0,2000,2022,"['S', 'B', 'X']"
+statcast_pitcher,hit_location,True,Int64,9,1,5.221116220651494,,2.6039270692647043,0.7581472934531387,2000,2022,"[2, <NA>, 3, 7, 9, 8, 1, 6, 5, 4]"
+statcast_pitcher,bb_type,True,string,,,,,,0.8081230451577299,2000,2022,"[<NA>, 'fly_ball', 'ground_ball', 'popup', 'line_drive']"
+statcast_pitcher,balls,True,Int64,4,0,0.8606288262427512,1.0,0.966421051780566,0.0,2000,2022,"[3, 2, 1, 0, 4]"
+statcast_pitcher,strikes,True,Int64,5,0,0.8360959144223985,1.0,0.8223924592972998,0.0,2000,2022,"[2, 1, 0, 3, 5, 4]"
+statcast_pitcher,game_year,True,Int64,2022,2000,2010.7049994305887,2011.0,6.31958425646903,0.0,2000,2022,"[2000, 2017, 2016, 2022, 2021, 2020, 2019, 2018, 2015, 2011, 2010, 2009, 2014, 2013, 2012, 2008, 2007, 2006, 2003, 2002, 2001, 2005, 2004]"
+statcast_pitcher,pfx_x,True,float64,5.07,-7.04,-0.22391981475499945,nan,0.8804102286154564,0.39482671314727413,2008,2022,
+statcast_pitcher,pfx_z,True,float64,6.52,-9.86,0.8309657429639383,nan,0.7782046485923624,0.3948266536787385,2008,2022,
+statcast_pitcher,plate_x,True,float64,25.34,-10.2,-0.022960520665440166,nan,0.9123339909202329,0.3948266536787385,2008,2022,
+statcast_pitcher,plate_z,True,float64,14.26,-16.3,2.3036025791928303,nan,0.9402337084400733,0.3948266536787385,2008,2022,
+statcast_pitcher,on_3b,True,Int64,702416,110010,379948.17972535896,,180180.3079379315,0.8990398507577629,2000,2022,
+statcast_pitcher,on_2b,True,Int64,702478,110010,379884.417089266,,180842.75205889659,0.8046091088550731,2000,2022,
+statcast_pitcher,on_1b,True,Int64,702416,110010,380859.3317718801,,181251.03389224486,0.6932222817898721,2000,2022,
+statcast_pitcher,outs_when_up,True,Int64,2,0,0.9856182482769735,1.0,0.8174612024553315,0.0,2000,2022,"[2, 1, 0]"
+statcast_pitcher,inning,True,Int64,22,1,4.985205655576677,5.0,2.6621062305569354,0.0,2000,2022,"[8, 7, 6, 9, 5, 10, 11, 4, 3, 2, 1, 12, 16, 15, 14, 13, 18, 17, 19, 20, 22, 21]"
+statcast_pitcher,inning_topbot,True,string,,,,,,0.0,2000,2022,"['Bot', 'Top']"
+statcast_pitcher,hc_x,True,float64,247.0,2.0,125.48182024704418,nan,38.58076716829014,0.8507101286512566,2004,2022,
+statcast_pitcher,hc_y,True,float64,246.99,2.01,124.38543648205999,nan,42.00219964130737,0.8507101286512566,2004,2022,
+statcast_pitcher,tfs_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,tfs_zulu_deprecated,True,float64,nan,nan,nan,nan,nan,1.0,<NA>,<NA>,[nan]
+statcast_pitcher,fielder_2,True,Int64,702328,110184,369555.66245665116,434563.0,178630.71753029307,0.0,2000,2022,
+statcast_pitcher,umpire,True,string,,,,,,1.0,<NA>,<NA>,[<NA>]
+statcast_pitcher,sv_id,True,string,,,,,,0.6085161916468711,2008,2016,
+statcast_pitcher,vx0,True,float64,52.16307072140823,-25.96093464845848,2.1969996069712425,nan,5.973668946273372,0.3948266536787385,2008,2022,
+statcast_pitcher,vy0,True,float64,-40.42249796468354,-154.09,-128.3927851109169,nan,8.848772238413446,0.3948266536787385,2008,2022,
+statcast_pitcher,vz0,True,float64,27.82,-24.31455915179353,-4.356857547973061,nan,3.107373569688466,0.3948266536787385,2008,2022,
+statcast_pitcher,ax,True,float64,64.33823736953391,-80.5633612938245,-2.1946018707405766,nan,10.661774893823074,0.3948266536787385,2008,2022,
+statcast_pitcher,ay,True,float64,87.63,-85.45930505253315,26.73266339946168,nan,4.451509755023227,0.3948266536787385,2008,2022,
+statcast_pitcher,az,True,float64,43.70544954139829,-77.1714212303812,-22.906632321606814,nan,8.916571975958513,0.3948266536787385,2008,2022,
+statcast_pitcher,sz_top,True,float64,4.5,2.5,3.4153750269497087,nan,0.206908943114724,0.3948266536787385,2008,2022,
+statcast_pitcher,sz_bot,True,float64,2.5,0.75,1.5867521860955838,nan,0.12952165174731947,0.3948266536787385,2008,2022,
+statcast_pitcher,hit_distance_sc,True,Int64,2695,0,161.8703674343899,,123.58413075057408,0.9197298463362773,2015,2022,
+statcast_pitcher,launch_speed,True,float64,124.0,2.0,83.5020227078249,nan,14.865834816568299,0.9166732230727214,2015,2022,
+statcast_pitcher,launch_angle,True,Int64,90,-90,16.01931283611742,,29.9917774402459,0.9166669788764787,2015,2022,
+statcast_pitcher,effective_speed,True,float64,194.6,0.0,88.16728189434237,nan,7.520949665260525,0.7022614992077304,2015,2022,
+statcast_pitcher,release_spin_rate,True,Int64,5024,3,2216.40333872322,,335.1801976268274,0.7098963076878246,2015,2022,
+statcast_pitcher,release_extension,True,float64,31.9,-14.1,6.095829071896545,nan,0.5141035538254846,0.7024668440613084,2015,2022,
+statcast_pitcher,game_pk,True,Int64,707117,3213,279746.03365847754,287549.0,214652.72907343617,0.0,2000,2022,
+statcast_pitcher,pitcher.1,True,Int64,693821,110015,398462.19897589233,444935.0,172990.04035473865,0.0,2000,2022,
+statcast_pitcher,fielder_2.1,True,Int64,702328,110184,369555.66245665116,434563.0,178630.71753029307,0.0,2000,2022,
+statcast_pitcher,fielder_3,True,Int64,702208,110129,371454.31838793884,425902.0,177239.05807639545,0.0,2000,2022,
+statcast_pitcher,fielder_4,True,Int64,703715,110011,401027.29845658335,435062.0,175101.95634338388,0.0,2000,2022,
+statcast_pitcher,fielder_5,True,Int64,702478,110011,380245.49372818065,434596.0,187002.55213823798,0.0,2000,2022,
+statcast_pitcher,fielder_6,True,Int64,702416,110011,396657.42109586834,435358.0,180416.0760348906,0.0,2000,2022,
+statcast_pitcher,fielder_7,True,Int64,702250,110010,387131.9118662624,434636.0,180375.28785622798,0.0,2000,2022,
+statcast_pitcher,fielder_8,True,Int64,701634,110010,402999.4618073142,451186.0,175367.44369246336,0.0,2000,2022,
+statcast_pitcher,fielder_9,True,Int64,702250,110010,383585.5806500684,434658.0,182869.91585822284,0.0,2000,2022,
+statcast_pitcher,release_pos_y,True,float64,74.59,28.58,51.54500319767246,nan,2.1165772128229325,0.39483914207122367,2008,2022,
+statcast_pitcher,estimated_ba_using_speedangle,True,float64,1.0,0.0,0.32575169233945406,nan,0.2936877869089061,0.9481511678282358,2015,2022,
+statcast_pitcher,estimated_woba_using_speedangle,True,float64,2.053,0.0,0.36922444515810837,nan,0.3917328666549618,0.9481511678282358,2015,2022,
+statcast_pitcher,woba_value,True,float64,2.0,0.0,0.3304004970440778,nan,0.5131034533345519,0.7229993074889024,2000,2022,"[0.0, nan, 0.7, 1.6, 1.25, 0.9, 2.0]"
+statcast_pitcher,woba_denom,True,float64,1.0,0.0,0.9952943895385228,nan,0.06843586553600436,0.9258919759996884,2015,2022,"[nan, 1.0, 0.0]"
+statcast_pitcher,babip_value,True,float64,1.0,0.0,0.20324405418106772,nan,0.4024126099181174,0.7229993074889024,2000,2022,"[0.0, nan, 1.0]"
+statcast_pitcher,iso_value,True,float64,3.0,0.0,0.14038725727720233,nan,0.5464276579366641,0.7229993074889024,2000,2022,"[0.0, nan, 2.0, 1.0, 3.0]"
+statcast_pitcher,launch_speed_angle,True,float64,6.0,1.0,3.156846777615929,nan,1.250789010008313,0.9481511678282358,2015,2022,"[nan, 4.0, 2.0, 5.0, 3.0, 1.0, 6.0]"
+statcast_pitcher,at_bat_number,True,Int64,171,1,39.26199202348531,39.0,23.28095828174264,0.0,2000,2022,
+statcast_pitcher,pitch_number,True,Int64,22,1,2.8155796264364996,2.0,1.704875740039067,0.0,2000,2022,"[6, 5, 4, 3, 2, 1, 7, 8, 10, 9, 11, 12, 13, 14, 15, 16, 17, 18, 22, 21, 20, 19]"
+statcast_pitcher,pitch_name,True,string,,,,,,0.375148753108346,2006,2022,"[<NA>, '4-Seam Fastball', 'Slider', 'Curveball', 'Changeup', 'Pitch Out', 'Sinker', 'Cutter', 'Intentional Ball', 'Split-Finger', 'Knuckle Curve', 'Fastball', 'Knuckleball', 'Eephus', '2-Seam Fastball', 'Forkball', 'Screwball']"
+statcast_pitcher,home_score,True,Int64,29,0,2.278964819306341,1.0,2.6151229129236335,0.0,2000,2022,"[11, 5, 3, 0, 2, 1, 4, 8, 7, 6, 10, 9, 14, 12, 15, 13, 17, 16, 22, 20, 19, 18, 21, 23, 24, 29, 25]"
+statcast_pitcher,away_score,True,Int64,30,0,2.408523327871148,2.0,2.6624815811397307,0.0,2000,2022,"[2, 10, 9, 5, 8, 7, 1, 6, 3, 4, 0, 13, 11, 16, 15, 14, 12, 19, 17, 20, 22, 18, 23, 24, 21, 28, 27, 26, 25, 29, 30]"
+statcast_pitcher,bat_score,True,Int64,30,0,2.3199613573455387,2.0,2.5937977474746137,0.0,2000,2022,"[11, 5, 10, 9, 2, 8, 7, 6, 3, 1, 4, 0, 13, 16, 15, 14, 12, 17, 22, 20, 19, 18, 23, 21, 29, 24, 25, 28, 27, 26, 30]"
+statcast_pitcher,fld_score,True,Int64,30,0,2.3675267898319508,2.0,2.684613702786506,0.0,2000,2022,"[2, 3, 0, 1, 4, 5, 6, 7, 13, 14, 12, 8, 9, 10, 11, 19, 16, 15, 20, 18, 17, 22, 24, 23, 21, 29, 25, 26, 30]"
+statcast_pitcher,post_away_score,True,Int64,30,0,2.4249578145075277,2.0,2.6685296945122494,0.0,2000,2022,"[2, 10, 9, 5, 8, 7, 1, 6, 3, 4, 0, 13, 11, 16, 15, 14, 12, 19, 17, 20, 22, 18, 23, 24, 21, 28, 27, 26, 25, 29, 30]"
+statcast_pitcher,post_home_score,True,Int64,29,0,2.2958399083233054,2.0,2.622182819900272,0.0,2000,2022,"[11, 6, 5, 3, 0, 2, 1, 4, 8, 7, 10, 9, 14, 12, 16, 15, 13, 17, 22, 20, 19, 18, 21, 23, 24, 29, 25]"
+statcast_pitcher,post_bat_score,True,Int64,30,0,2.3532709329988823,2.0,2.6072930100789162,0.0,2000,2022,"[11, 6, 5, 10, 9, 2, 8, 7, 3, 1, 4, 0, 13, 16, 15, 14, 12, 17, 22, 20, 19, 18, 23, 21, 29, 24, 25, 28, 27, 26, 30]"
+statcast_pitcher,post_fld_score,True,Int64,30,0,2.3675267898319508,2.0,2.684613702786506,0.0,2000,2022,"[2, 3, 0, 1, 4, 5, 6, 7, 13, 14, 12, 8, 9, 10, 11, 19, 16, 15, 20, 18, 17, 22, 24, 23, 21, 29, 25, 26, 30]"
+statcast_pitcher,if_fielding_alignment,True,string,,,,,,0.7042536951517979,2015,2022,"[<NA>, 'Standard', 'Strategic', 'Infield shift']"
+statcast_pitcher,of_fielding_alignment,True,string,,,,,,0.7042536951517979,2015,2022,"[<NA>, 'Standard', 'Strategic', '4th outfielder', 'Extreme outfield shift']"
+statcast_pitcher,spin_axis,True,float64,360.0,0.0,179.15857049035506,nan,68.92779616268379,0.7441975806415644,2016,2022,
+statcast_pitcher,delta_home_win_exp,True,float64,0.911,-0.776,0.0001367922323000897,nan,0.029065387792682775,0.00021628706413651835,2000,2022,
+statcast_pitcher,delta_run_exp,True,float64,3.705,-2.196,5.047583853299094e-06,nan,0.24489030511824533,0.07290711639152062,2000,2022,

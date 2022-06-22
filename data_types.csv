@@ -696,7 +696,7 @@ statcast,fielder_6,TRUE,int
 statcast,fielder_7,TRUE,int
 statcast,fielder_8,TRUE,int
 statcast,fielder_9,TRUE,int
-statcast,release_pos_y,TRUE,int
+statcast,release_pos_y,TRUE,float
 statcast,estimated_ba_using_speedangle,TRUE,float
 statcast,estimated_woba_using_speedangle,TRUE,float
 statcast,woba_value,TRUE,float

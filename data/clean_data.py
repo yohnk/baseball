@@ -1,4 +1,6 @@
 import pickle
+import traceback
+
 from boilerplate import cleanup_methods, data_types
 from glob import glob
 from os.path import join, basename, exists
@@ -28,14 +30,9 @@ def main():
             if method in data_types:
                 log.info("Datatype Methods")
                 data_type = data_types[method]
-                # df = df.replace(r'^\s*$', nan, regex=True)
-                # df = df.replace(pd.NA, nan)
-                # df = df.astype(data_type)
-                for key in data_type:
-                    log.info(key)
-                    df = df.replace(r'^\s*$', nan, regex=True)
-                    df = df.replace(pd.NA, nan)
-                    df = df.astype({key: data_type[key]})
+                df = df.replace(r'^\s*$', nan, regex=True)
+                df = df.replace(pd.NA, nan)
+                df = df.astype(data_type)
 
             log.info(df.dtypes)
             log.info("Saving...")
