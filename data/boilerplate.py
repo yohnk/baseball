@@ -8,8 +8,11 @@ from pybaseball import bwar_pitch, chadwick_register, fangraphs_teams, pitching,
     pitching_stats_bref, pitching_stats_range, player_search_list, playerid_lookup, playerid_reverse_lookup, statcast, \
     statcast_pitcher, team_pitching_bref, cache
 from pybaseball.statcast_pitcher import statcast_pitcher_exitvelo_barrels, statcast_pitcher_expected_stats, \
-    statcast_pitcher_pitch_arsenal, statcast_pitcher_arsenal_stats, statcast_pitcher_pitch_movement, \
-    statcast_pitcher_active_spin, statcast_pitcher_percentile_ranks, statcast_pitcher_spin_dir_comp
+    statcast_pitcher_pitch_arsenal, statcast_pitcher_pitch_movement, \
+    statcast_pitcher_percentile_ranks, statcast_pitcher_spin_dir_comp
+
+from pybaseball.statcast_pitcher import statcast_pitcher_arsenal_stats as sp_arsenal_stats
+from pybaseball.statcast_pitcher import statcast_pitcher_active_spin as sp_active_spin
 
 cache.enable()
 
@@ -274,6 +277,19 @@ data_types = {
 # We're using the dict returns od the iterators below to identify the calls. Using MD5 to give us an idempotent id.
 def dmd5(d: dict):
     return hashlib.md5(json.dumps(d).encode()).hexdigest()
+
+
+# These methods are silly and don't include a year column when they should
+def statcast_pitcher_active_spin(year: int, minP: int = 250, _type: str = 'spin-based') -> pd.DataFrame:
+    data = sp_active_spin(year=year, minP=minP, _type=_type)
+    data["year"] = year
+    return data
+
+
+def statcast_pitcher_arsenal_stats(year: int, minPA: int = 25) -> pd.DataFrame:
+    data = sp_arsenal_stats(year=year, minPA=minPA)
+    data["year"] = year
+    return data
 
 
 # Iterators that are used to create multiple API requests.

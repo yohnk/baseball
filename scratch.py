@@ -36,8 +36,20 @@
 
 import pickle
 
-with open("data/raw/statcast.pkl", "rb") as f:
+import pandas as pd
+from numpy import count_nonzero
+
+with open("learning/combined.pkl", "rb") as f:
     df = pickle.load(f)
 
-series = df["release_speed"].loc[0:100]
-print(series)
+print(len(df))
+
+columns = list(df.columns)
+
+# for column in sorted(columns):
+#     series = df[column]
+#     print(column, count_nonzero(series.isna()) / series.size)
+
+# for pitch in ['FF', 'SIFT', 'CH', 'CUKC', 'FC', 'SL', 'FS']:
+#     ndf = df[pd.isnull(df[pitch + "_active_spin"])]
+#     print(ndf)

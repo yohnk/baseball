@@ -9,7 +9,16 @@ from numpy import max, min, mean, median, count_nonzero, std
 from boilerplate import api_methods
 import pickle
 import csv
-import sys
+
+
+def create_descriptions():
+    out = {}
+    with open(join("data", "descriptions.csv"), "r") as f:
+        reader = csv.reader(f)
+        next(reader)
+        for l in reader:
+            out[l[0]] = l[1]
+    return out
 
 
 def read_df(file_name):
@@ -51,10 +60,11 @@ def year(df, col):
 
 
 def main():
+    descriptions = create_descriptions()
     with open(join("data", "csv", "api.csv"), "w") as file:
         writer = csv.writer(file)
         ignore = ["level_0", "index", "year"]
-        fields = ["method", "parameter", "output", "type", "max", "min", "mean", "median", "std", "%nan", "first_year", "last_year", "items"]
+        fields = ["method", "parameter", "output", "type", "max", "min", "mean", "median", "std", "%nan", "first_year", "last_year", "items", "description"]
         writer.writerow(fields)
 
         file_names = glob(join("data", "build", "*.pkl"))
@@ -69,19 +79,24 @@ def main():
             argspec = inspect.getfullargspec(method)
             for arg in argspec.args:
                 t = None if arg not in argspec.annotations else str(argspec.annotations[arg])
-                rows.append([method_name, arg, False, t, None, None, None, None, None, None, None, None])
+                rows.append([method_name, arg, False, t, None, None, None, None, None, None, None, None, None])
 
             # Add the output rows
             if dataframe.size > 0:
                 for column in dataframe.columns:
                     if column not in ignore:
                         log.info(column)
+
+                        desc = None
+                        if column in descriptions:
+                            desc = descriptions[column]
+
                         series = dataframe[column]
                         t = dataframe.dtypes.loc[[column]].values[0].name
                         yrange = year(dataframe, column)
                         rows.append([method.__qualname__, column, True, t, nq(max, series), nq(min, series),
                                      nq(mean, series), nq(median, series), nq(std, series), count_nonzero(series.isna()) / series.size,
-                                     yrange[0], yrange[1], unique(series)])
+                                     yrange[0], yrange[1], unique(series), desc])
 
             writer.writerows(rows)
 

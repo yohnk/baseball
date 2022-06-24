@@ -8,10 +8,6 @@ from logging_config import log
 import pandas as pd
 from numpy import nan
 
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 150)
-
 
 def main():
     file_list = glob(join("data", "raw", "*.pkl"))
