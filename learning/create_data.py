@@ -1,4 +1,4 @@
-from os.path import join
+from os.path import join, exists
 import pickle
 from logging_config import log
 import pandas as pd
@@ -64,6 +64,14 @@ def rename_spin(active_spin):
 
 
 def map_player_ids(movement, active_spin):
+
+    # This method can take a while and results in the exact same thing. So lets cache if we can...
+    cache_movement_path = join("learning", "tmp", "map_player_ids_movement.pkl")
+    cache_spin_path = join("learning", "tmp", "map_player_ids_active_spin.pkl")
+    if exists(cache_movement_path) and exists(cache_spin_path):
+        with open(cache_movement_path, "rb") as cm, open(cache_spin_path, "rb") as cs:
+            return pickle.load(cm), pickle.load(cs)
+
     # Make sure each table has a "player_id" column
     log.info("Finding player_ids for active_spin")
     movement = movement.rename(columns={"pitcher_id": "player_id"})
@@ -89,19 +97,48 @@ def map_player_ids(movement, active_spin):
     print(unassigned)
     active_spin = active_spin[active_spin.player_id != -1]
 
+    with open(cache_movement_path, "wb") as cm, open(cache_spin_path, "wb") as cs:
+        pickle.dump(movement, cm), pickle.dump(active_spin, cs)
+
     return movement, active_spin
 
 
 def agg_pitchers(pitcher, pitches):
+
     # Roll up the pitch-by-pitch data in the pitcher table into aggregated statistics
     log.info("Aggregating stats for pitcher table")
     to_keep = ["release_spin_rate", "effective_speed", "spin_axis"]
+    pitcher = pitcher.dropna(subset=to_keep)
+
+    # Map zones to "strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"
+    merged_zones = ["strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"]
+    pitcher = pitcher.dropna(subset=["zone"])
+    pitcher["merged_zone"] = pd.NA
+
+    pitcher.loc[pitcher.zone == 11, "merged_zone"] = "ball_high"
+    pitcher.loc[pitcher.zone == 12, "merged_zone"] = "ball_high"
+
+    pitcher.loc[pitcher.zone == 1, "merged_zone"] = "strike_high"
+    pitcher.loc[pitcher.zone == 2, "merged_zone"] = "strike_high"
+    pitcher.loc[pitcher.zone == 3, "merged_zone"] = "strike_high"
+
+    pitcher.loc[pitcher.zone == 4, "merged_zone"] = "strike_middle"
+    pitcher.loc[pitcher.zone == 5, "merged_zone"] = "strike_middle"
+    pitcher.loc[pitcher.zone == 6, "merged_zone"] = "strike_middle"
+
+    pitcher.loc[pitcher.zone == 7, "merged_zone"] = "strike_low"
+    pitcher.loc[pitcher.zone == 8, "merged_zone"] = "strike_low"
+    pitcher.loc[pitcher.zone == 9, "merged_zone"] = "strike_low"
+
+    pitcher.loc[pitcher.zone == 13, "merged_zone"] = "ball_low"
+    pitcher.loc[pitcher.zone == 14, "merged_zone"] = "ball_low"
 
     columns = ["player_id", "year"]
     for pitch in pitches:
         for column in to_keep:
             columns.append(pitch + "_" + column + "_mean")
             columns.append(pitch + "_" + column + "_std")
+        columns.append(pitch + "_zones")
 
     rows = []
     for player_id in pd.unique(pitcher.pitcher):
@@ -111,9 +148,22 @@ def agg_pitchers(pitcher, pitches):
             row = [player_id, year]
             for pitch in pitches:
                 player_pitch = player_year[player_year.pitch_type == pitch]
-                for column in to_keep:
-                    row.append(np.mean(player_pitch[column]))
-                    row.append(np.std(player_pitch[column]))
+                if len(player_pitch) > 0:
+                    for column in to_keep:
+                        row.append(np.mean(player_pitch[column]))
+                        row.append(np.std(player_pitch[column]))
+                    zone_count = player_pitch['merged_zone'].value_counts()
+                    zones = []
+                    for merged_zone in merged_zones:
+                        if merged_zone in zone_count:
+                            zones.append(zone_count[merged_zone] / len(player_pitch))
+                        else:
+                            zones.append(0.0)
+                    row.append(zones)
+                else:
+                    row.extend([np.nan] * (len(to_keep) * 2))
+                    row.append([np.nan] * len(merged_zones))
+
             rows.append(row)
 
     log.info("Creating aggregated dataframe")
@@ -143,6 +193,8 @@ def agg_movement(movement, pitches):
                 else:
                     for _ in to_keep:
                         row.append(np.nan)
+
+
 
             rows.append(row)
 
@@ -179,6 +231,11 @@ def clean_all(merged, pitches):
     for pitch in pitches:
         merged = merged[(~pd.isnull(merged[pitch + "_active_spin"]) & ~pd.isnull(merged[pitch + "_effective_speed_mean"])) | (pd.isnull(merged[pitch + "_active_spin"]) & pd.isnull(merged[pitch + "_effective_speed_mean"]))]
 
+    # Above knocks out all the "FS" pitches
+    merged = merged.drop(["FS_active_spin", "FS_effective_speed_mean", "FS_effective_speed_std",
+                          "FS_release_spin_rate_mean", "FS_release_spin_rate_std", "FS_spin_axis_mean",
+                          "FS_spin_axis_std", "FS_zones"], axis=1)
+
     return merged
 
 
@@ -191,9 +248,10 @@ def main():
     movement, active_spin = map_player_ids(movement, active_spin)
     pitcher = agg_pitchers(pitcher, pitches)
     movement = agg_movement(movement, pitches)
-
-    cache(percentile_ranks, active_spin, movement, pitcher)
     merged = merge(percentile_ranks, active_spin, movement, pitcher)
+
+    # with open(join("learning", "combined.pkl"), "rb") as f:
+    #     merged = pickle.load(f)
 
     merged = clean_all(merged, pitches)
 
