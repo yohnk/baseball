@@ -1,11 +1,13 @@
 import pickle
 from os.path import join
 import pandas as pd
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import PowerTransformer
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
-
+from xgboost import XGBClassifier
 from learning.MLP import MLPClassWrapper
 
 
@@ -37,42 +39,64 @@ def main():
     }
 
     for tile in bins:
-        master_df[tile] = pd.qcut(master_df['xwoba'], bins[tile], labels=False)
+        master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
 
-    x = master_df[['FF_release_spin_rate_mean', 'FF_release_spin_rate_std', 'FF_effective_speed_mean',
-                       'FF_effective_speed_std', 'FF_spin_axis_mean', 'FF_spin_axis_std', 'FF_active_spin',
-                       'SL_release_spin_rate_mean', 'SL_release_spin_rate_std', 'SL_effective_speed_mean',
-                       'SL_effective_speed_std', 'SL_spin_axis_mean', 'SL_spin_axis_std', 'SL_active_spin',
-                       'CUKC_release_spin_rate_mean', 'CUKC_release_spin_rate_std', 'CUKC_effective_speed_mean',
-                       'CUKC_effective_speed_std', 'CUKC_spin_axis_mean', 'CUKC_spin_axis_std', 'CUKC_active_spin',
-                       'CH_release_spin_rate_mean', 'CH_release_spin_rate_std', 'CH_effective_speed_mean',
-                       'CH_effective_speed_std', 'CH_spin_axis_mean', 'CH_spin_axis_std', 'CH_active_spin',
-                       'SIFT_release_spin_rate_mean', 'SIFT_release_spin_rate_std', 'SIFT_effective_speed_mean',
-                       'SIFT_effective_speed_std', 'SIFT_spin_axis_mean', 'SIFT_spin_axis_std', 'SIFT_active_spin',
-                       'FC_release_spin_rate_mean', 'FC_release_spin_rate_std', 'FC_effective_speed_mean',
-                       'FC_effective_speed_std', 'FC_spin_axis_mean', 'FC_spin_axis_std', 'FC_active_spin']].fillna(0)
-
+    columns = ['FF_effective_speed_mean', 'CUKC_pfx_z_mean', 'CUKC_spin_axis_std', 'CH_spin_axis_mean',
+               'FF_pitcher_break_z', 'SIFT_effective_speed_mean', 'FF_effective_speed_std',
+               'CH_release_spin_rate_mean', 'CH_pfx_z_mean', 'SIFT_pfx_x_std', 'CUKC_release_speed_mean',
+               'FF_pfx_x_mean', 'CUKC_pfx_x_std', 'FC_pitcher_break_z', 'CH_spin_axis_std', 'FF_spin_axis_std',
+               'CUKC_spin_axis_mean', 'CUKC_release_spin_rate_std', 'SL_spin_axis_mean', 'SIFT_pfx_x_mean',
+               'SL_effective_speed_mean', 'CUKC_effective_speed_mean', 'FC_tail', 'FC_release_spin_rate_std',
+               'SL_rise']
+    x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
     y = master_df['quintile']
 
     print(len(y))
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
 
+    max_features_list = [None, "sqrt", "log2"]
+    max_features_list.extend(list(irange(start=10, end=20, step=2)))
+
+    ada_boost_est = [
+        # DecisionTreeClassifier(max_depth=1),
+        DecisionTreeClassifier(max_depth=5),
+        # DecisionTreeClassifier(max_depth=10),
+        # DecisionTreeClassifier(max_depth=20),
+        KNeighborsClassifier(n_neighbors=2, weights="distance"),
+        # KNeighborsClassifier(n_neighbors=5, weights="distance"),
+        # KNeighborsClassifier(n_neighbors=10, weights="distance"),
+        MLPClassWrapper(hidden_layer_dimension=4, hidden_layer_value=10, learning_rate="invscaling", learning_rate_init=0.009),
+        # MLPClassWrapper(hidden_layer_dimension=4, hidden_layer_value=20, learning_rate="invscaling", learning_rate_init=0.009),
+        # MLPClassWrapper(hidden_layer_dimension=6, hidden_layer_value=10, learning_rate="invscaling", learning_rate_init=0.009),
+        # MLPClassWrapper(hidden_layer_dimension=6, hidden_layer_value=20, learning_rate="invscaling", learning_rate_init=0.009),
+    ]
+
     learners = [
         (DecisionTreeClassifier(),
-         {"max_features": ("sqrt", "log2", None), "criterion": ("gini", "entropy", "log_loss"), "ccp_alpha": frange(),
+         {"max_features": max_features_list, "criterion": ("gini", "entropy", "log_loss"), "ccp_alpha": frange(),
           "max_depth": irange(1, 100, 10), "splitter": ("best", "random")}),
-        (KNeighborsClassifier(), {"n_neighbors": irange(10, 50, 5), "weights": ('uniform', 'distance'), }),
-        (MLPClassWrapper(), {"hidden_layer_dimension": irange(1, 50, 5), "hidden_layer_value": irange(1, 50, 5),
-                             "alpha": frange(0.0, 0.001, 0.0001),
-                             "learning_rate": ('constant', 'invscaling', 'adaptive'),
-                             "learning_rate_init": frange(0.001, 0.01, 0.001),
-                             "max_iter": [1000]
-                             }),
 
-        (SVC(), {"kernel": ['poly'], "degree": irange(start=1, end=10, step=1)}),
-        # "decision_tree_class": (xgb.XGBClassifier, precision_score, {"average": 'micro'}),
-        # (AdaBoostClassifier(), )
+        (KNeighborsClassifier(),
+         {"n_neighbors": irange(10, 50, 5), "weights": ('uniform', 'distance'), }),
+
+        (XGBClassifier(),
+         {"max_depth": irange(1, 100, 10), "grow_policy": ["depthwise", "lossguide"], "alpha": frange()}),
+
+
+        (MLPClassWrapper(),
+         {"hidden_layer_dimension": irange(1, 50, 5), "hidden_layer_value": irange(1, 50, 5),
+          "alpha": frange(0.0, 0.001, 0.0001),
+          "learning_rate": ('constant', 'invscaling', 'adaptive'),
+          "learning_rate_init": frange(0.001, 0.1, 0.01),
+          "max_iter": [1000]
+          }),
+
+        (AdaBoostClassifier(),
+         {"n_estimators": irange(1, 100, 5), "learning_rate": frange(0.1, 2.0, 0.1), "base_estimator": ada_boost_est}),
+
+        (SVC(), {"C": frange(start=0.1, end=2.0, step=0.2), "gamma": ['scale', 'auto'],
+                 "kernel": ['linear', 'poly', 'rbf', 'sigmoid']}),
     ]
 
     for learner, search_param in learners:
