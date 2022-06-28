@@ -3,7 +3,7 @@ import pickle
 from logging_config import log
 import pandas as pd
 import numpy as np
-from pybaseball import playerid_lookup
+from pybaseball import playerid_lookup, chadwick_register
 
 START_YEAR = 2016
 #https://statsapi.mlb.com/api/v1/pitchTypes
@@ -20,12 +20,15 @@ def load_dataframes():
     with open(join("data", "build", "statcast_pitcher_pitch_movement.pkl"), "rb") as f:
         movement = pickle.load(f)
         movement = movement[movement.year >= START_YEAR]
+    with open(join("data", "build", "FangraphsDataTable.fetch.pkl"), "rb") as f:
+        fangraph = pickle.load(f)
+        fangraph = fangraph[fangraph.year >= START_YEAR]
     with open(join("data", "build", "statcast_pitcher.pkl"), "rb") as f:
         pitcher = pickle.load(f)
         pitcher = pitcher[pitcher.year >= START_YEAR]
         pitcher = pitcher.dropna(subset=["pitch_type"])
     log.info("Dataframes loaded")
-    return percentile_ranks, active_spin, movement, pitcher
+    return percentile_ranks, active_spin, movement, pitcher, fangraph
 
 
 def clean_pitches(pitcher):
@@ -46,6 +49,7 @@ def lefty(pitcher):
     # The spin axis for left-handed pitchers is mirrored across the 12-6 (360-180) axis.
     log.info("Flipping L to R")
     pitcher.loc[pitcher.p_throws == "L", "spin_axis"] = (pitcher.loc[pitcher.p_throws == "L", "spin_axis"] - 360).abs()
+    pitcher.loc[pitcher.p_throws == "L", "pfx_x"] = pitcher.loc[pitcher.p_throws == "L", "pfx_x"] * -1
     return pitcher
 
 
@@ -103,11 +107,21 @@ def map_player_ids(movement, active_spin):
     return movement, active_spin
 
 
+def map_fangraph_id(fangraph):
+    log.info("Merging fangraphs data")
+    chad = chadwick_register()
+    chad_columns = list(chad.columns)
+    chad_columns.remove("key_mlbam")
+    fangraph = pd.merge(left=chad, right=fangraph, left_on="key_fangraphs", right_on="IDfg")
+    fangraph = fangraph.drop(chad_columns, axis=1)
+    return fangraph.rename(columns={"key_mlbam": "player_id"})
+
+
 def agg_pitchers(pitcher, pitches):
 
     # Roll up the pitch-by-pitch data in the pitcher table into aggregated statistics
     log.info("Aggregating stats for pitcher table")
-    to_keep = ["release_spin_rate", "effective_speed", "spin_axis"]
+    to_keep = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z"]
     pitcher = pitcher.dropna(subset=to_keep)
 
     # Map zones to "strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"
@@ -138,7 +152,8 @@ def agg_pitchers(pitcher, pitches):
         for column in to_keep:
             columns.append(pitch + "_" + column + "_mean")
             columns.append(pitch + "_" + column + "_std")
-        columns.append(pitch + "_zones")
+        for zone in merged_zones:
+            columns.append(pitch + "_" + zone)
 
     rows = []
     for player_id in pd.unique(pitcher.pitcher):
@@ -153,17 +168,14 @@ def agg_pitchers(pitcher, pitches):
                         row.append(np.mean(player_pitch[column]))
                         row.append(np.std(player_pitch[column]))
                     zone_count = player_pitch['merged_zone'].value_counts()
-                    zones = []
                     for merged_zone in merged_zones:
                         if merged_zone in zone_count:
-                            zones.append(zone_count[merged_zone] / len(player_pitch))
+                            row.append(zone_count[merged_zone] / len(player_pitch))
                         else:
-                            zones.append(0.0)
-                    row.append(zones)
+                            row.append(0.0)
                 else:
                     row.extend([np.nan] * (len(to_keep) * 2))
-                    row.append([np.nan] * len(merged_zones))
-
+                    row.extend([np.nan] * len(merged_zones))
             rows.append(row)
 
     log.info("Creating aggregated dataframe")
@@ -211,18 +223,21 @@ def cache(percentile_ranks, active_spin, movement, pitcher):
             pickle.dump(df, f)
 
 
-def merge(percentile_ranks, active_spin, movement, pitcher):
+def merge(percentile_ranks, active_spin, movement, pitcher, fangraph):
     log.info("Merging dataframes")
     merged = pd.merge(pitcher, active_spin, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
+
     # The movement table seems to be missing data that we get from the pitchers table.
     # Keeping it around would require us to fill in that missing data and I don't think it's worthwhile.
-    # merged = pd.merge(merged, movement, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
-    return pd.merge(merged, percentile_ranks, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
+    merged = pd.merge(merged, movement, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
+
+    merged = pd.merge(merged, percentile_ranks, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
+    return pd.merge(merged, fangraph, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
 
 
 def clean_all(merged, pitches):
     # We're using xwoba as a metric, so if it's nan lets drop it now
-    required = ["xwoba"]
+    required = ["xFIP", "FIP", "xwoba"]
     merged = merged.dropna(subset=required)
 
     # There are some rows where the "pitchers" table has values but the "active_spin" table doesn't.
@@ -232,23 +247,27 @@ def clean_all(merged, pitches):
         merged = merged[(~pd.isnull(merged[pitch + "_active_spin"]) & ~pd.isnull(merged[pitch + "_effective_speed_mean"])) | (pd.isnull(merged[pitch + "_active_spin"]) & pd.isnull(merged[pitch + "_effective_speed_mean"]))]
 
     # Above knocks out all the "FS" pitches
-    merged = merged.drop(["FS_active_spin", "FS_effective_speed_mean", "FS_effective_speed_std",
-                          "FS_release_spin_rate_mean", "FS_release_spin_rate_std", "FS_spin_axis_mean",
-                          "FS_spin_axis_std", "FS_zones"], axis=1)
+    to_drop = []
+    for column in merged.columns:
+        if column.startswith("FS_"):
+            to_drop.append(column)
+
+    merged = merged.drop(column, axis=1)
 
     return merged
 
 
 def main():
-    percentile_ranks, active_spin, movement, pitcher = load_dataframes()
+    percentile_ranks, active_spin, movement, pitcher, fangraph = load_dataframes()
     pitcher = clean_pitches(pitcher)
     pitches = pd.unique(pitcher.pitch_type)
     pitcher = lefty(pitcher)
     active_spin = rename_spin(active_spin)
+    fangraph = map_fangraph_id(fangraph)
     movement, active_spin = map_player_ids(movement, active_spin)
     pitcher = agg_pitchers(pitcher, pitches)
     movement = agg_movement(movement, pitches)
-    merged = merge(percentile_ranks, active_spin, movement, pitcher)
+    merged = merge(percentile_ranks, active_spin, movement, pitcher, fangraph)
 
     # with open(join("learning", "combined.pkl"), "rb") as f:
     #     merged = pickle.load(f)

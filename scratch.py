@@ -36,16 +36,26 @@
 
 import pickle
 
+import numpy as np
 import pandas as pd
 from numpy import count_nonzero
+from pybaseball import chadwick_register
 
-with open("learning/combined.pkl", "rb") as f:
-    df = pickle.load(f)
+with open("data/build/statcast_pitcher.pkl", "rb") as f:
+    pitcher = pickle.load(f)
 
-print(len(df))
 
-columns = list(df.columns)
+print("Lefty Mean", np.mean(pitcher.loc[pitcher.p_throws == "L", "pfx_z"]))
+print("Righty Mean", np.mean(pitcher.loc[pitcher.p_throws == "R", "pfx_z"]))
 
-for column in sorted(columns):
-    series = df[column]
-    print(column, count_nonzero(series.isna()) / series.size)
+# chad = chadwick_register()
+#
+# pd.merge(left=chad, right=df, left_on="key_fangraphs", right_on="IDfg")
+#
+# print(len(df))
+#
+# columns = list(df.columns)
+#
+# for column in sorted(columns):
+#     series = df[column]
+#     print(column, count_nonzero(series.isna()) / series.size)

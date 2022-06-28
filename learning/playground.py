@@ -6,7 +6,9 @@ import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import RFECV
 from sklearn.metrics import make_scorer, accuracy_score
-from sklearn.model_selection import cross_validate
+from sklearn.model_selection import cross_validate, train_test_split
+from sklearn.preprocessing import RobustScaler, Normalizer, MaxAbsScaler, MinMaxScaler, PowerTransformer, \
+    QuantileTransformer, SplineTransformer, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
 from learning.MLP import MLPClassWrapper
@@ -15,7 +17,7 @@ from learning.MLP import MLPClassWrapper
 def main():
     with open(join("learning", "combined.pkl"), "rb") as f:
         master_df = pickle.load(f)
-        print(master_df.columns)
+        print(list(master_df.columns))
 
     bins = {
         "docile": 2,
@@ -30,37 +32,73 @@ def main():
     }
 
     for tile in bins:
-        master_df[tile] = pd.qcut(master_df['xwoba'], bins[tile], labels=False)
+        master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
 
-    x = master_df[['FF_release_spin_rate_mean', 'FF_effective_speed_mean', 'FF_spin_axis_mean', 'FF_active_spin',
-                   "FF_zones",
-                   # 'FF_strike_high', 'FF_strike_middle', 'FF_strike_low', 'FF_ball_high', 'FF_ball_low',
-                   'SL_release_spin_rate_mean', 'SL_effective_speed_mean', 'SL_spin_axis_mean', 'SL_active_spin',
-                   "SL_zones",
-                   # 'SL_strike_high', 'SL_strike_middle', 'SL_strike_low', 'SL_ball_high', 'SL_ball_low',
-                   'CUKC_release_spin_rate_mean', 'CUKC_effective_speed_mean', 'CUKC_spin_axis_mean', 'CUKC_active_spin',
-                   "CUKC_zones",
-                   # 'CUKC_strike_high', 'CUKC_strike_middle', 'CUKC_strike_low', 'CUKC_ball_high', 'CUKC_ball_low',
-                   'CH_release_spin_rate_mean', 'CH_effective_speed_mean', 'CH_spin_axis_mean', 'CH_active_spin',
-                   "CH_zones",
-                   # 'CH_strike_high', 'CH_strike_middle', 'CH_strike_low', 'CH_ball_high', 'CH_ball_low',
-                   'SIFT_release_spin_rate_mean', 'SIFT_effective_speed_mean', 'SIFT_spin_axis_mean', 'SIFT_active_spin',
-                   "SIFT_zones",
-                   # 'SIFT_strike_high', 'SIFT_strike_middle', 'SIFT_strike_low', 'SIFT_ball_high', 'SIFT_ball_low',
-                   'FC_release_spin_rate_mean', 'FC_effective_speed_mean', 'FC_spin_axis_mean', 'FC_active_spin',
-                   "FC_zones"
-                   # 'FC_strike_high', 'FC_strike_middle', 'FC_strike_low', 'FC_ball_high', 'FC_ball_low'
-                   ]].fillna(0)
+    suffixed_columns = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z"]
+    base_columns = ["pitcher_break_z", "pitcher_break_x", "rise", "tail"]
+    suffixes = ["mean", "std"]
+    pitches = ["FF", "SL", "CUKC", "CH", "SIFT", "FC"]
 
-    y = master_df['docile']
+    columns = []
+    for pitch in pitches:
+        for sc in suffixed_columns:
+            for suffix in suffixes:
+                columns.append(pitch + "_" + sc + "_" + suffix)
+        for bc in base_columns:
+            columns.append(pitch + "_" + bc)
 
-    learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
-    scores = cross_validate(learner, x, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
-    print(np.mean(scores["test_score"]))
+    for c in columns:
+        if c not in master_df.columns:
+            print("Missing", c)
 
-    selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5)
-    selector = selector.fit(x, y)
-    print(max(selector.cv_results_["mean_test_score"]))
+
+    x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
+    y = master_df['quintile']
+
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
+
+
+    # learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
+    # scores = cross_validate(learner, x, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
+    # print(np.mean(scores["test_score"]))
+
+    RFECV_results = []
+    for i in range(50):
+        selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5)
+        selector = selector.fit(X_train, y_train)
+        m = max(selector.cv_results_["mean_test_score"])
+        print(i, m)
+        RFECV_results.append((m, selector.feature_names_in_[selector.support_]))
+
+    c_results = {}
+    for column in columns:
+        c_score = 0
+        for score, features in RFECV_results:
+            if column in features:
+                c_score += score
+        c_results[column] = c_score / len(RFECV_results)
+
+    marklist = sorted(c_results.items(), key=lambda x: x[1], reverse=True)
+    sortdict = dict(marklist)
+    print(sortdict)
+
+    accuracies = []
+    s_columns = []
+    max_idx = -1
+    max_acc = 0
+    for i, key in enumerate(sortdict):
+        s_columns.append(key)
+        learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
+        learner.fit(X_train[s_columns], y_train)
+        acc = accuracy_score(y_test, learner.predict(X_test[s_columns]))
+        if acc > max_acc:
+            max_acc = acc
+            max_idx = i
+        accuracies.append(acc)
+
+    print(max_idx)
+    print(s_columns[:25])
+    # print()
 
     # for i in range(1, len(x.columns) + 1):
     #     pca = PCA(n_components=i)
