@@ -11,8 +11,6 @@ from sklearn.preprocessing import RobustScaler, Normalizer, MaxAbsScaler, MinMax
     QuantileTransformer, SplineTransformer, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
-from learning.MLP import MLPClassWrapper
-
 
 def main():
     with open(join("learning", "combined.pkl"), "rb") as f:
@@ -55,15 +53,13 @@ def main():
     x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
     y = master_df['quintile']
 
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
-
-
     # learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
     # scores = cross_validate(learner, x, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
     # print(np.mean(scores["test_score"]))
 
     RFECV_results = []
-    for i in range(25):
+    for i in range(50):
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
         selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5)
         selector = selector.fit(X_train, y_train)
         m = max(selector.cv_results_["mean_test_score"])
@@ -80,25 +76,33 @@ def main():
 
     marklist = sorted(c_results.items(), key=lambda x: x[1], reverse=True)
     sortdict = dict(marklist)
+
+    total = sum(sortdict.values())
+
+    for key in sortdict:
+        sortdict[key] = sortdict[key] / total
+
     print(sortdict)
 
-    accuracies = []
-    s_columns = []
-    max_idx = -1
-    max_acc = 0
-    for i, key in enumerate(sortdict):
-        s_columns.append(key)
-        learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
-        learner.fit(X_train[s_columns], y_train)
-        acc = accuracy_score(y_test, learner.predict(X_test[s_columns]))
-        if acc > max_acc:
-            max_acc = acc
-            max_idx = i
-        accuracies.append(acc)
+    accuracies = np.array([0.0] * len(sortdict), dtype=float)
 
-    print(max_idx)
-    print(max_acc)
-    print(s_columns[:25])
+    for k in range(5):
+        print(k)
+        s_columns = []
+        for i, key in enumerate(sortdict):
+            s_columns.append(key)
+            total_acc = []
+            for _ in range(5):
+                X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
+                learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
+                learner.fit(X_train[s_columns], y_train)
+                total_acc.append(accuracy_score(y_test, learner.predict(X_test[s_columns])))
+            accuracies[i] += (sum(total_acc) / len(total_acc))
+
+    accuracies /= 5
+
+    print("col", s_columns)
+    print("acc", list(accuracies))
     # print()
 
     # for i in range(1, len(x.columns) + 1):
