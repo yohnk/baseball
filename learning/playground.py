@@ -34,8 +34,8 @@ def main():
     for tile in bins:
         master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
 
-    suffixed_columns = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z"]
-    base_columns = ["pitcher_break_z", "pitcher_break_x", "rise", "tail"]
+    suffixed_columns = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z", "plate_x", "plate_z"]
+    # strike_zone = ["strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"]
     suffixes = ["mean", "std"]
     pitches = ["FF", "SL", "CUKC", "CH", "SIFT", "FC"]
 
@@ -44,8 +44,8 @@ def main():
         for sc in suffixed_columns:
             for suffix in suffixes:
                 columns.append(pitch + "_" + sc + "_" + suffix)
-        for bc in base_columns:
-            columns.append(pitch + "_" + bc)
+        # for sz in strike_zone:
+        #     columns.append(pitch + "_" + sz)
 
     for c in columns:
         if c not in master_df.columns:
@@ -63,7 +63,7 @@ def main():
     # print(np.mean(scores["test_score"]))
 
     RFECV_results = []
-    for i in range(50):
+    for i in range(25):
         selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5)
         selector = selector.fit(X_train, y_train)
         m = max(selector.cv_results_["mean_test_score"])
@@ -97,6 +97,7 @@ def main():
         accuracies.append(acc)
 
     print(max_idx)
+    print(max_acc)
     print(s_columns[:25])
     # print()
 

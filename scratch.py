@@ -44,9 +44,11 @@ from pybaseball import chadwick_register
 with open("data/build/statcast_pitcher.pkl", "rb") as f:
     pitcher = pickle.load(f)
 
+lefty = pitcher[pitcher.p_throws == "L"]
+righty = pitcher[pitcher.p_throws == "R"]
 
-print("Lefty Mean", np.mean(pitcher.loc[pitcher.p_throws == "L", "pfx_z"]))
-print("Righty Mean", np.mean(pitcher.loc[pitcher.p_throws == "R", "pfx_z"]))
+print("Lefty Mean", np.mean(lefty.loc[lefty.pitch_type == "FC", "plate_x"]))
+print("Righty Mean", np.mean(righty.loc[righty.pitch_type == "FC", "plate_x"]))
 
 # chad = chadwick_register()
 #
