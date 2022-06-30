@@ -35,20 +35,21 @@
 #     decomp(file)
 
 import pickle
+from os.path import join
 
 import numpy as np
 import pandas as pd
 from numpy import count_nonzero
 from pybaseball import chadwick_register
 
-with open("data/build/statcast_pitcher.pkl", "rb") as f:
-    pitcher = pickle.load(f)
-
-lefty = pitcher[pitcher.p_throws == "L"]
-righty = pitcher[pitcher.p_throws == "R"]
-
-print("Lefty Mean", np.mean(lefty.loc[lefty.pitch_type == "FC", "plate_x"]))
-print("Righty Mean", np.mean(righty.loc[righty.pitch_type == "FC", "plate_x"]))
+# with open("data/build/statcast_pitcher.pkl", "rb") as f:
+#     pitcher = pickle.load(f)
+#
+# lefty = pitcher[pitcher.p_throws == "L"]
+# righty = pitcher[pitcher.p_throws == "R"]
+#
+# print("Lefty Mean", np.mean(lefty.loc[lefty.pitch_type == "FC", "plate_x"]))
+# print("Righty Mean", np.mean(righty.loc[righty.pitch_type == "FC", "plate_x"]))
 
 # chad = chadwick_register()
 #
@@ -61,3 +62,27 @@ print("Righty Mean", np.mean(righty.loc[righty.pitch_type == "FC", "plate_x"]))
 # for column in sorted(columns):
 #     series = df[column]
 #     print(column, count_nonzero(series.isna()) / series.size)
+
+with open(join("learning", "combined.pkl"), "rb") as f:
+    master_df = pickle.load(f)
+
+bins = {
+    "docile": 2,
+    "tercile": 3,
+    "quartile": 4,
+    "quintile": 5,
+    "sextile": 6,
+    "septile": 7,
+    "octile": 8,
+    "nonile": 9,
+    "decile": 10
+}
+
+for tile in bins:
+    master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
+
+top = master_df[master_df.tercile == 2]['xFIP']
+mid = master_df[master_df.tercile == 1]['xFIP']
+bottom = master_df[master_df.tercile == 0]['xFIP']
+
+print()

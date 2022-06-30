@@ -7,6 +7,8 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from collections import defaultdict
 
+from sklearn.utils.validation import check_is_fitted
+
 
 class MLPClassWrapper(MLPClassifier):
 
@@ -151,10 +153,11 @@ class BaseAdaBoost(AdaBoostClassifier):
 
 class DTAdaBoost(BaseAdaBoost):
 
-    def __init__(self, criterion="gini", splitter="best", max_depth=None, min_samples_split=2, min_samples_leaf=1,
-                 min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None,
-                 min_impurity_decrease=0.0, class_weight=None, ccp_alpha=0.0, n_estimators=50, learning_rate=1.0,
+    def __init__(self, criterion="gini", splitter="best", max_depth=20, min_samples_split=20, min_samples_leaf=3,
+                 min_weight_fraction_leaf=0.0, max_features=10, random_state=None, max_leaf_nodes=300,
+                 min_impurity_decrease=0.0, class_weight=None, ccp_alpha=0.01, n_estimators=50, learning_rate=0.3,
                  algorithm="SAMME.R"):
+
         self.c_base_estimator = DecisionTreeClassifier(criterion=criterion, splitter=splitter, max_depth=max_depth,
                                                        min_samples_split=min_samples_split,
                                                        min_samples_leaf=min_samples_leaf,
@@ -170,7 +173,7 @@ class DTAdaBoost(BaseAdaBoost):
 
 class SVCAdaBoost(BaseAdaBoost):
 
-    def __init__(self, n_estimators=50, learning_rate=1.0, algorithm="SAMME.R", random_state=None, C=1.0, kernel="rbf",
+    def __init__(self, n_estimators=50, learning_rate=1.0, algorithm="SAMME", random_state=None, C=1.0, kernel="rbf",
                  degree=3, gamma="scale", coef0=0.0, shrinking=True, probability=False, tol=1e-3, cache_size=200,
                  class_weight=None, verbose=False, max_iter=-1, decision_function_shape="ovr", break_ties=False):
         self.c_base_estimator = SVC(C=C, kernel=kernel, degree=degree, gamma=gamma, coef0=coef0, shrinking=shrinking,
@@ -181,25 +184,47 @@ class SVCAdaBoost(BaseAdaBoost):
                          algorithm=algorithm, random_state=random_state)
 
 
-class VotingAdaBoost(BaseAdaBoost):
+class MSDVotingClassifier(VotingClassifier):
 
-    def __init__(self, n_estimators=10, learning_rate=0.2, algorithm="SAMME.R", random_state=None, mlp_w=1., svc_w=1., dt_w=1.):
+    def __init__(self, voting="soft", n_jobs=-1, flatten_transform=True, verbose=False, mlp_w=1., svc_w=1., dt_w=1.):
 
         self.voting_estimators = [
             ("MLPClassWrapper",
-             MLPClassWrapper(hidden_layer_dimension=2, hidden_layer_value=3, activation="logistic", solver="adam",
-                             alpha=0.0001, learning_rate="adaptive", learning_rate_init=0.0015)),
-            ("SVC", SVC(C=4.0, kernel="linear", gamma="scale", probability=True, tol=0.0008)),
+             MLPClassWrapper(hidden_layer_dimension=13, hidden_layer_value=5, activation="logistic", solver="adam",
+                             alpha=0.001, learning_rate="adaptive", learning_rate_init=0.0025)),
+            ("SVC", SVC(C=0.4, kernel="linear", gamma="scale", probability=True, tol=0.0008)),
             ("DecisionTreeClassifier",
-             DecisionTreeClassifier(criterion="log_loss", splitter="best", max_depth=10, min_samples_split=20,
-                                    min_samples_leaf=3, max_features=20, max_leaf_nodes=350, ccp_alpha=0.005))
+             DecisionTreeClassifier(criterion="gini", splitter="best", max_depth=20, min_samples_split=20,
+                                    min_samples_leaf=3, max_features=10, max_leaf_nodes=300, ccp_alpha=0.01))
         ]
 
         self.mlp_w = mlp_w
         self.svc_w = svc_w
         self.dt_w = dt_w
+
+        super().__init__(estimators=self.voting_estimators, voting=voting, weights=(mlp_w, svc_w, dt_w), n_jobs=n_jobs, flatten_transform=flatten_transform, verbose=verbose)
+
+
+class VotingAdaBoost(BaseAdaBoost):
+
+    def __init__(self, n_estimators=50, learning_rate=0.3, algorithm="SAMME.R", random_state=None, mlp_w=1., svc_w=1.,
+                 dt_w=1.5):
+        self.voting_estimators = [
+            ("MLPClassWrapper",
+             MLPClassWrapper(hidden_layer_dimension=13, hidden_layer_value=5, activation="logistic", solver="adam",
+                             alpha=0.001, learning_rate="adaptive", learning_rate_init=0.0025)),
+            ("SVC", SVC(C=0.4, kernel="linear", gamma="scale", probability=True, tol=0.0008)),
+            ("DecisionTreeClassifier",
+             DecisionTreeClassifier(criterion="gini", splitter="best", max_depth=20, min_samples_split=20,
+                                    min_samples_leaf=3, max_features=10, max_leaf_nodes=300, ccp_alpha=0.01))
+        ]
+
+        self.mlp_w = mlp_w
+        self.svc_w = svc_w
+        self.dt_w = dt_w
+        self.weights = [mlp_w, svc_w, dt_w]
         self.c_base_estimator = VotingClassifier(estimators=self.voting_estimators, voting="soft",
-                                               weights=(mlp_w, svc_w, dt_w))
+                                                 weights=(mlp_w, svc_w, dt_w), n_jobs=-1)
 
         super().__init__(base_estimator=self.c_base_estimator, n_estimators=n_estimators, learning_rate=learning_rate,
                          algorithm=algorithm, random_state=random_state)

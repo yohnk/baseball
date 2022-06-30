@@ -3,9 +3,11 @@ from os.path import join
 
 import numpy as np
 import pandas as pd
+import sklearn
 from sklearn.decomposition import PCA
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.feature_selection import RFECV
-from sklearn.metrics import make_scorer, accuracy_score
+from sklearn.metrics import make_scorer, accuracy_score, mean_squared_error, f1_score
 from sklearn.model_selection import cross_validate, train_test_split
 from sklearn.preprocessing import RobustScaler, Normalizer, MaxAbsScaler, MinMaxScaler, PowerTransformer, \
     QuantileTransformer, SplineTransformer, StandardScaler
@@ -51,16 +53,18 @@ def main():
 
 
     x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
-    y = master_df['quintile']
+    y = master_df['tercile']
 
     # learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
     # scores = cross_validate(learner, x, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
     # print(np.mean(scores["test_score"]))
 
+    print(sklearn.metrics.get_scorer_names())
+
     RFECV_results = []
-    for i in range(50):
+    for i in range(200):
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
-        selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5)
+        selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5, scoring="f1_micro")
         selector = selector.fit(X_train, y_train)
         m = max(selector.cv_results_["mean_test_score"])
         print(i, m)
@@ -84,26 +88,36 @@ def main():
 
     print(sortdict)
 
-    accuracies = np.array([0.0] * len(sortdict), dtype=float)
+    all_scores = []
+    best_score = -float("inf")
+    best_idx = -1
 
-    for k in range(5):
-        print(k)
-        s_columns = []
-        for i, key in enumerate(sortdict):
-            s_columns.append(key)
-            total_acc = []
-            for _ in range(5):
-                X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
-                learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
-                learner.fit(X_train[s_columns], y_train)
-                total_acc.append(accuracy_score(y_test, learner.predict(X_test[s_columns])))
-            accuracies[i] += (sum(total_acc) / len(total_acc))
+    s_columns = []
+    for i, key in enumerate(sortdict):
+        s_columns.append(key)
+        total_score = []
+        for _ in range(50):
+            X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
+            learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
+            learner.fit(X_train[s_columns], y_train)
+            total_score.append(f1_score(y_test, learner.predict(X_test[s_columns]), average="micro"))
+        avg_score = sum(total_score) / len(total_score)
+        all_scores.append(avg_score)
+        if avg_score > best_score:
+            best_score = avg_score
+            best_idx = i
 
-    accuracies /= 5
+    improvement = [0]
 
+    for i in range(1, len(all_scores)):
+        avg_score = sum(all_scores[:i]) / i
+        improvement.append(all_scores[i] - avg_score)
+
+    print("Bests", best_score, best_idx)
+    print("Best Cols", s_columns[:best_idx + 1])
     print("col", s_columns)
-    print("acc", list(accuracies))
-    # print()
+    print("mse", avg_score)
+    print("improvement", improvement)
 
     # for i in range(1, len(x.columns) + 1):
     #     pca = PCA(n_components=i)
