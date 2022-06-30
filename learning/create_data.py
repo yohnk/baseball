@@ -23,7 +23,7 @@ def load_dataframes():
     with open(join("data", "build", "FangraphsDataTable.fetch.pkl"), "rb") as f:
         fangraph = pickle.load(f)
         fangraph = fangraph[fangraph.year >= START_YEAR]
-        fangraph = fangraph[["xFIP", "FIP", "IDfg", "year"]]
+        # fangraph = fangraph[["xFIP", "FIP", "IDfg", "year"]]
     with open(join("data", "build", "statcast_pitcher.pkl"), "rb") as f:
         pitcher = pickle.load(f)
         pitcher = pitcher[pitcher.year >= START_YEAR]
@@ -237,7 +237,7 @@ def merge(pitcher, fangraph):
     return pd.merge(pitcher, fangraph, left_on=['player_id', 'year'], right_on=['player_id', 'year'])
 
 
-def clean_all(merged, pitches):
+def clean(merged):
     # We're using xwoba as a metric, so if it's nan lets drop it now
     required = ["xFIP", "FIP"]
     merged = merged.dropna(subset=required)
@@ -259,6 +259,12 @@ def clean_all(merged, pitches):
     return merged
 
 
+def split(merged):
+    x_columns = []
+    y_columns = []
+    return None
+
+
 def main():
     pitcher, fangraph = load_dataframes()
     pitcher = clean_pitches(pitcher)
@@ -270,14 +276,12 @@ def main():
     pitcher = agg_pitchers(pitcher, pitches)
     # movement = agg_movement(movement, pitches)
     merged = merge(pitcher, fangraph)
+    merged = clean(merged)
 
-    # with open(join("learning", "combined.pkl"), "rb") as f:
-    #     merged = pickle.load(f)
-
-    merged = clean_all(merged, pitches)
+    tmp = split(merged)
 
     log.info("Saving dataframe")
-    with open(join("learning", "combined.pkl"), "wb") as f:
+    with open(join("learning", "build", "build/combined.pkl"), "wb") as f:
         pickle.dump(merged, f)
 
 

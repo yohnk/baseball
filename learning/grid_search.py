@@ -32,7 +32,7 @@ def irange(start=0, end=10, step=1):
 
 
 def main():
-    with open(join("learning", "combined.pkl"), "rb") as f:
+    with open(join("learning", "build/combined.pkl"), "rb") as f:
         master_df = pickle.load(f)
 
     bins = {

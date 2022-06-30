@@ -3,19 +3,92 @@ from os.path import join
 
 import numpy as np
 import pandas as pd
-import sklearn
-from sklearn.decomposition import PCA
-from sklearn.ensemble import AdaBoostClassifier
 from sklearn.feature_selection import RFECV
-from sklearn.metrics import make_scorer, accuracy_score, mean_squared_error, f1_score
-from sklearn.model_selection import cross_validate, train_test_split
-from sklearn.preprocessing import RobustScaler, Normalizer, MaxAbsScaler, MinMaxScaler, PowerTransformer, \
-    QuantileTransformer, SplineTransformer, StandardScaler
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import make_scorer, mean_squared_error
+from sklearn.model_selection import cross_validate
+from sklearn.preprocessing import PowerTransformer
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+
+from logging_config import log
+
+
+def importance(x, y, classification=True, estimators=[], scoring=None,
+               rfe_max_iter=1000, rfe_min_iter=10, rfe_thresh=0.1,
+               est_max_iter=100, est_min_iter=3, est_thresh=0.01,
+               n_jobs=-1, cv=3):
+    if estimators is None or len(estimators) == 0:
+        if classification:
+            estimators = [DecisionTreeClassifier()]
+        else:
+            estimators = [DecisionTreeRegressor()]
+
+    if scoring is None:
+        if classification:
+            scoring = "f1_weighted"
+        else:
+            # We want a scorer where 0 is the worst, inf is the best
+            def regression_scorer(y_true, y_pred):
+                mse = mean_squared_error(y_true, y_pred)
+                try:
+                    return 1 / mse
+                except ZeroDivisionError:
+                    return float("inf")
+
+            scoring = make_scorer(regression_scorer)
+
+    scores = np.zeros(x.shape[1], dtype=float)
+
+    # Keep running the data through RFECV until we hit max iterations or the change is below a threshold
+    log.info("RFECV")
+    for i in range(1, rfe_max_iter + 1):
+        tmp_scores = np.zeros(scores.shape, dtype=float)
+        for e in estimators:
+            selector = RFECV(estimator=e, scoring=scoring, n_jobs=n_jobs, cv=cv)
+            selector.fit(x, y)
+            best_score = max(selector.cv_results_["mean_test_score"])
+            tmp_scores[selector.support_] += best_score
+        tmp_scores = tmp_scores / len(estimators)
+
+        # The new scores the old scores weighted a ((n - 1) / n) plus the new scores weighted at (1 / n)
+        new = (scores * ((i - 1) / i)) + (tmp_scores / i)
+        diff = np.sum(np.abs(scores - new))
+        log.info("\t{} -> Diff: {}".format(i, diff))
+        scores = new
+        if diff < rfe_thresh and i >= rfe_min_iter:
+            break
+
+    # Now sort the features based on score and one by one add them to our estimator
+    fe_columns, fe_scores = zip(*sorted(zip(x.columns, scores), key=lambda x: x[1], reverse=True))
+    running_columns = []
+    col_scores = []
+    log.info("Estimator")
+    for column in fe_columns:
+        log.info(column)
+        running_columns.append(column)
+        col_score = 0
+        for i in range(1, est_max_iter + 1):
+            tmp_scores = []
+            for e in estimators:
+                tmp_scores.append(np.mean(
+                    cross_validate(estimator=e, X=x[running_columns], y=y, cv=cv, n_jobs=n_jobs, scoring=scoring)[
+                        "test_score"]))
+            new = (col_score * ((i - 1) / i)) + (np.mean(tmp_scores) / i)
+            diff = np.abs(col_score - new)
+            col_score = new
+            if diff < est_thresh and i >= est_min_iter:
+                break
+        log.info("{} -> Score: {}".format(column, col_score))
+        col_scores.append(col_score)
+
+    return {
+        "fe_columns": fe_columns,
+        "fe_scores": fe_scores,
+        "est_scores": col_scores
+    }
 
 
 def main():
-    with open(join("learning", "combined.pkl"), "rb") as f:
+    with open(join("learning", "build", "combined.pkl"), "rb") as f:
         master_df = pickle.load(f)
         print(list(master_df.columns))
 
@@ -34,7 +107,8 @@ def main():
     for tile in bins:
         master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
 
-    suffixed_columns = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z", "plate_x", "plate_z"]
+    suffixed_columns = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z",
+                        "plate_x", "plate_z"]
     # strike_zone = ["strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"]
     suffixes = ["mean", "std"]
     pitches = ["FF", "SL", "CUKC", "CH", "SIFT", "FC"]
@@ -44,87 +118,20 @@ def main():
         for sc in suffixed_columns:
             for suffix in suffixes:
                 columns.append(pitch + "_" + sc + "_" + suffix)
-        # for sz in strike_zone:
-        #     columns.append(pitch + "_" + sz)
 
     for c in columns:
         if c not in master_df.columns:
             print("Missing", c)
 
-
     x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
-    y = master_df['tercile']
+    y = master_df['xFIP']
 
-    # learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
-    # scores = cross_validate(learner, x, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
-    # print(np.mean(scores["test_score"]))
+    results = importance(x, y, classification=False, rfe_thresh=0.01, est_thresh=0.01)
+    with open(join("learning", "build", "importance_results.pkl"), "wb") as f:
+        pickle.dump(results, f)
 
-    print(sklearn.metrics.get_scorer_names())
-
-    RFECV_results = []
-    for i in range(200):
-        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
-        selector = RFECV(DecisionTreeClassifier(criterion='entropy', max_depth=75), cv=5, scoring="f1_micro")
-        selector = selector.fit(X_train, y_train)
-        m = max(selector.cv_results_["mean_test_score"])
-        print(i, m)
-        RFECV_results.append((m, selector.feature_names_in_[selector.support_]))
-
-    c_results = {}
-    for column in columns:
-        c_score = 0
-        for score, features in RFECV_results:
-            if column in features:
-                c_score += score
-        c_results[column] = c_score / len(RFECV_results)
-
-    marklist = sorted(c_results.items(), key=lambda x: x[1], reverse=True)
-    sortdict = dict(marklist)
-
-    total = sum(sortdict.values())
-
-    for key in sortdict:
-        sortdict[key] = sortdict[key] / total
-
-    print(sortdict)
-
-    all_scores = []
-    best_score = -float("inf")
-    best_idx = -1
-
-    s_columns = []
-    for i, key in enumerate(sortdict):
-        s_columns.append(key)
-        total_score = []
-        for _ in range(50):
-            X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1)
-            learner = DecisionTreeClassifier(criterion='entropy', max_depth=75)
-            learner.fit(X_train[s_columns], y_train)
-            total_score.append(f1_score(y_test, learner.predict(X_test[s_columns]), average="micro"))
-        avg_score = sum(total_score) / len(total_score)
-        all_scores.append(avg_score)
-        if avg_score > best_score:
-            best_score = avg_score
-            best_idx = i
-
-    improvement = [0]
-
-    for i in range(1, len(all_scores)):
-        avg_score = sum(all_scores[:i]) / i
-        improvement.append(all_scores[i] - avg_score)
-
-    print("Bests", best_score, best_idx)
-    print("Best Cols", s_columns[:best_idx + 1])
-    print("col", s_columns)
-    print("mse", avg_score)
-    print("improvement", improvement)
-
-    # for i in range(1, len(x.columns) + 1):
-    #     pca = PCA(n_components=i)
-    #     nx = pca.fit_transform(x)
-    #     learner = MLPClassWrapper(hidden_layer_dimension=6, hidden_layer_value=36, learning_rate='invscaling', learning_rate_init=0.009)
-    #     scores = cross_validate(learner, nx, y, cv=5, scoring=make_scorer(accuracy_score), n_jobs=-1)
-    #     print(i, np.mean(scores["test_score"]))
+    with open(join("learning", "build", "importance_results.pkl"), "rb") as f:
+        print(pickle.load(f))
 
 
 if __name__ == "__main__":
