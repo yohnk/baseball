@@ -3,6 +3,7 @@ from os.path import join
 
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 from sklearn.feature_selection import RFECV
 from sklearn.metrics import make_scorer, mean_squared_error
 from sklearn.model_selection import cross_validate
@@ -115,6 +116,7 @@ def main():
 
     columns = []
     for pitch in pitches:
+        columns.append(pitch + "_pct")
         for sc in suffixed_columns:
             for suffix in suffixes:
                 columns.append(pitch + "_" + sc + "_" + suffix)
@@ -126,12 +128,17 @@ def main():
     x = pd.DataFrame(PowerTransformer().fit_transform(master_df[columns].fillna(0)), columns=columns)
     y = master_df['xFIP']
 
-    results = importance(x, y, classification=False, rfe_thresh=0.01, est_thresh=0.01)
+    results = importance(x, y, classification=False, rfe_thresh=0.1, est_thresh=0.1)
     with open(join("learning", "build", "importance_results.pkl"), "wb") as f:
         pickle.dump(results, f)
 
-    with open(join("learning", "build", "importance_results.pkl"), "rb") as f:
-        print(pickle.load(f))
+    plt.figure(figsize=(20, 5))
+    plt.tight_layout()
+    plt.plot(results["fe_columns"], results["fe_scores"])
+    plt.plot(results["fe_columns"], results["est_scores"])
+    ax = plt.gca()
+    ax.set_xticklabels(labels=results["fe_columns"], rotation=90)
+    plt.savefig(join("learning", "build", "info.png"), bbox_inches='tight')
 
 
 if __name__ == "__main__":

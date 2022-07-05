@@ -126,59 +126,33 @@ def agg_pitchers(pitcher, pitches):
     to_keep = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z", "plate_x", "plate_z"]
     pitcher = pitcher.dropna(subset=to_keep)
 
-    # Map zones to "strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"
-    merged_zones = ["strike_high", "strike_middle", "strike_low", "ball_high", "ball_low"]
-    pitcher = pitcher.dropna(subset=["zone"])
-    pitcher["merged_zone"] = pd.NA
-
-    pitcher.loc[pitcher.zone == 11, "merged_zone"] = "ball_high"
-    pitcher.loc[pitcher.zone == 12, "merged_zone"] = "ball_high"
-
-    pitcher.loc[pitcher.zone == 1, "merged_zone"] = "strike_high"
-    pitcher.loc[pitcher.zone == 2, "merged_zone"] = "strike_high"
-    pitcher.loc[pitcher.zone == 3, "merged_zone"] = "strike_high"
-
-    pitcher.loc[pitcher.zone == 4, "merged_zone"] = "strike_middle"
-    pitcher.loc[pitcher.zone == 5, "merged_zone"] = "strike_middle"
-    pitcher.loc[pitcher.zone == 6, "merged_zone"] = "strike_middle"
-
-    pitcher.loc[pitcher.zone == 7, "merged_zone"] = "strike_low"
-    pitcher.loc[pitcher.zone == 8, "merged_zone"] = "strike_low"
-    pitcher.loc[pitcher.zone == 9, "merged_zone"] = "strike_low"
-
-    pitcher.loc[pitcher.zone == 13, "merged_zone"] = "ball_low"
-    pitcher.loc[pitcher.zone == 14, "merged_zone"] = "ball_low"
-
     columns = ["player_id", "year"]
     for pitch in pitches:
+        columns.append(pitch + "_pct")
         for column in to_keep:
             columns.append(pitch + "_" + column + "_mean")
             columns.append(pitch + "_" + column + "_std")
-        for zone in merged_zones:
-            columns.append(pitch + "_" + zone)
 
     rows = []
     for player_id in pd.unique(pitcher.pitcher):
         player = pitcher[pitcher.pitcher == player_id]
         for year in pd.unique(player.year):
             player_year = player[player.year == year]
-            row = [player_id, year]
-            for pitch in pitches:
-                player_pitch = player_year[player_year.pitch_type == pitch]
-                if len(player_pitch) > 0:
-                    for column in to_keep:
-                        row.append(np.mean(player_pitch[column]))
-                        row.append(np.std(player_pitch[column]))
-                    zone_count = player_pitch['merged_zone'].value_counts()
-                    for merged_zone in merged_zones:
-                        if merged_zone in zone_count:
-                            row.append(zone_count[merged_zone] / len(player_pitch))
-                        else:
-                            row.append(0.0)
-                else:
-                    row.extend([np.nan] * (len(to_keep) * 2))
-                    row.extend([np.nan] * len(merged_zones))
-            rows.append(row)
+            if len(player_year) > 0:
+                row = [player_id, year]
+                for pitch in pitches:
+                    player_pitch = player_year[player_year.pitch_type == pitch]
+
+                    # pitch %
+                    row.append(len(player_pitch) / len(player_year))
+
+                    if len(player_pitch) > 0:
+                        for column in to_keep:
+                            row.append(np.mean(player_pitch[column]))
+                            row.append(np.std(player_pitch[column]))
+                    else:
+                        row.extend([np.nan] * (len(to_keep) * 2))
+                rows.append(row)
 
     log.info("Creating aggregated dataframe")
     return pd.DataFrame(rows, columns=columns).replace(pd.NA, np.nan)
@@ -207,9 +181,6 @@ def agg_movement(movement, pitches):
                 else:
                     for _ in to_keep:
                         row.append(np.nan)
-
-
-
             rows.append(row)
 
     log.info("Creating aggregated dataframe")
@@ -239,8 +210,8 @@ def merge(pitcher, fangraph):
 
 def clean(merged):
     # We're using xwoba as a metric, so if it's nan lets drop it now
-    required = ["xFIP", "FIP"]
-    merged = merged.dropna(subset=required)
+    # required = ["xFIP", "FIP"]
+    # merged = merged.dropna(subset=required)
 
     # There are some rows where the "pitchers" table has values but the "active_spin" table doesn't.
     # We want to use the active_spin data, so drop cases where one is null and the other is not.
@@ -259,12 +230,6 @@ def clean(merged):
     return merged
 
 
-def split(merged):
-    x_columns = []
-    y_columns = []
-    return None
-
-
 def main():
     pitcher, fangraph = load_dataframes()
     pitcher = clean_pitches(pitcher)
@@ -278,10 +243,8 @@ def main():
     merged = merge(pitcher, fangraph)
     merged = clean(merged)
 
-    tmp = split(merged)
-
     log.info("Saving dataframe")
-    with open(join("learning", "build", "build/combined.pkl"), "wb") as f:
+    with open(join("learning", "build", "combined.pkl"), "wb") as f:
         pickle.dump(merged, f)
 
 

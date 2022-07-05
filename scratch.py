@@ -63,26 +63,32 @@ from pybaseball import chadwick_register
 #     series = df[column]
 #     print(column, count_nonzero(series.isna()) / series.size)
 
-with open(join("learning", "combined.pkl"), "rb") as f:
-    master_df = pickle.load(f)
+# with open(join("learning", "combined.pkl"), "rb") as f:
+#     master_df = pickle.load(f)
+#
+# bins = {
+#     "docile": 2,
+#     "tercile": 3,
+#     "quartile": 4,
+#     "quintile": 5,
+#     "sextile": 6,
+#     "septile": 7,
+#     "octile": 8,
+#     "nonile": 9,
+#     "decile": 10
+# }
+#
+# for tile in bins:
+#     master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
+#
+# top = master_df[master_df.tercile == 2]['xFIP']
+# mid = master_df[master_df.tercile == 1]['xFIP']
+# bottom = master_df[master_df.tercile == 0]['xFIP']
+#
+# print()
 
-bins = {
-    "docile": 2,
-    "tercile": 3,
-    "quartile": 4,
-    "quintile": 5,
-    "sextile": 6,
-    "septile": 7,
-    "octile": 8,
-    "nonile": 9,
-    "decile": 10
-}
+import matplotlib.pyplot as plt
 
-for tile in bins:
-    master_df[tile] = pd.qcut(master_df['xFIP'], bins[tile], labels=False)
+with open(join("learning", "build", "importance_results.pkl"), "rb") as f:
+    f_select = pickle.load(f)
 
-top = master_df[master_df.tercile == 2]['xFIP']
-mid = master_df[master_df.tercile == 1]['xFIP']
-bottom = master_df[master_df.tercile == 0]['xFIP']
-
-print()
