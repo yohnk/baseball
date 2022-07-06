@@ -11,35 +11,41 @@ chadwick = pybaseball.chadwick_register()
 def main():
     for method in api_methods.keys():
         fpath = join("data", "raw", method.__qualname__ + ".pkl")
-        if not exists(fpath):
-            all_dataframes = []
-            for d in api_methods[method]:
-                log.info("Request: {} - {}".format(method.__qualname__, d))
-                try:
-                    path = join("data", "cache", "{}_{}.pkl".format(method.__qualname__, dmd5(d)))
-                    if exists(path):
-                        with open(path, "rb") as file:
-                            df = pickle.load(file)
-                    else:
+        all_dataframes = []
+        for cache, d in api_methods[method]:
+            log.info("Request: {} - {}".format(method.__qualname__, d))
+            try:
+                path = join("data", "cache", "{}_{}.pkl".format(method.__qualname__, dmd5(d)))
+                if exists(path) and not cache:
+                    print("DELETE - {}".format(path))
+
+                if cache and exists(path):
+                    with open(path, "rb") as file:
+                        df = pickle.load(file)
+                else:
+                    if not exists(path):
                         log.info("Cache Miss")
-                        df = method(**d)
+                    else:
+                        log.info("Uncacheable")
+                    df = method(**d)
+                    if cache:
                         with open(path, "wb") as file:
                             pickle.dump(df, file)
                         log.info("Cached request to {}".format(path))
-                    all_dataframes.append(df)
-                except:
-                    log.exception("Failed to get df")
+                all_dataframes.append(df)
+            except:
+                log.exception("Failed to get df")
 
-            if len(all_dataframes) > 0:
-                log.info("Concatenating dataframes for {}".format(method.__qualname__))
-                ret = pd.concat(all_dataframes)
-                ret = ret.reset_index()
-                with open(fpath, "wb") as file:
-                    pickle.dump(ret, file)
+        if len(all_dataframes) > 0:
+            log.info("Concatenating dataframes for {}".format(method.__qualname__))
+            ret = pd.concat(all_dataframes)
+            ret = ret.reset_index()
+            with open(fpath, "wb") as file:
+                pickle.dump(ret, file)
 
-                log.info("Created {}".format(fpath))
-            else:
-                log.info("No returns for {}".format(method.__qualname__))
+            log.info("Created {}".format(fpath))
+        else:
+            log.info("No returns for {}".format(method.__qualname__))
 
 
 if __name__ == "__main__":

@@ -311,7 +311,7 @@ class YearIterator:
             d = dict()
             for k in self.keys:
                 d[k] = year
-            return d
+            return year != END_YEAR, d
         else:
             raise StopIteration
 
@@ -335,7 +335,7 @@ class StatcastIterator:
             self.current_team = next(self.teams)
             self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
             year = next(self.years)
-        return {
+        return year != END_YEAR, {
             "start_dt": "{}-1-1".format(year),
             "end_dt": "{}-12-31".format(year),
             "team": self.current_team,
@@ -356,7 +356,7 @@ class StatcastPitcherIterator:
 
     def __next__(self):
         pid = int(next(self.player_ids))
-        return {
+        return self.end != END_YEAR, {
             "start_dt": "{}-1-1".format(self.start),
             "end_dt": "{}-12-31".format(self.end),
             "player_id": pid
@@ -377,7 +377,7 @@ class PitchingStatsIterator:
         year = copy(self.i)
         self.i += 1
         if year <= self.stop:
-            return {
+            return year != END_YEAR, {
                 "start_dt": "{}-1-1".format(year),
                 "end_dt": "{}-12-31".format(year)
             }
@@ -403,7 +403,7 @@ class TeamPitchingIterator:
             self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
             year = next(self.years)
 
-        return {
+        return year != END_YEAR, {
             "team": self.current_team,
             "start_season": year,
             "end_season": year
@@ -428,7 +428,7 @@ class StatcastPitcherPitchMovementIterator:
             self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
             year = next(self.years)
 
-        return {
+        return year != END_YEAR, {
             "pitch_type": self.current_pitch,
             "year": year,
         }
@@ -436,32 +436,32 @@ class StatcastPitcherPitchMovementIterator:
 
 # A list of API methods and the iterable dicts of parameters used to "span" the API.
 api_methods = {
-    playerid_reverse_lookup: [{
+    playerid_reverse_lookup: [(True, {
         "player_ids": [477132],
         "key_type": "mlbam"
-    }],
-    player_search_list: [{
+    })],
+    player_search_list: [(True, {
         "player_list": [("kershaw", "clayton")]
-    }],
-    playerid_lookup: [{
+    })],
+    playerid_lookup: [(True, {
         "last": "kershaw",
         "first": "clayton",
         "fuzzy": False
-    }],
-    chadwick_register: [{
+    })],
+    chadwick_register: [(False, {
         "save": True
-    }],
-    fangraphs_teams: [{
+    })],
+    fangraphs_teams: [(False, {
         "season": None,
         "league": "ALL"
-    }],
+    })],
     statcast: StatcastIterator(),
     statcast_pitcher: StatcastPitcherIterator(),
     pitching_stats_bref: YearIterator(keys=["season"], start=2008),
     pitching_stats_range: PitchingStatsIterator(start=2008),
-    bwar_pitch: [{
+    bwar_pitch: [(False, {
         "return_all": True
-    }],
+    })],
     pitching_stats: YearIterator(keys=["start_season", "end_season"]),
     team_pitching_bref: TeamPitchingIterator(),
     pitching: [{}],
