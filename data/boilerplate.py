@@ -3,7 +3,7 @@ import hashlib
 import json
 from copy import copy
 import pandas as pd
-import numpy as np
+from itertools import product
 from pybaseball import bwar_pitch, chadwick_register, fangraphs_teams, pitching, pitching_post, pitching_stats, \
     pitching_stats_bref, pitching_stats_range, player_search_list, playerid_lookup, playerid_reverse_lookup, statcast, \
     statcast_pitcher, team_pitching_bref, cache
@@ -18,6 +18,8 @@ cache.enable()
 
 START_YEAR = 2000
 END_YEAR = datetime.date.today().year
+CURRENT_YEAR = datetime.date.today().year
+CURRENT_MONTH = datetime.date.today().month
 
 chadwick = chadwick_register()
 
@@ -31,6 +33,8 @@ team_ids.update(pd.unique(team_df["franchID"]))
 
 # pitch_types = ['SL', 'CH', 'FC', 'FF', 'FS']
 pitch_types = ["FF", "SIFT", "CH", "CUKC", "FC", "SL", "FS"]
+months = list(range(1, 13))
+days = list(range(1, 32))
 
 # Manually went through the response and picked the best type
 data_types = {
@@ -274,6 +278,22 @@ data_types = {
                                         'percent_rank_diff_x': 'float64'}}
 
 
+def today(year=None, month=None, day=None):
+    if year is None:
+        return False
+
+    now = datetime.datetime.now()
+    return year == now.year and (month is None or month == now.month) and (day is None or day == now.day)
+
+
+def real_date(year, month=None, day=None, check_past=True, include_equal=True):
+    try:
+        date = datetime.datetime(year=year, month=month, day=day)
+        return not check_past or date < datetime.datetime.now() or (include_equal and today(year, month, day))
+    except ValueError:
+        return False
+
+
 # We're using the dict returns od the iterators below to identify the calls. Using MD5 to give us an idempotent id.
 def dmd5(d: dict):
     return hashlib.md5(json.dumps(d).encode()).hexdigest()
@@ -292,144 +312,115 @@ def statcast_pitcher_arsenal_stats(year: int, minPA: int = 25) -> pd.DataFrame:
     return data
 
 
-# Iterators that are used to create multiple API requests.
-class YearIterator:
-
-    def __init__(self, keys, start=START_YEAR, stop=END_YEAR):
-        self.start = start
-        self.stop = stop
-        self.i = start
-        self.keys = copy(keys)
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        year = copy(self.i)
-        self.i += 1
-        if year <= self.stop:
-            d = dict()
-            for k in self.keys:
-                d[k] = year
-            return year != END_YEAR, d
-        else:
-            raise StopIteration
+def yl(start_year=START_YEAR, end_year=END_YEAR):
+    return list(range(start_year, min(CURRENT_YEAR + 1, end_year + 1)))
 
 
-class StatcastIterator:
+class MultiIterator:
 
-    def __init__(self, start=START_YEAR, stop=END_YEAR, teams=team_ids):
-        self.teams = iter(teams)
-        self.current_team = next(self.teams)
-        self.start = start
-        self.stop = stop
-        self.years = iter(list(range(self.start, self.stop + 1)))
+    def __init__(self, i=[]):
+        self.iterables = i
+        self.indices = iter(product(*i))
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        try:
-            year = next(self.years)
-        except StopIteration:
-            self.current_team = next(self.teams)
-            self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
-            year = next(self.years)
-        return year != END_YEAR, {
-            "start_dt": "{}-1-1".format(year),
-            "end_dt": "{}-12-31".format(year),
-            "team": self.current_team,
+        return next(self.indices)
+
+
+class DateIterable(MultiIterator):
+
+    def __init__(self, i=[], start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[*i, yl(start_year, end_year), months, days])
+
+    def __next__(self):
+        x = super().__next__()
+        year, month, day = x[-3], x[-2], x[-1]
+        while not real_date(year, month, day):
+            x = super().__next__()
+            year, month, day = x[-3], x[-2], x[-1]
+        return x
+
+
+class YearIterator(MultiIterator):
+
+    def __init__(self, keys, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[yl(start_year, end_year)])
+        self.keys = list(keys)
+
+    def __next__(self):
+        (year,) = super().__next__()
+        return today(year), dict([(key, year) for key in self.keys])
+
+
+class StatcastIterator(DateIterable):
+
+    def __init__(self, teams=team_ids, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[teams], start_year=start_year, end_year=end_year)
+
+    def __next__(self):
+        team, year, month, day = super().__next__()
+        return today(year, month, day), {
+            "start_dt": "{}-{}-{}".format(year, month, day),
+            "end_dt": "{}-{}-{}".format(year, month, day),
+            "team": team,
             "verbose": False,
             "parallel": True
         }
 
 
-class StatcastPitcherIterator:
+class StatcastPitcherIterator(DateIterable):
 
-    def __init__(self, ids=player_ids, start=START_YEAR, end=END_YEAR):
-        self.player_ids = iter(ids)
-        self.start = start
-        self.end = end
-
-    def __iter__(self):
-        return self
+    def __init__(self, ids=player_ids, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[ids], start_year=start_year, end_year=end_year)
 
     def __next__(self):
-        pid = int(next(self.player_ids))
-        return self.end != END_YEAR, {
-            "start_dt": "{}-1-1".format(self.start),
-            "end_dt": "{}-12-31".format(self.end),
-            "player_id": pid
+        player_id, year, month, day = super().__next__()
+        return today(year, month, day), {
+            "start_dt": "{}-{}-{}".format(year, month, day),
+            "end_dt": "{}-{}-{}".format(year, month, day),
+            "player_id": player_id
         }
 
 
-class PitchingStatsIterator:
+class PitchingStatsIterator(DateIterable):
 
-    def __init__(self, start=START_YEAR, stop=END_YEAR):
-        self.start = start
-        self.stop = stop
-        self.i = start
-
-    def __iter__(self):
-        return self
+    def __init__(self, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(start_year=start_year, end_year=end_year)
 
     def __next__(self):
-        year = copy(self.i)
-        self.i += 1
-        if year <= self.stop:
-            return year != END_YEAR, {
-                "start_dt": "{}-1-1".format(year),
-                "end_dt": "{}-12-31".format(year)
-            }
-        else:
-            raise StopIteration
+        year, month, day = super().__next__()
+        return today(year, month, day), {
+            "start_dt": "{}-{}-{}".format(year, month, day),
+            "end_dt": "{}-{}-{}".format(year, month, day)
+        }
 
 
-class TeamPitchingIterator:
+class TeamPitchingIterator(MultiIterator):
 
-    def __init__(self, teams=team_ids):
-        self.teams = iter(teams)
-        self.current_team = next(self.teams)
-        self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
-
-    def __iter__(self):
-        return self
+    def __init__(self, teams=team_ids, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[teams, yl(start_year, end_year)])
 
     def __next__(self):
-        try:
-            year = next(self.years)
-        except StopIteration:
-            self.current_team = next(self.teams)
-            self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
-            year = next(self.years)
-
-        return year != END_YEAR, {
-            "team": self.current_team,
+        team, year = super().__next__()
+        return today(year), {
+            "team": team,
             "start_season": year,
             "end_season": year
         }
 
 
-class StatcastPitcherPitchMovementIterator:
+class StatcastPitcherPitchMovementIterator(MultiIterator):
 
-    def __init__(self, pitches=pitch_types):
-        self.pitches = iter(pitches)
-        self.current_pitch = next(self.pitches)
-        self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
-
-    def __iter__(self):
-        return self
+    def __init__(self, pitches=pitch_types, start_year=START_YEAR, end_year=END_YEAR):
+        super().__init__(i=[pitches, yl(start_year, end_year)])
 
     def __next__(self):
-        try:
-            year = next(self.years)
-        except StopIteration:
-            self.current_pitch = next(self.pitches)
-            self.years = iter(list(range(START_YEAR, END_YEAR + 1)))
-            year = next(self.years)
+        pitch, year = super().__next__()
 
-        return year != END_YEAR, {
-            "pitch_type": self.current_pitch,
+        return today(year), {
+            "pitch_type": pitch,
             "year": year,
         }
 
@@ -457,8 +448,8 @@ api_methods = {
     })],
     statcast: StatcastIterator(),
     statcast_pitcher: StatcastPitcherIterator(),
-    pitching_stats_bref: YearIterator(keys=["season"], start=2008),
-    pitching_stats_range: PitchingStatsIterator(start=2008),
+    pitching_stats_bref: YearIterator(keys=["season"], start_year=2008),
+    pitching_stats_range: PitchingStatsIterator(start_year=2008),
     bwar_pitch: [(False, {
         "return_all": True
     })],

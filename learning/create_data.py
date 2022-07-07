@@ -126,9 +126,10 @@ def agg_pitchers(pitcher, pitches):
     to_keep = ["release_spin_rate", "effective_speed", "spin_axis", "release_speed", "pfx_x", "pfx_z", "plate_x", "plate_z"]
     pitcher = pitcher.dropna(subset=to_keep)
 
-    columns = ["player_id", "year"]
+    columns = ["player_id", "year", "total"]
     for pitch in pitches:
         columns.append(pitch + "_pct")
+        columns.append(pitch + "_total")
         for column in to_keep:
             columns.append(pitch + "_" + column + "_mean")
             columns.append(pitch + "_" + column + "_std")
@@ -139,12 +140,15 @@ def agg_pitchers(pitcher, pitches):
         for year in pd.unique(player.year):
             player_year = player[player.year == year]
             if len(player_year) > 0:
-                row = [player_id, year]
+                row = [player_id, year, len(player_year)]
                 for pitch in pitches:
                     player_pitch = player_year[player_year.pitch_type == pitch]
 
                     # pitch %
                     row.append(len(player_pitch) / len(player_year))
+
+                    # count
+                    row.append(len(player_pitch))
 
                     if len(player_pitch) > 0:
                         for column in to_keep:

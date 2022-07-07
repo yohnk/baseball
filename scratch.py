@@ -35,7 +35,8 @@
 #     decomp(file)
 
 import pickle
-from os.path import join
+from copy import deepcopy
+from os.path import join, exists
 
 import numpy as np
 import pandas as pd
@@ -88,7 +89,11 @@ from pybaseball import chadwick_register
 # print()
 
 import matplotlib.pyplot as plt
+from itertools import permutations, combinations, product
+from numpy import prod
+from data.boilerplate import DateIterable
+import datetime
+from time import sleep
 
-with open(join("learning", "build", "importance_results.pkl"), "rb") as f:
-    f_select = pickle.load(f)
-
+for x in DateIterable(month=False):
+    print(x)
