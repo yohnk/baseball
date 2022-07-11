@@ -1,9 +1,15 @@
-import datetime
+from datetime import datetime, date, timedelta
 import hashlib
 import json
+import pickle
 from copy import copy
+from os.path import join, exists
+
+import numpy as np
 import pandas as pd
 from itertools import product
+
+import requests
 from pybaseball import bwar_pitch, chadwick_register, fangraphs_teams, pitching, pitching_post, pitching_stats, \
     pitching_stats_bref, pitching_stats_range, player_search_list, playerid_lookup, playerid_reverse_lookup, statcast, \
     statcast_pitcher, team_pitching_bref, cache
@@ -17,19 +23,19 @@ from pybaseball.statcast_pitcher import statcast_pitcher_active_spin as sp_activ
 cache.enable()
 
 START_YEAR = 2000
-END_YEAR = datetime.date.today().year
-CURRENT_YEAR = datetime.date.today().year
-CURRENT_MONTH = datetime.date.today().month
+END_YEAR = date.today().year
+CURRENT_YEAR = date.today().year
+CURRENT_MONTH = date.today().month
 
 chadwick = chadwick_register()
 
 # Grab all players whos last year is during or after our start_year
-player_ids = set(pd.unique(chadwick[chadwick["mlb_played_last"].gt(START_YEAR - 1)]["key_mlbam"]))
+# player_ids = set(pd.unique(chadwick[chadwick["mlb_played_last"].gt(START_YEAR - 1)]["key_mlbam"]))
 
 # Not sure if all APIs take the teamID or franchID, so adding both to a set. If it's not used the API call should fail.
+# Update - removing the teamID since it adds a lot of unnecessary calls
 team_df = pd.concat([fangraphs_teams(START_YEAR), fangraphs_teams(END_YEAR)])
-team_ids = set(pd.unique(team_df["teamID"]))
-team_ids.update(pd.unique(team_df["franchID"]))
+team_ids = set(pd.unique(team_df["franchID"]))
 
 # pitch_types = ['SL', 'CH', 'FC', 'FF', 'FS']
 pitch_types = ["FF", "SIFT", "CH", "CUKC", "FC", "SL", "FS"]
@@ -278,25 +284,92 @@ data_types = {
                                         'percent_rank_diff_x': 'float64'}}
 
 
+def get_valid_days():
+    try:
+        get_valid_days.VALID_DAYS
+    except AttributeError:
+        get_valid_days.VALID_DAYS = None
+
+    path = join("data", "cache", "valid_days.pkl")
+    if get_valid_days.VALID_DAYS is None and exists(path):
+        with open(path, "rb") as f:
+            get_valid_days.VALID_DAYS = pickle.load(f)
+    elif get_valid_days.VALID_DAYS is None:
+        get_valid_days.VALID_DAYS = create_valid_days()
+        with open(path, "wb") as f:
+            pickle.dump(get_valid_days.VALID_DAYS, f)
+    return get_valid_days.VALID_DAYS
+
+
+def create_valid_days():
+    dates = set()
+    for year in range(START_YEAR, END_YEAR + 1):
+        url = "https://statsapi.mlb.com/api/v1/schedule?startDate=01/01/{}&endDate=12/31/{}&sportId=1".format(year, year)
+        r = requests.get(url)
+        for d in r.json()["dates"]:
+            if type(d) is dict and "date" in d and "games" in d and type(d["games"]) is list:
+                real_games = any([x == "R" for x in [g["gameType"] for g in d["games"]]])
+                if real_games:
+                    s_date = d["date"]
+                    p_datetime = datetime.strptime(s_date, "%Y-%m-%d")
+                    p_date = p_datetime.date()
+                    dates.add(p_date)
+            #     else:
+            #         print("debug 1")
+            #         print(d["games"])
+            # else:
+            #     print("debug 2")
+            #     print(d)
+    return dates
+
+
 def today(year=None, month=None, day=None):
     if year is None:
         return False
 
-    now = datetime.datetime.now()
-    return year == now.year and (month is None or month == now.month) and (day is None or day == now.day)
+    now = datetime.now()
+    if year > now.year:
+        return True
+    elif year == now.year and (month is None or month > now.month):
+        return True
+    elif year == now.year and month == now.month and (day is None or day >= now.day):
+        return True
+
+    return False
 
 
-def real_date(year, month=None, day=None, check_past=True, include_equal=True):
+def game_date(year, month=None, day=None):
     try:
-        date = datetime.datetime(year=year, month=month, day=day)
-        return not check_past or date < datetime.datetime.now() or (include_equal and today(year, month, day))
+        d = datetime(year=year, month=month, day=day).date()
+        return d in get_valid_days()
     except ValueError:
         return False
 
 
+def game_week(start_day, end_day):
+    td = timedelta(1)
+    d = copy(start_day)
+    while d <= end_day:
+        if d in get_valid_days():
+            return True
+        d += td
+    return False
+
+
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super(NpEncoder, self).default(obj)
+
+
 # We're using the dict returns od the iterators below to identify the calls. Using MD5 to give us an idempotent id.
 def dmd5(d: dict):
-    return hashlib.md5(json.dumps(d).encode()).hexdigest()
+    return hashlib.md5(json.dumps(d, cls=NpEncoder).encode()).hexdigest()
 
 
 # These methods are silly and don't include a year column when they should
@@ -318,9 +391,19 @@ def yl(start_year=START_YEAR, end_year=END_YEAR):
 
 class MultiIterator:
 
-    def __init__(self, i=[]):
+    def __init__(self, i=[], columns=[], dtypes={}):
         self.iterables = i
-        self.indices = iter(product(*i))
+        self.df = pd.DataFrame(product(*i), columns=columns).astype(dtypes)
+        self.clean_df()
+        self.indices = self.df.itertuples(index=False, name=None)
+        self.failure = []
+        self.success = []
+
+    def clean_df(self):
+        pass
+
+    def __len__(self):
+        return len(self.df)
 
     def __iter__(self):
         return self
@@ -328,83 +411,131 @@ class MultiIterator:
     def __next__(self):
         return next(self.indices)
 
+    def add_failure(self, f):
+        self.failure.append(f)
 
-class DateIterable(MultiIterator):
+    def add_success(self, s):
+        self.success.append(s)
 
-    def __init__(self, i=[], start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[*i, yl(start_year, end_year), months, days])
+
+class WeekIterable(MultiIterator):
+
+    def __init__(self, i=[], columns=[], start_year=START_YEAR, end_year=END_YEAR):
+        weeks = self.create_weeks(start_year, end_year)
+        super().__init__(i=[*i, weeks], columns=[*columns, "start_date"])
+
+    def clean_df(self):
+        self.df["end_date"] = self.df["start_date"] + timedelta(days=6, hours=23, minutes=59, seconds=59)
+        self.df = self.df[self.df["start_date"] <= datetime.today()]
+
+    @staticmethod
+    def create_weeks(start_year, end_year):
+        # Find the first Monday before Jan 1 or our start year.
+        start = datetime(year=start_year, month=1, day=1).date()
+        td = timedelta(days=1)
+        while start.weekday() != 0:
+            start -= td
+
+        # Add the days to a list until we're after Dec 31st of end_year
+        weeks = []
+        sunday_td = timedelta(days=6)
+        week_td = timedelta(days=7)
+        end = datetime(year=end_year, month=12, day=31).date()
+        while start < end:
+            if game_week(start, start + sunday_td):
+                weeks.append(pd.to_datetime(start))
+            start += week_td
+        return weeks
 
     def __next__(self):
-        x = super().__next__()
-        year, month, day = x[-3], x[-2], x[-1]
-        while not real_date(year, month, day):
-            x = super().__next__()
-            year, month, day = x[-3], x[-2], x[-1]
-        return x
+        x = list(super().__next__())
+        x[-2] = x[-2].to_pydatetime().date()
+        x[-1] = x[-1].to_pydatetime().date()
+        return tuple(x)
 
 
 class YearIterator(MultiIterator):
 
     def __init__(self, keys, start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[yl(start_year, end_year)])
+        super().__init__(i=[yl(start_year, end_year)], columns=["year"])
         self.keys = list(keys)
 
     def __next__(self):
         (year,) = super().__next__()
-        return today(year), dict([(key, year) for key in self.keys])
+        return not today(year), dict([(key, year) for key in self.keys])
 
 
-class StatcastIterator(DateIterable):
+class StatcastIterator(WeekIterable):
 
     def __init__(self, teams=team_ids, start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[teams], start_year=start_year, end_year=end_year)
+        super().__init__(i=[teams], columns=["team"], start_year=start_year, end_year=end_year)
 
     def __next__(self):
-        team, year, month, day = super().__next__()
-        return today(year, month, day), {
-            "start_dt": "{}-{}-{}".format(year, month, day),
-            "end_dt": "{}-{}-{}".format(year, month, day),
+        team, start, end = super().__next__()
+        return not today(year=end.year, month=end.month, day=end.day), {
+            "start_dt": "{}-{}-{}".format(start.year, start.month, start.day),
+            "end_dt": "{}-{}-{}".format(end.year, end.month, end.day),
             "team": team,
             "verbose": False,
             "parallel": True
         }
 
 
-class StatcastPitcherIterator(DateIterable):
+class StatcastPitcherIterator(WeekIterable):
 
-    def __init__(self, ids=player_ids, start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[ids], start_year=start_year, end_year=end_year)
+    def __init__(self, start_year=START_YEAR, end_year=END_YEAR):
+        p = bwar_pitch(return_all=True)[["mlb_ID", "year_ID", "IPouts"]].astype({"mlb_ID": pd.Int64Dtype(), "year_ID": pd.Int64Dtype()}).rename(columns={"year_ID": "year", "mlb_ID": "player_id"})
+        self.pitchers = p[(p.year >= start_year) & (p.year <= end_year)]
+        self.pitchers = self.pitchers[self.pitchers["IPouts"] > 0]
+        self.pitchers = self.pitchers.drop_duplicates(subset=["year", "player_id"])
+        ids = list(pd.unique(self.pitchers["player_id"]))
+        super().__init__(i=[ids], columns=["player_id"], start_year=start_year, end_year=end_year)
+
+    def clean_df(self):
+        super().clean_df()
+        og_columns = list(self.df.columns)
+        self.df["year"] = self.df["start_date"].dt.year
+        merged = pd.merge(self.pitchers, self.df, left_on=["player_id", "year"], right_on=["player_id", "year"])
+        self.df = merged[og_columns]
 
     def __next__(self):
-        player_id, year, month, day = super().__next__()
-        return today(year, month, day), {
-            "start_dt": "{}-{}-{}".format(year, month, day),
-            "end_dt": "{}-{}-{}".format(year, month, day),
+        player_id, start, end = super().__next__()
+        return not today(year=end.year, month=end.month, day=end.day), {
+            "start_dt": "{}-{}-{}".format(start.year, start.month, start.day),
+            "end_dt": "{}-{}-{}".format(end.year, end.month, end.day),
             "player_id": player_id
         }
 
 
-class PitchingStatsIterator(DateIterable):
+class PitchingStatsIterator(WeekIterable):
 
     def __init__(self, start_year=START_YEAR, end_year=END_YEAR):
         super().__init__(start_year=start_year, end_year=end_year)
 
     def __next__(self):
-        year, month, day = super().__next__()
-        return today(year, month, day), {
-            "start_dt": "{}-{}-{}".format(year, month, day),
-            "end_dt": "{}-{}-{}".format(year, month, day)
+        start, end = super().__next__()
+        return not today(year=end.year, month=end.month, day=end.day), {
+            "start_dt": "{}-{}-{}".format(start.year, start.month, start.day),
+            "end_dt": "{}-{}-{}".format(end.year, end.month, end.day),
         }
 
 
 class TeamPitchingIterator(MultiIterator):
 
     def __init__(self, teams=team_ids, start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[teams, yl(start_year, end_year)])
+        super().__init__(i=[teams, yl(start_year, end_year)],  columns=["team", "year"])
+
+    def clean_df(self):
+        self.df = self.df.drop(self.df[(self.df["team"] == "TBD") & (self.df["year"] > 2007)].index)
+        self.df = self.df.drop(self.df[(self.df["team"] == "TBA") & (self.df["year"] < 2008)].index)
+        self.df = self.df.drop(self.df[(self.df["team"] == "ANA") & (self.df["year"] > 2004)].index)
+        self.df = self.df.drop(self.df[(self.df["team"] == "WSN") & (self.df["year"] < 2005)].index)
+        self.df = self.df.drop(self.df[(self.df["team"] == "FLA") & (self.df["year"] > 2012)].index)
+
 
     def __next__(self):
         team, year = super().__next__()
-        return today(year), {
+        return not today(year), {
             "team": team,
             "start_season": year,
             "end_season": year
@@ -414,12 +545,12 @@ class TeamPitchingIterator(MultiIterator):
 class StatcastPitcherPitchMovementIterator(MultiIterator):
 
     def __init__(self, pitches=pitch_types, start_year=START_YEAR, end_year=END_YEAR):
-        super().__init__(i=[pitches, yl(start_year, end_year)])
+        super().__init__(i=[pitches, yl(start_year, end_year)], columns=["pitch", "year"])
 
     def __next__(self):
         pitch, year = super().__next__()
 
-        return today(year), {
+        return not today(year), {
             "pitch_type": pitch,
             "year": year,
         }
@@ -427,44 +558,44 @@ class StatcastPitcherPitchMovementIterator(MultiIterator):
 
 # A list of API methods and the iterable dicts of parameters used to "span" the API.
 api_methods = {
-    playerid_reverse_lookup: [(True, {
-        "player_ids": [477132],
-        "key_type": "mlbam"
-    })],
-    player_search_list: [(True, {
-        "player_list": [("kershaw", "clayton")]
-    })],
-    playerid_lookup: [(True, {
-        "last": "kershaw",
-        "first": "clayton",
-        "fuzzy": False
-    })],
-    chadwick_register: [(False, {
-        "save": True
-    })],
-    fangraphs_teams: [(False, {
-        "season": None,
-        "league": "ALL"
-    })],
+    # playerid_reverse_lookup: [(True, {
+    #     "player_ids": [477132],
+    #     "key_type": "mlbam"
+    # })],
+    # player_search_list: [(True, {
+    #     "player_list": [("kershaw", "clayton")]
+    # })],
+    # playerid_lookup: [(True, {
+    #     "last": "kershaw",
+    #     "first": "clayton",
+    #     "fuzzy": False
+    # })],
+    # chadwick_register: [(False, {
+    #     "save": True
+    # })],
+    # fangraphs_teams: [(False, {
+    #     "season": None,
+    #     "league": "ALL"
+    # })],
     statcast: StatcastIterator(),
-    statcast_pitcher: StatcastPitcherIterator(),
-    pitching_stats_bref: YearIterator(keys=["season"], start_year=2008),
-    pitching_stats_range: PitchingStatsIterator(start_year=2008),
-    bwar_pitch: [(False, {
-        "return_all": True
-    })],
-    pitching_stats: YearIterator(keys=["start_season", "end_season"]),
-    team_pitching_bref: TeamPitchingIterator(),
-    pitching: [{}],
-    pitching_post: [{}],
-    statcast_pitcher_exitvelo_barrels: YearIterator(keys=["year"]),
-    statcast_pitcher_expected_stats: YearIterator(keys=["year"]),
-    statcast_pitcher_pitch_arsenal: YearIterator(keys=["year"]),
-    statcast_pitcher_arsenal_stats: YearIterator(keys=["year"]),
-    statcast_pitcher_pitch_movement: StatcastPitcherPitchMovementIterator(),
-    statcast_pitcher_active_spin: YearIterator(keys=["year"]),
-    statcast_pitcher_percentile_ranks: YearIterator(keys=["year"]),
-    statcast_pitcher_spin_dir_comp: YearIterator(keys=["year"])
+    # statcast_pitcher: StatcastPitcherIterator(),
+    # pitching_stats_bref: YearIterator(keys=["season"], start_year=2008),
+    # pitching_stats_range: PitchingStatsIterator(start_year=2008),
+    # bwar_pitch: [(False, {
+    #     "return_all": True
+    # })],
+    # pitching_stats: YearIterator(keys=["start_season", "end_season"]),
+    # team_pitching_bref: TeamPitchingIterator(),
+    # pitching: [{}],
+    # pitching_post: [{}],
+    # statcast_pitcher_exitvelo_barrels: YearIterator(keys=["year"]),
+    # statcast_pitcher_expected_stats: YearIterator(keys=["year"]),
+    # statcast_pitcher_pitch_arsenal: YearIterator(keys=["year"]),
+    # statcast_pitcher_arsenal_stats: YearIterator(keys=["year"]),
+    # statcast_pitcher_pitch_movement: StatcastPitcherPitchMovementIterator(),
+    # statcast_pitcher_active_spin: YearIterator(keys=["year"]),
+    # statcast_pitcher_percentile_ranks: YearIterator(keys=["year"]),
+    # statcast_pitcher_spin_dir_comp: YearIterator(keys=["year"])
 }
 
 
@@ -482,20 +613,20 @@ def chadwick_cleanup(df):
 
 # We want to introduce a consistent year column. Also a hook for any other cleanup.
 cleanup_methods = {
-    playerid_reverse_lookup.__qualname__: chadwick_cleanup,
-    player_search_list.__qualname__: chadwick_cleanup,
-    playerid_lookup.__qualname__: chadwick_cleanup,
-    chadwick_register.__qualname__: chadwick_cleanup,
-    fangraphs_teams.__qualname__: copy_year("yearID"),
+    # playerid_reverse_lookup.__qualname__: chadwick_cleanup,
+    # player_search_list.__qualname__: chadwick_cleanup,
+    # playerid_lookup.__qualname__: chadwick_cleanup,
+    # chadwick_register.__qualname__: chadwick_cleanup,
+    # fangraphs_teams.__qualname__: copy_year("yearID"),
     statcast.__qualname__: copy_year("game_year"),
-    statcast_pitcher.__qualname__: copy_year("game_year"),
-    bwar_pitch.__qualname__: copy_year("year_ID"),
-    pitching_stats.__qualname__: copy_year("Season"),
-    team_pitching_bref.__qualname__: copy_year("Year"),
-    pitching.__qualname__: copy_year("yearID"),
-    pitching_post.__qualname__: copy_year("yearID"),
-    statcast_pitcher_expected_stats.__qualname__: copy_year("year"),
-    statcast_pitcher_pitch_movement.__qualname__: copy_year("year"),
-    statcast_pitcher_percentile_ranks.__qualname__: copy_year("year"),
-    statcast_pitcher_spin_dir_comp.__qualname__: copy_year("year")
+    # statcast_pitcher.__qualname__: copy_year("game_year"),
+    # bwar_pitch.__qualname__: copy_year("year_ID"),
+    # pitching_stats.__qualname__: copy_year("Season"),
+    # team_pitching_bref.__qualname__: copy_year("Year"),
+    # pitching.__qualname__: copy_year("yearID"),
+    # pitching_post.__qualname__: copy_year("yearID"),
+    # statcast_pitcher_expected_stats.__qualname__: copy_year("year"),
+    # statcast_pitcher_pitch_movement.__qualname__: copy_year("year"),
+    # statcast_pitcher_percentile_ranks.__qualname__: copy_year("year"),
+    # statcast_pitcher_spin_dir_comp.__qualname__: copy_year("year")
 }

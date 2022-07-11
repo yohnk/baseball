@@ -88,12 +88,32 @@ from pybaseball import chadwick_register
 #
 # print()
 
-import matplotlib.pyplot as plt
-from itertools import permutations, combinations, product
-from numpy import prod
-from data.boilerplate import DateIterable
-import datetime
-from time import sleep
+# import matplotlib.pyplot as plt
+# from itertools import permutations, combinations, product
+# from numpy import prod
+# from data.boilerplate import DateIterable
+# import datetime
+# from time import sleep
+#
+# for x in DateIterable(month=False):
+#     print(x)
 
-for x in DateIterable(month=False):
+from pybaseball import bwar_pitch
+
+from data.boilerplate import get_valid_days, StatcastIterator, StatcastPitcherIterator, YearIterator, \
+    PitchingStatsIterator, TeamPitchingIterator, StatcastPitcherPitchMovementIterator
+
+si = StatcastPitcherIterator()
+
+print(len(si))
+
+for x in si:
     print(x)
+
+# iterators = [YearIterator(keys=["season"], start_year=2008), StatcastIterator(), StatcastPitcherIterator(), PitchingStatsIterator(start_year=2008), TeamPitchingIterator(), StatcastPitcherPitchMovementIterator()]
+#
+# for i in iterators:
+#     count = 0
+#     for _ in i:
+#         count += 1
+#     print("{} -> {}".format(count, i))
