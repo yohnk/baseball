@@ -73,7 +73,7 @@ def run_method(method, executor):
 
 
 def main():
-    executor = ProcessPoolExecutor(max_workers=1)
+    executor = ProcessPoolExecutor(max_workers=3)
 
     for method in api_methods.keys():
         run_method(method, executor)
