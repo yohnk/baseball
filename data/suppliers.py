@@ -119,12 +119,12 @@ class StatcastSupplier(Supplier):
         super().__init__(statcast, StatcastIterator(), u.copy_year("game_year"))
 
 
-# class StatcastPitcherSupplier(Supplier):
-#
-#     def __init__(self):
-#         super().__init__(statcast_pitcher, StatcastPitcherIterator(), u.copy_year("game_year"))
-#
-#
+class StatcastPitcherSupplier(Supplier):
+
+    def __init__(self):
+        super().__init__(statcast_pitcher, StatcastPitcherIterator(), u.copy_year("game_year"))
+
+
 # class PitchingBrefSupplier(Supplier):
 #
 #     def __init__(self):
