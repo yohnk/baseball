@@ -160,6 +160,13 @@ def test_async():
     loop.close()
 
 
+def test_args(*args):
+    print(args)
+
+
 if __name__ == "__main__":
     # asyncio.run(main())
-    main_graph()
+    # main_graph()
+    args = [x for x in range(5)]
+    test_args(*args)
+
