@@ -35,8 +35,8 @@ class ParentNotStartedException(Exception):
 class Node(ABC):
 
     def __init__(self, work=async_noop, executor=None):
-        self.parents: List[Node] = []
-        self.children: List[Node] = []
+        self.parents: List[Node] = set()
+        self.children: List[Node] = set()
         self.work = work
         self.task = None
         self.generation = None
@@ -61,8 +61,8 @@ class Node(ABC):
         return o
 
     def add_child(self, c: AsyncNode):
-        self.children.append(c)
-        c.parents.append(self)
+        self.children.add(c)
+        c.parents.add(self)
 
         # if self.generation is not None and (c.generation is None or c.generation <= self.generation):
         #     c.generation = self.generation + 1
@@ -72,8 +72,44 @@ class Node(ABC):
 
         return c
 
+    def roots(self):
+        if len(self.parents) == 0:
+            return [self]
+        else:
+            out = set()
+            for p in self.parents:
+                out.update(p.roots())
+            return out
+
+    def leafs(self):
+        if len(self.children) == 0:
+            return [self]
+        else:
+            out = set()
+            for c in self.children:
+                out.update(c.leafs())
+            return out
+
     async def result(self):
         return self.task
+
+    def split(self, *nodes: Node):
+        split_node = CollectNode()
+        for n in nodes:
+            for r in n.roots():
+                self.add_child(r)
+            for l in n.leafs():
+                l.add_child(split_node)
+        return split_node
+
+    def main_task(self, work=noop):
+        return self.add_child(MainNode(work=work))
+
+    def async_task(self, work=async_noop):
+        return self.add_child(AsyncNode(work=work))
+
+    def collect(self):
+        return self.add_child(CollectNode())
 
 
 class AsyncNode(Node):
