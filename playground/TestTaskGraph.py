@@ -155,6 +155,25 @@ class TestTaskGraph(unittest.TestCase):
             test = n.all_nodes()
             self.assertEqual(test, all_nodes)
 
+    def test_generations(self):
+        root1 = tg.AsyncNode()
+        child11 = root1.add_child(tg.AsyncNode())
+        child12 = child11.add_child(tg.AsyncNode())
+        root2 = tg.AsyncNode()
+        child21 = root2.add_child(tg.MainNode())
+        collector = tg.CollectNode()
+        child12.add_child(collector)
+        child21.add_child(collector)
+
+        self.assertEqual(0, root1.generation)
+        self.assertEqual(0, root2.generation)
+        self.assertEqual(1, child11.generation)
+        self.assertEqual(1, child21.generation)
+        self.assertEqual(2, child12.generation)
+        self.assertEqual(3, collector.generation)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -6,7 +6,7 @@ import typing
 from abc import ABC, abstractmethod
 import enum
 from concurrent.futures import ProcessPoolExecutor
-from typing import List
+from typing import Set, List, Dict
 from itertools import chain
 
 
@@ -36,11 +36,11 @@ class ParentNotStartedException(Exception):
 class Node(ABC):
 
     def __init__(self, work=async_noop, executor=None):
-        self.parents: List[Node] = set()
-        self.children: List[Node] = set()
+        self.parents: Set[Node] = set()
+        self.children: Set[Node] = set()
         self.work = work
         self.task = None
-        self.generation = None
+        self.generation = 0
         self.executor = executor
         self.started = False
 
@@ -52,60 +52,68 @@ class Node(ABC):
         except ParentNotStartedException:
             pass
 
+    # async def start(self):
+    #     all_nodes = self.all_nodes()
+
     async def _start_children(self):
         [await c.start() for c in self.children if is_async(c.start)]
         [c.start() for c in self.children if not is_async(c.start)]
 
-    async def parent_results(self):
+    async def parent_results(self) -> List:
         o = [await p.result() for p in self.parents if is_async(p.result)]
         o.extend([p.result() for p in self.parents if not is_async(p.result)])
         return o
 
-    def add_child(self, c: AsyncNode):
+    def add_child(self, c: AsyncNode) -> Node:
         self.children.add(c)
         c.parents.add(self)
 
-        if self.generation is not None and (c.generation is None or c.generation <= self.generation):
+        if c.generation <= self.generation:
             c.generation = self.generation + 1
-
-        if self.generation is None and c.generation is not None:
-            self.generation = c.generation - 1
 
         return c
 
-    def all_nodes(self):
+    def _generations(self) -> Dict[Node]:
+        o = {}
+        for n in self.all_nodes():
+            if n.generation not in o:
+                o[n.generation] = set()
+            o[n.generation].add(n)
+        return o
+
+    def all_nodes(self) -> Set[Node]:
         if self.is_leaf():
             return set(chain(*[r.tree() for r in self.roots()]))
         else:
             return set(chain(*[l.all_nodes() for l in self.leafs()]))
 
-    def tree(self):
+    def tree(self) -> Set[Node]:
         s = set(*[c.tree() for c in self.children])
         s.add(self)
         return s
 
-    def is_root(self):
+    def is_root(self) -> bool:
         return len(self.parents) == 0
 
-    def is_leaf(self):
+    def is_leaf(self) -> bool:
         return len(self.children) == 0
 
-    def roots(self):
+    def roots(self) -> Set[Node]:
         if self.is_root():
             return {self}
         else:
             return set(chain(*[p.roots() for p in self.parents]))
 
-    def leafs(self):
+    def leafs(self) -> Set[Node]:
         if self.is_leaf():
-            return [self]
+            return {self}
         else:
             return set(chain(*[c.leafs() for c in self.children]))
 
     async def result(self):
         return self.task
 
-    def split(self, *nodes: Node):
+    def split(self, *nodes: Node) -> Node:
         split_node = CollectNode()
         for n in nodes:
             for r in n.roots():
@@ -114,13 +122,13 @@ class Node(ABC):
                 l.add_child(split_node)
         return split_node
 
-    def main_task(self, work=noop):
+    def main_task(self, work=noop) -> Node:
         return self.add_child(MainNode(work=work))
 
-    def async_task(self, work=async_noop):
+    def async_task(self, work=async_noop) -> Node:
         return self.add_child(AsyncNode(work=work))
 
-    def collect(self):
+    def collect(self) -> Node:
         return self.add_child(CollectNode())
 
 
