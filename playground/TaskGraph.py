@@ -1,11 +1,8 @@
 from __future__ import annotations
-
 import asyncio
-import time
-import typing
-from abc import ABC, abstractmethod
+from abc import ABC
 import enum
-from concurrent.futures import ProcessPoolExecutor
+from asyncio import Future
 from typing import Set, List, Dict
 from itertools import chain
 
@@ -29,10 +26,6 @@ def is_async(x):
     return x is not None and (asyncio.iscoroutine(x) or asyncio.iscoroutinefunction(x) or asyncio.isfuture(x))
 
 
-class ParentNotStartedException(Exception):
-    pass
-
-
 class Node(ABC):
 
     def __init__(self, work=async_noop, executor=None):
@@ -42,27 +35,12 @@ class Node(ABC):
         self.task = None
         self.generation = 0
         self.executor = executor
-        self.started = False
-
-    # async def start(self):
-    #     try:
-    #         self.task = self.create_task(await self.parent_results())
-    #         self.started = True
-    #         await self._start_children()
-    #     except ParentNotStartedException:
-    #         pass
 
     async def start(self):
         generations = self._generations()
         for gen in sorted(generations.keys()):
             for node in generations[gen]:
                 node.task = node.create_task(await node.parent_results())
-                node.started = True
-
-
-    # async def _start_children(self):
-    #     [await c.start() for c in self.children if is_async(c.start)]
-    #     [c.start() for c in self.children if not is_async(c.start)]
 
     async def parent_results(self) -> List:
         o = [await p.result() for p in self.parents if is_async(p.result)]
@@ -73,6 +51,10 @@ class Node(ABC):
         self.children.add(c)
         c.parents.add(self)
         c._set_generation()
+
+        if self.executor is not None and c.executor is None:
+            c.executor = self.executor
+
         return c
 
     def _set_generation(self):
@@ -137,6 +119,9 @@ class Node(ABC):
     def async_task(self, work=async_noop) -> Node:
         return self.add_child(AsyncNode(work=work))
 
+    def process_task(self, work=noop):
+        return self.add_child(ProcessNode(work=work))
+
     def collect(self) -> Node:
         return self.add_child(CollectNode())
 
@@ -145,6 +130,15 @@ class AsyncNode(Node):
 
     def create_task(self, results):
         return asyncio.create_task(self.work(*results))
+
+    async def parent_results(self) -> List:
+        o = [await p.result() for p in self.parents if is_async(p.result)]
+        for p in self.parents:
+            if not is_async(p.result):
+                f = Future()
+                f.set_result(p.result())
+                o.append(f)
+        return o
 
 
 class CollectNode(AsyncNode):
@@ -174,27 +168,20 @@ class MainNode(CollectNode):
         return None
 
 
+class ProcessNode(CollectNode):
 
+    def create_task(self, results):
+        loop = asyncio.get_running_loop()
+        return loop.run_in_executor(self.executor, self.work, *results)
 
-# class ProcessNode(AsyncNode):
-#
-#     def __init__(self, work):
-#         super().__init__(exec_type=ET.PROCESS, work=work)
-#
-#     def start(self, executor: ProcessPoolExecutor):
-#         loop = asyncio.get_event_loop()
-#         results = [x.result(wait=True) for x in self.parents]
-#         self.task = loop.run_in_executor(executor, self.work(*results))
-#         super().start()
-#
-#     def result(self):
-#         return self.task
+    async def result(self):
+        return self.task
 
 
 class SeedNode(AsyncNode):
 
-    def __init__(self, value):
-        super().__init__(work=self.get_work(value))
+    def __init__(self, value, executor=None):
+        super().__init__(work=self.get_work(value), executor=executor)
 
     @staticmethod
     def get_work(value):
