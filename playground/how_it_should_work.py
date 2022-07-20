@@ -1,5 +1,5 @@
 import asyncio
-import time
+from aiohttp_client_cache import CachedSession, FileBackend
 from itertools import product
 import aiohttp
 import pandas as pd
@@ -68,8 +68,8 @@ class WeekIterable(MultiIterator):
 
     def __next__(self):
         x = list(super().__next__())
-        x[-2] = x[-2].to_pydatetime().date()
-        x[-1] = x[-1].to_pydatetime().date()
+        x[-2] = x[-2].to_pydatetime()
+        x[-1] = x[-1].to_pydatetime()
         return tuple(x)
 
 
@@ -78,8 +78,8 @@ class GameData:
     def __init__(self, start_year, end_year):
         self.start_year = start_year
         self.end_year = end_year
-        self.conn = aiohttp.TCPConnector(limit_per_host=10)
-        self.session = aiohttp.ClientSession(connector=self.conn, connector_owner=False)
+        self.session = None
+        self.urls = None
         self.tree = None
         self.result = None
         self.types = {"id": "Int64", "date": "datetime64", "state": "string", "type": "string",
@@ -92,28 +92,30 @@ class GameData:
     async def close(self):
         await self.session.close()
         await self.conn.close()
-        # https://docs.aiohttp.org/en/stable/client_advanced.html - Graceful Shutdown - Doesn't seem to be a problem
-        # once I manually close the connector
-        # await asyncio.sleep(.5)
+        # https://docs.aiohttp.org/en/stable/client_advanced.html - Graceful Shutdown
+        await asyncio.sleep(.5)
 
-    def __iter__(self):
-        return WeekIterable(start_year=self.start_year, end_year=self.end_year, truncate=True)
-        # return iter([(datetime(year=2022, month=7, day=12).date(), datetime(year=2022, month=7, day=18).date()),
-        #              (datetime(year=2022, month=7, day=19).date(), datetime(year=2022, month=7, day=25).date())])
+    async def _init_http(self):
+        itr = WeekIterable(start_year=self.start_year, end_year=self.end_year, truncate=True)
+        cache_info = dict()
+        today = datetime.today()
+        for start, end in itr:
+            url = "https://statsapi.mlb.com/api/v1/schedule?startDate={}&endDate={}&sportId=1".format(start.strftime('%m/%d/%Y'), end.strftime('%m/%d/%Y'))
+            cache_info[url] = 30 #(today - end)
+        self.urls = list(cache_info.keys())
+        self.conn = aiohttp.TCPConnector(limit=5)
+        self.session = CachedSession(cache=FileBackend(urls_expire_after=cache_info), conn=self.conn)
+        await self.session.delete_expired_responses()
 
-    def init(self):
+    async def init(self):
+        await self._init_http()
         concat = tg.MainNode(self._concat)
-        for start_day, end_day in self:
-            tg.SeedNode((start_day, end_day)).async_task(self._http).main_task(self._parse).add_child(concat)
+        for url in self.urls:
+            tg.SeedNode(url).async_task(self._http).main_task(self._parse).add_child(concat)
         self.tree = concat.main_task(self._clean).collect()
 
-    async def _http(self, week):
-        start_date, end_date = await week
-        start = start_date.strftime('%m/%d/%Y')
-        end = end_date.strftime('%m/%d/%Y')
-        async with self.session.get(
-                "https://statsapi.mlb.com/api/v1/schedule?startDate={}&endDate={}&sportId=1".format(start,
-                                                                                                    end)) as response:
+    async def _http(self, url):
+        async with self.session.get(await url) as response:
             return await response.json(encoding="utf-8")
 
     def _parse(self, game_json):
@@ -158,10 +160,10 @@ class GameData:
 
 async def main():
     gd = GameData(start_year=2022, end_year=2022)
-    gd.init()
+    await gd.init()
     await gd.start()
     await gd.close()
-    print(len(gd.result))
+    print(gd.result)
 
 
 if __name__ == '__main__':
