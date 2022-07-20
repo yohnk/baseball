@@ -1,14 +1,15 @@
 import asyncio
 import io
 import time
-from concurrent.futures import ThreadPoolExecutor, Future
+from concurrent.futures import ThreadPoolExecutor, Future, ProcessPoolExecutor
 
 import pandas as pd
 
-from TaskGraph2 import AsyncNode, SeedNode, CollectNode, MainNode, is_async
+from TaskGraph import AsyncNode, SeedNode, CollectNode, MainNode, is_async, ProcessNode
 import numpy as np
 import aiohttp
 
+e = ProcessPoolExecutor()
 
 async def async_get_num(id):
     return id
@@ -41,17 +42,20 @@ async def async_main():
         task1 = asyncio.create_task(async_get_num(id))
         task2 = asyncio.create_task(do_http(task1))
         final_tasks.append(asyncio.create_task(parse_response(task2)))
-    return std_all(*[await f for f in final_tasks])
+    f = e.submit(std_all, *[await f for f in final_tasks])
+    while not f.done():
+        pass
+    return f.result()
 
 
 async def graph_main():
-    root = AsyncNode()
-    std = MainNode(work=std_all)
+    root = AsyncNode(executor=e)
+    std = ProcessNode(work=std_all)
     # collector = CollectNode()
     # game_ids = [661042]
     game_ids = [661042, 661041, 661040, 661039, 661036, 661038]
     for id in game_ids:
-        root.add_child(SeedNode(value=id)).add_child(AsyncNode(work=do_http)).add_child(AsyncNode(work=parse_response)).add_child(std)
+        root.add_child(SeedNode(value=id)).add_child(AsyncNode(work=do_http)).add_child(AsyncNode(work=parse_response)).add_child(std).collect()
     await root.start()
     return std.result()
 
@@ -64,4 +68,6 @@ if __name__ == "__main__":
     start = time.time()
     out2 = asyncio.run(graph_main())
     print("Graph", time.time() - start, out2)
+
+    e.shutdown()
 
