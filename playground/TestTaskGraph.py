@@ -28,18 +28,22 @@ class TestTaskGraph(unittest.TestCase):
 
     @staticmethod
     async def async_square(num):
+        print("async_square", num)
         return np.square(await num)
 
     @staticmethod
     async def async_divide(num):
+        print("async_divide", num)
         return (await num)/2
 
     @staticmethod
     async def async_multiply(num):
+        print("async_multiply", num)
         return (await num) * 2
 
     @staticmethod
     def square(num):
+        print("square", num)
         return np.square(num)
 
     @staticmethod
@@ -89,6 +93,8 @@ class TestTaskGraph(unittest.TestCase):
             tg.AsyncNode(self.async_divide).main_task(self.square),
             tg.AsyncNode(self.async_multiply).async_task(self.async_square)
         )
+
+        self.assertIsNone(output.result())
 
         asyncio.run(root.start())
 
@@ -149,7 +155,7 @@ class TestTaskGraph(unittest.TestCase):
         child11.add_child(collector)
         child21.add_child(collector)
 
-        all_nodes = set([root1, child11, root2, child21, collector])
+        all_nodes = {root1, child11, root2, child21, collector}
 
         for n in all_nodes:
             test = n.all_nodes()
@@ -157,22 +163,46 @@ class TestTaskGraph(unittest.TestCase):
 
     def test_generations(self):
         root1 = tg.AsyncNode()
-        child11 = root1.add_child(tg.AsyncNode())
-        child12 = child11.add_child(tg.AsyncNode())
+        child11 = tg.AsyncNode()
+        child12 = tg.AsyncNode()
+
         root2 = tg.AsyncNode()
-        child21 = root2.add_child(tg.MainNode())
+        child21 = tg.MainNode()
+
         collector = tg.CollectNode()
-        child12.add_child(collector)
-        child21.add_child(collector)
+        multi_gen = tg.AsyncNode()
+
+        root1.split(
+            child11.add_child(child12).add_child(collector), multi_gen
+        )
+        root2.add_child(child21).add_child(collector)
 
         self.assertEqual(0, root1.generation)
         self.assertEqual(0, root2.generation)
         self.assertEqual(1, child11.generation)
         self.assertEqual(1, child21.generation)
+        self.assertEqual(1, multi_gen.generation)
         self.assertEqual(2, child12.generation)
         self.assertEqual(3, collector.generation)
 
+        collector.add_child(multi_gen)
+        self.assertEqual(4, multi_gen.generation)
+        self.assertEqual(3, collector.generation)
 
+        g = root1._generations()
+
+        self.assertIn(root1, g[0])
+        self.assertIn(root2, g[0])
+        self.assertEqual(2, len(g[0]))
+        self.assertIn(child11, g[1])
+        self.assertIn(child21, g[1])
+        self.assertEqual(2, len(g[1]))
+        self.assertIn(child12, g[2])
+        self.assertEqual(1, len(g[2]))
+        self.assertIn(collector, g[3])
+        self.assertEqual(1, len(g[3]))
+        self.assertIn(multi_gen, g[4])
+        self.assertEqual(1, len(g[4]))
 
 
 if __name__ == '__main__':

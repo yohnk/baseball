@@ -44,20 +44,25 @@ class Node(ABC):
         self.executor = executor
         self.started = False
 
-    async def start(self):
-        try:
-            self.task = self.create_task(await self.parent_results())
-            self.started = True
-            await self._start_children()
-        except ParentNotStartedException:
-            pass
-
     # async def start(self):
-    #     all_nodes = self.all_nodes()
+    #     try:
+    #         self.task = self.create_task(await self.parent_results())
+    #         self.started = True
+    #         await self._start_children()
+    #     except ParentNotStartedException:
+    #         pass
 
-    async def _start_children(self):
-        [await c.start() for c in self.children if is_async(c.start)]
-        [c.start() for c in self.children if not is_async(c.start)]
+    async def start(self):
+        generations = self._generations()
+        for gen in sorted(generations.keys()):
+            for node in generations[gen]:
+                node.task = node.create_task(await node.parent_results())
+                node.started = True
+
+
+    # async def _start_children(self):
+    #     [await c.start() for c in self.children if is_async(c.start)]
+    #     [c.start() for c in self.children if not is_async(c.start)]
 
     async def parent_results(self) -> List:
         o = [await p.result() for p in self.parents if is_async(p.result)]
@@ -67,13 +72,17 @@ class Node(ABC):
     def add_child(self, c: AsyncNode) -> Node:
         self.children.add(c)
         c.parents.add(self)
-
-        if c.generation <= self.generation:
-            c.generation = self.generation + 1
-
+        c._set_generation()
         return c
 
-    def _generations(self) -> Dict[Node]:
+    def _set_generation(self):
+        for p in self.parents:
+            if self.generation <= p.generation:
+                self.generation = p.generation + 1
+        for c in self.children:
+            c._set_generation()
+
+    def _generations(self) -> Dict[int, List[Node]]:
         o = {}
         for n in self.all_nodes():
             if n.generation not in o:
@@ -88,7 +97,7 @@ class Node(ABC):
             return set(chain(*[l.all_nodes() for l in self.leafs()]))
 
     def tree(self) -> Set[Node]:
-        s = set(*[c.tree() for c in self.children])
+        s = set(chain(*[c.tree() for c in self.children]))
         s.add(self)
         return s
 
@@ -146,9 +155,6 @@ class CollectNode(AsyncNode):
         super().__init__(work=work)
 
     async def parent_results(self):
-        if not all([p.started for p in self.parents]):
-            raise ParentNotStartedException()
-
         results = [await x for x in [await p.result() for p in self.parents if is_async(p.result)]]
         results.extend([p.result() for p in self.parents if not is_async(p.result)])
         self.results = results
