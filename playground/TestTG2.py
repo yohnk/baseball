@@ -11,6 +11,7 @@ import aiohttp
 
 e = ProcessPoolExecutor()
 
+
 async def async_get_num(id):
     return id
 
@@ -32,7 +33,8 @@ async def parse_response(data):
 
 def std_all(*args):
     df = pd.concat(args)
-    return df["release_pos_x"].std()
+    out = df["release_pos_x"].std()
+    return out
 
 
 async def async_main():
@@ -49,15 +51,11 @@ async def async_main():
 
 
 async def graph_main():
-    root = AsyncNode(executor=e)
-    std = ProcessNode(work=std_all)
-    # collector = CollectNode()
-    # game_ids = [661042]
-    game_ids = [661042, 661041, 661040, 661039, 661036, 661038]
-    for id in game_ids:
-        root.add_child(SeedNode(value=id)).add_child(AsyncNode(work=do_http)).add_child(AsyncNode(work=parse_response)).add_child(std).collect()
-    await root.start()
-    return std.result()
+    std = ProcessNode(std_all, executor=e)
+    for id in [661042, 661041, 661040, 661039, 661036, 661038]:
+        SeedNode(id).async_task(do_http).async_task(parse_response).add_child(std)
+    out = await std.collect().start()
+    return out
 
 
 if __name__ == "__main__":

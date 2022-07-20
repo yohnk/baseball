@@ -2,7 +2,7 @@ import pandas as pd
 
 df = []
 
-for i in range(100):
+for i in range(1000):
     print(i)
     df.append(pd.read_csv("/Users/ryanyohnk/Downloads/orig.csv"))
 

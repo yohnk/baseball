@@ -15,6 +15,14 @@ class ET(enum.Enum):
 
 
 async def async_noop(*args):
+    try:
+        if len(args) == 1:
+            if is_async(args[0]):
+                return await args[0]
+            else:
+                return args[0]
+    except Exception as e:
+        pass
     return args
 
 
@@ -41,6 +49,8 @@ class Node(ABC):
         for gen in sorted(generations.keys()):
             for node in generations[gen]:
                 node.task = node.create_task(await node.parent_results())
+        out = [n.result() for n in set(chain(*generations.values())) if n.is_leaf() and n.is_collector()]
+        return out
 
     async def parent_results(self) -> List:
         o = [await p.result() for p in self.parents if is_async(p.result)]
@@ -89,6 +99,10 @@ class Node(ABC):
     def is_leaf(self) -> bool:
         return len(self.children) == 0
 
+    @staticmethod
+    def is_collector():
+        return False
+
     def roots(self) -> Set[Node]:
         if self.is_root():
             return {self}
@@ -119,8 +133,8 @@ class Node(ABC):
     def async_task(self, work=async_noop) -> Node:
         return self.add_child(AsyncNode(work=work))
 
-    def process_task(self, work=noop):
-        return self.add_child(ProcessNode(work=work))
+    def process_task(self, work=noop, executor=None):
+        return self.add_child(ProcessNode(work=work, executor=executor))
 
     def collect(self) -> Node:
         return self.add_child(CollectNode())
@@ -143,10 +157,10 @@ class AsyncNode(Node):
 
 class CollectNode(AsyncNode):
 
-    def __init__(self, work=async_noop):
+    def __init__(self, work=async_noop, executor=None):
         self.results = None
         self.exceptions = []
-        super().__init__(work=work)
+        super().__init__(work=work, executor=executor)
 
     async def parent_results(self):
         results = [await x for x in [await p.result() for p in self.parents if is_async(p.result)]]
@@ -155,7 +169,16 @@ class CollectNode(AsyncNode):
         return results
 
     def result(self):
+        try:
+            if len(self.results) == 1:
+                return self.results[0]
+        except Exception as e:
+            pass
         return self.results
+
+    @staticmethod
+    def is_collector():
+        return True
 
 
 class MainNode(CollectNode):

@@ -51,8 +51,8 @@ class TestTaskGraph(unittest.TestCase):
         sn.add_child(collect)
         asyncio.run(sn.start())
         result = collect.result()
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0], 5)
+        # self.assertEqual(len(result), 1)
+        self.assertEqual(result, 5)
 
     def test_seed_list(self):
         sn = tg.SeedNode(["Hello World"])
@@ -61,7 +61,21 @@ class TestTaskGraph(unittest.TestCase):
         asyncio.run(sn.start())
         result = collect.result()
         self.assertEqual(len(result), 1)
-        self.assertEqual(result[0], ["Hello World"])
+        self.assertEqual(result, ["Hello World"])
+
+    async def _test_multi_resp_helper(self):
+        sn = tg.SeedNode("Hello World")
+        collect = sn.split(
+            tg.AsyncNode(), tg.AsyncNode()
+        )
+
+        start_res = await collect.start()
+        collect_res = collect.result()
+
+        print("Hello")
+
+    def test_multi_resp(self):
+        asyncio.run(self._test_multi_resp_helper())
 
     def test_chain(self):
         one = tg.SeedNode(2)
@@ -69,7 +83,7 @@ class TestTaskGraph(unittest.TestCase):
         three = two.add_child(tg.AsyncNode(self.async_square))
         result = three.add_child(tg.CollectNode())
         asyncio.run(one.start())
-        self.assertEqual(16, result.result()[0])
+        self.assertEqual(16, result.result())
 
     def test_main_task(self):
         one = tg.SeedNode(2)
@@ -78,7 +92,7 @@ class TestTaskGraph(unittest.TestCase):
         result = three.add_child(tg.CollectNode())
         asyncio.run(one.start())
         self.assertEqual(16, three.result())
-        self.assertEqual(16, result.result()[0])
+        self.assertEqual(16, result.result())
 
     def test_multi_input(self):
         root = tg.SeedNode(2)
@@ -91,10 +105,11 @@ class TestTaskGraph(unittest.TestCase):
         c1.add_child(m)
         c2.add_child(m)
         c3.add_child(m)
+        c = m.collect()
 
         asyncio.run(root.start())
 
-        self.assertEqual(92.0, m.result())
+        self.assertEqual(92.0, c.result())
 
     def test_split(self):
         root = tg.SeedNode(2)
@@ -218,8 +233,8 @@ class TestTaskGraph(unittest.TestCase):
         c = tg.SeedNode(3, executor=executor).async_task(self.async_square).process_task(self.square).async_task(
             self.async_multiply).process_task(self.divide).collect()
         asyncio.run(c.start())
-        self.assertEqual(1, len(c.result()))
-        self.assertEqual(81, c.result()[0])
+        # self.assertEqual(1, len(c.result()))
+        self.assertEqual(81, c.result())
         executor.shutdown(wait=True, cancel_futures=False)
         self.assertEqual(0, len(executor._pending_work_items))
         self.assertEqual(2, executor._queue_count)
