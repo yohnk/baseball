@@ -13,7 +13,6 @@ from pybaseball.statcast_pitcher import statcast_pitcher_arsenal_stats as sp_ars
 from pybaseball.statcast_pitcher import statcast_pitcher_active_spin as sp_active_spin
 
 
-
 def get_team_ids():
     try:
         get_team_ids.TEAM_IDS
