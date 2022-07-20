@@ -215,7 +215,8 @@ class TestTaskGraph(unittest.TestCase):
 
     def test_executor(self):
         executor = ProcessPoolExecutor()
-        c = tg.SeedNode(3, executor=executor).async_task(self.async_square).process_task(self.square).async_task(self.async_multiply).process_task(self.divide).collect()
+        c = tg.SeedNode(3, executor=executor).async_task(self.async_square).process_task(self.square).async_task(
+            self.async_multiply).process_task(self.divide).collect()
         asyncio.run(c.start())
         self.assertEqual(1, len(c.result()))
         self.assertEqual(81, c.result()[0])

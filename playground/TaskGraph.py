@@ -1,10 +1,10 @@
 from __future__ import annotations
 import asyncio
-from abc import ABC
 import enum
+from abc import ABC
 from asyncio import Future
-from typing import Set, List, Dict
 from itertools import chain
+from typing import Set, List, Dict
 
 
 class ET(enum.Enum):
@@ -187,4 +187,5 @@ class SeedNode(AsyncNode):
     def get_work(value):
         async def anon_work(*args):
             return value
+
         return anon_work
