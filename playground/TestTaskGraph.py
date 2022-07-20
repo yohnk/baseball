@@ -101,7 +101,6 @@ class TestTaskGraph(unittest.TestCase):
         child11 = root1.add_child(tg.AsyncNode())
         root2 = tg.AsyncNode()
         child21 = root2.add_child(tg.MainNode())
-
         collector = tg.CollectNode()
         child11.add_child(collector)
         child21.add_child(collector)
@@ -119,6 +118,42 @@ class TestTaskGraph(unittest.TestCase):
         leafs = root2.leafs()
         self.assertEqual(1, len(leafs))
         self.assertIn(collector, leafs)
+
+    def test_all_children(self):
+        root1 = tg.AsyncNode()
+        child11 = root1.add_child(tg.AsyncNode())
+        root2 = tg.AsyncNode()
+        child21 = root2.add_child(tg.MainNode())
+        collector = tg.CollectNode()
+        child11.add_child(collector)
+        child21.add_child(collector)
+
+        r1c = root1.tree()
+        self.assertEqual(3, len(r1c))
+        self.assertIn(root1, r1c)
+        self.assertIn(child11, r1c)
+        self.assertIn(collector, r1c)
+
+        r2c = root2.tree()
+        self.assertEqual(3, len(r2c))
+        self.assertIn(root2, r2c)
+        self.assertIn(child21, r2c)
+        self.assertIn(collector, r2c)
+
+    def test_all_nodes(self):
+        root1 = tg.AsyncNode()
+        child11 = root1.add_child(tg.AsyncNode())
+        root2 = tg.AsyncNode()
+        child21 = root2.add_child(tg.MainNode())
+        collector = tg.CollectNode()
+        child11.add_child(collector)
+        child21.add_child(collector)
+
+        all_nodes = set([root1, child11, root2, child21, collector])
+
+        for n in all_nodes:
+            test = n.all_nodes()
+            self.assertEqual(test, all_nodes)
 
 
 if __name__ == '__main__':

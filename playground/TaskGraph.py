@@ -64,16 +64,41 @@ class Node(ABC):
         self.children.add(c)
         c.parents.add(self)
 
-        # if self.generation is not None and (c.generation is None or c.generation <= self.generation):
-        #     c.generation = self.generation + 1
-        #
-        # if self.generation is None and c.generation is not None:
-        #     self.generation = c.generation - 1
+        if self.generation is not None and (c.generation is None or c.generation <= self.generation):
+            c.generation = self.generation + 1
+
+        if self.generation is None and c.generation is not None:
+            self.generation = c.generation - 1
 
         return c
 
+    def all_nodes(self):
+        if self.is_leaf():
+            o = set()
+            for r in self.roots():
+                o.update(r.tree())
+            return o
+        else:
+            o = set()
+            for l in self.leafs():
+                o.update(l.all_nodes())
+            return o
+
+    def tree(self):
+        s = {self}
+        for c in self.children:
+            s.add(c)
+            s.update(c.tree())
+        return s
+
+    def is_root(self):
+        return len(self.parents) == 0
+
+    def is_leaf(self):
+        return len(self.children) == 0
+
     def roots(self):
-        if len(self.parents) == 0:
+        if self.is_root():
             return [self]
         else:
             out = set()
@@ -82,7 +107,7 @@ class Node(ABC):
             return out
 
     def leafs(self):
-        if len(self.children) == 0:
+        if self.is_leaf():
             return [self]
         else:
             out = set()
