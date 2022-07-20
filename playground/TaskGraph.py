@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 import enum
 from concurrent.futures import ProcessPoolExecutor
 from typing import List
+from itertools import chain
 
 
 class ET(enum.Enum):
@@ -74,21 +75,13 @@ class Node(ABC):
 
     def all_nodes(self):
         if self.is_leaf():
-            o = set()
-            for r in self.roots():
-                o.update(r.tree())
-            return o
+            return set(chain(*[r.tree() for r in self.roots()]))
         else:
-            o = set()
-            for l in self.leafs():
-                o.update(l.all_nodes())
-            return o
+            return set(chain(*[l.all_nodes() for l in self.leafs()]))
 
     def tree(self):
-        s = {self}
-        for c in self.children:
-            s.add(c)
-            s.update(c.tree())
+        s = set(*[c.tree() for c in self.children])
+        s.add(self)
         return s
 
     def is_root(self):
@@ -99,21 +92,15 @@ class Node(ABC):
 
     def roots(self):
         if self.is_root():
-            return [self]
+            return {self}
         else:
-            out = set()
-            for p in self.parents:
-                out.update(p.roots())
-            return out
+            return set(chain(*[p.roots() for p in self.parents]))
 
     def leafs(self):
         if self.is_leaf():
             return [self]
         else:
-            out = set()
-            for c in self.children:
-                out.update(c.leafs())
-            return out
+            return set(chain(*[c.leafs() for c in self.children]))
 
     async def result(self):
         return self.task
