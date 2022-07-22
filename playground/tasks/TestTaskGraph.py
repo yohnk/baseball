@@ -297,6 +297,14 @@ class TestTaskGraph(unittest.TestCase):
         self.assertEqual(type(ex.exceptions[0]), TestTaskException)
         self.assertEqual(type(ex.exceptions[1]), TestTaskException)
 
+        sn = tg.SeedNode(2)
+        ex = sn.async_task(self.async_exception_gen)
+        col = ex.collect()
+
+        def help():
+            asyncio.run(sn.start(raise_exception=True))
+
+        self.assertRaises(TestTaskException, help)
 
 
 

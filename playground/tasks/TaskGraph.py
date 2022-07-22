@@ -45,7 +45,7 @@ class Node(ABC):
         self.executor = executor
         self.exceptions = []
 
-    async def start(self):
+    async def start(self, raise_exception=False) -> List:
         generations = self._generations()
         for gen in sorted(generations.keys()):
             for node in generations[gen]:
@@ -54,6 +54,9 @@ class Node(ABC):
                         node.task = node.create_task(await node.parent_results())
                     except Exception as e:
                         node._add_exception(e)
+
+        if raise_exception:
+            [n._raise() for n in set(chain(*generations.values()))]
 
         out = [n.result() for n in set(chain(*generations.values())) if n.is_leaf() and n.is_collector()]
         return out
@@ -69,6 +72,10 @@ class Node(ABC):
             except Exception as e:
                 p._add_exception(e)
         return out
+
+    def _raise(self):
+        if len(self.exceptions) > 0:
+            raise self.exceptions[0]
 
     def _add_exception(self, e):
         self.exceptions.append(e)
@@ -150,6 +157,9 @@ class Node(ABC):
 
     def async_task(self, work=async_noop) -> Node:
         return self.add_child(AsyncNode(work=work))
+
+    def seed_task(self, value) -> Node:
+        return self.add_child(SeedNode(value=value))
 
     def process_task(self, work=noop, executor=None):
         return self.add_child(ProcessNode(work=work, executor=executor))
