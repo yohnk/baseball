@@ -1,7 +1,7 @@
 from __future__ import annotations
 import asyncio
 import enum
-from abc import ABC
+from abc import ABC, abstractmethod
 from asyncio import Future
 from itertools import chain
 from typing import Set, List, Dict
@@ -43,19 +43,37 @@ class Node(ABC):
         self.task = None
         self.generation = 0
         self.executor = executor
+        self.exceptions = []
 
     async def start(self):
         generations = self._generations()
         for gen in sorted(generations.keys()):
             for node in generations[gen]:
-                node.task = node.create_task(await node.parent_results())
+                if len(node.exceptions) == 0:
+                    try:
+                        node.task = node.create_task(await node.parent_results())
+                    except Exception as e:
+                        node._add_exception(e)
+
         out = [n.result() for n in set(chain(*generations.values())) if n.is_leaf() and n.is_collector()]
         return out
 
     async def parent_results(self) -> List:
-        o = [await p.result() for p in self.parents if is_async(p.result)]
-        o.extend([p.result() for p in self.parents if not is_async(p.result)])
-        return o
+        out = []
+        for p in self.parents:
+            try:
+                if is_async(p.result):
+                    out.append(await p.result())
+                else:
+                    out.append(p.result())
+            except Exception as e:
+                p._add_exception(e)
+        return out
+
+    def _add_exception(self, e):
+        self.exceptions.append(e)
+        for c in self.children:
+            c._add_exception(e)
 
     def add_child(self, c: AsyncNode) -> Node:
         self.children.add(c)
@@ -139,6 +157,10 @@ class Node(ABC):
     def collect(self) -> Node:
         return self.add_child(CollectNode())
 
+    @abstractmethod
+    def create_task(self, results):
+        pass
+
 
 class AsyncNode(Node):
 
@@ -146,27 +168,38 @@ class AsyncNode(Node):
         return asyncio.create_task(self.work(*results))
 
     async def parent_results(self) -> List:
-        o = [await p.result() for p in self.parents if is_async(p.result)]
+        out = []
         for p in self.parents:
-            if not is_async(p.result):
-                f = Future()
-                f.set_result(p.result())
-                o.append(f)
-        return o
+            try:
+                if is_async(p.result):
+                    out.append(await p.result())
+                else:
+                    f = Future()
+                    f.set_result(p.result())
+                    out.append(f)
+            except Exception as e:
+                p._add_exception(e)
+        return out
 
 
 class CollectNode(AsyncNode):
 
     def __init__(self, work=async_noop, executor=None):
         self.results = None
-        self.exceptions = []
         super().__init__(work=work, executor=executor)
 
     async def parent_results(self):
-        results = [await x for x in [await p.result() for p in self.parents if is_async(p.result)]]
-        results.extend([p.result() for p in self.parents if not is_async(p.result)])
-        self.results = results
-        return results
+        out = []
+        for p in self.parents:
+            try:
+                if is_async(p.result):
+                    out.append(await (await p.result()))
+                else:
+                    out.append(p.result())
+            except Exception as e:
+                p._add_exception(e)
+        self.results = out
+        return out
 
     def result(self):
         try:

@@ -5,6 +5,10 @@ import numpy as np
 import TaskGraph as tg
 
 
+class TestTaskException(Exception):
+    pass
+
+
 class TestTaskGraph(unittest.TestCase):
 
     @staticmethod
@@ -45,6 +49,14 @@ class TestTaskGraph(unittest.TestCase):
         o = np.mean(argv)
         return o
 
+    @staticmethod
+    def exception_gen(*args):
+        raise TestTaskException()
+
+    @staticmethod
+    async def async_exception_gen(*args):
+        raise TestTaskException()
+
     def test_seed_int(self):
         sn = tg.SeedNode(5)
         collect = tg.CollectNode()
@@ -72,7 +84,8 @@ class TestTaskGraph(unittest.TestCase):
         start_res = await collect.start()
         collect_res = collect.result()
 
-        print("Hello")
+        self.assertEqual(["Hello World", "Hello World"], collect_res)
+        self.assertEqual([["Hello World", "Hello World"]], start_res)
 
     def test_multi_resp(self):
         asyncio.run(self._test_multi_resp_helper())
@@ -238,6 +251,53 @@ class TestTaskGraph(unittest.TestCase):
         executor.shutdown(wait=True, cancel_futures=False)
         self.assertEqual(0, len(executor._pending_work_items))
         self.assertEqual(2, executor._queue_count)
+
+    def test_exceptions(self):
+        sn = tg.SeedNode(2)
+        ex = sn.async_task(self.async_exception_gen)
+        col = ex.collect()
+        r = asyncio.run(sn.start())
+
+        self.assertEqual(0, len(sn.exceptions))
+        self.assertIsNotNone(col.exceptions[0])
+        self.assertIsNotNone(ex.exceptions[0])
+        self.assertEqual(type(col.exceptions[0]), TestTaskException)
+
+        sn = tg.SeedNode(2)
+        ex = sn.main_task(self.exception_gen)
+        col = ex.collect()
+        r = asyncio.run(sn.start())
+
+        self.assertEqual(0, len(sn.exceptions))
+        self.assertIsNotNone(ex.exceptions[0])
+        self.assertIsNotNone(col.exceptions[0])
+        self.assertEqual(ex.exceptions[0], col.exceptions[0])
+        self.assertEqual(type(col.exceptions[0]), TestTaskException)
+
+        sn = tg.SeedNode(2)
+        ex = sn.process_task(self.exception_gen)
+        col = ex.collect()
+        r = asyncio.run(sn.start())
+
+        self.assertEqual(0, len(sn.exceptions))
+        self.assertIsNotNone(col.exceptions[0])
+        self.assertIsNotNone(ex.exceptions[0])
+        self.assertEqual(type(col.exceptions[0]), TestTaskException)
+
+        sn = tg.SeedNode(2)
+        ex = sn.split(
+            tg.AsyncNode(self.async_exception_gen),
+            tg.AsyncNode(self.async_exception_gen)
+        )
+        col = ex.collect()
+        r = asyncio.run(sn.start())
+
+        self.assertEqual(2, len(ex.exceptions))
+        self.assertEqual(2, len(col.exceptions))
+        self.assertEqual(type(ex.exceptions[0]), TestTaskException)
+        self.assertEqual(type(ex.exceptions[1]), TestTaskException)
+
+
 
 
 if __name__ == '__main__':
