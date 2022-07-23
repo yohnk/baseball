@@ -3,7 +3,7 @@ from aiohttp_client_cache import CachedSession, FileBackend
 from itertools import product
 import aiohttp
 import pandas as pd
-import playground.tasks.TaskGraph as tg
+import TaskGraph as tg
 from datetime import datetime, timedelta
 
 

@@ -4,7 +4,7 @@ redirects.sqlite
 .idea/
 *.pkl
 *.pkl.xz
-log.txt
+old/log.txt
 ~$*
 
 # Byte-compiled / optimized / DLL files

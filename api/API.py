@@ -10,8 +10,8 @@ from abc import ABC, abstractmethod
 from typing import Awaitable
 from aiohttp import ClientResponse, ClientSession, BaseConnector, ClientResponseError
 from aiohttp_client_cache import CachedSession, FileBackend, CacheBackend
-import playground.tasks.TaskGraph as tg
-from playground.tasks.TaskGraph import Node
+import TaskGraph as tg
+from TaskGraph import Node
 from email.utils import parsedate_to_datetime
 
 

@@ -1,6 +1,6 @@
 import pickle
 from abc import ABC, abstractmethod
-from data.constants import CACHE_DIR
+from old.data.constants import CACHE_DIR
 from os import makedirs, remove
 from os.path import join, normpath
 from glob import glob

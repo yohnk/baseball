@@ -9,10 +9,8 @@ from threading import Thread
 from typing import Awaitable
 from aiohttp import ClientResponseError
 from datetime import datetime, timedelta
-
 from aiohttp_client_cache import FileBackend
-
-from playground.api.API import API, RetryAPI, CachedAPI
+from api.API import API, RetryAPI, CachedAPI
 import random
 import string
 import shutil
@@ -119,6 +117,7 @@ class ApiTests(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.httpd.shutdown()
         cls.http_thread.join()
+        os.remove("redirects.sqlite")
 
     def test_simple_get(self):
         http = SimpleGet()

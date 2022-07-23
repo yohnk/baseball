@@ -1,5 +1,5 @@
 import inspect
-from logging_config import log
+from old.logging_config import log
 from glob import glob
 from os.path import join, basename
 import pandas as pd

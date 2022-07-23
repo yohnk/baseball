@@ -1,23 +1,11 @@
 import pickle
-import warnings
 from os.path import join
 
-import numpy as np
 import pandas as pd
-from sklearn.ensemble import AdaBoostClassifier, VotingClassifier
-from sklearn.metrics import accuracy_score, make_scorer, mean_squared_error
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PowerTransformer
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from xgboost import XGBClassifier
-from sklearn.utils._testing import ignore_warnings
-from sklearn.exceptions import ConvergenceWarning
-import warnings
-from sklearn.exceptions import DataConversionWarning
-from learning.custom_learners import DTAdaBoost, SVCAdaBoost, MLPClassWrapper, VotingAdaBoost, MSDVotingClassifier
-from logging_config import log
+from old.learning.custom_learners import DTAdaBoost, VotingAdaBoost
+from old.logging_config import log
 
 
 def frange(start=0, end=1, step=0.1):

@@ -1,6 +1,6 @@
 from os.path import join, exists
 import pickle
-from logging_config import log
+from old.logging_config import log
 import pandas as pd
 import numpy as np
 from pybaseball import playerid_lookup, chadwick_register

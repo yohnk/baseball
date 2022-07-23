@@ -2,22 +2,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
 
-import data.constants as c
+import old.data.constants as c
 import tqdm
-import data.utils as u
+import old.data.utils as u
 from abc import ABC
-from data.cache_provider import FileCache
+from old.data.cache_provider import FileCache
 
-from pybaseball import bwar_pitch, chadwick_register, fangraphs_teams, pitching_stats, \
-    pitching_stats_bref, pitching_stats_range, player_search_list, playerid_lookup, playerid_reverse_lookup, statcast, \
-    statcast_pitcher, team_pitching_bref
-from pybaseball.statcast_pitcher import statcast_pitcher_exitvelo_barrels, statcast_pitcher_expected_stats, \
-    statcast_pitcher_pitch_arsenal, statcast_pitcher_pitch_movement, \
-    statcast_pitcher_percentile_ranks, statcast_pitcher_spin_dir_comp
+from pybaseball import statcast, \
+    statcast_pitcher
 
-
-from iterators import BaseballIterator, StatcastIterator, StatcastPitcherIterator, YearIterator, PitchingStatsIterator, \
-    TeamPitchingIterator, StatcastPitcherPitchMovementIterator, SimpleIterator
+from iterators import BaseballIterator, StatcastIterator, StatcastPitcherIterator
 
 
 class Supplier(ABC):

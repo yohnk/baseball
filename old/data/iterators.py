@@ -4,8 +4,8 @@ from abc import abstractmethod
 from collections.abc import Iterator
 import pandas as pd
 
-import data.constants as c
-import data.utils as u
+import old.data.constants as c
+import old.data.utils as u
 
 
 class IteratorResponse:

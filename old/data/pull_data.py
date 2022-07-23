@@ -3,9 +3,8 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import pandas as pd
 import pickle
 from boilerplate import api_methods, dmd5
-from logging_config import log
+from old.logging_config import log
 from os.path import join, exists
-from tqdm import tqdm
 
 import pybaseball
 chadwick = pybaseball.chadwick_register()

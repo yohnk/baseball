@@ -1,15 +1,12 @@
 import pickle
 from os.path import join
 
-import numpy as np
 import pandas as pd
 import pybaseball
 from sklearn.preprocessing import PowerTransformer
-from sklearn.metrics import accuracy_score, mean_squared_error
-from sklearn.svm import LinearSVC, SVR
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.tree import DecisionTreeRegressor
 
-from learning.custom_learners import VotingAdaBoost, DTAdaBoost, MSDVotingClassifier, SVCAdaBoost
+from old.learning.custom_learners import VotingAdaBoost
 
 
 def main():

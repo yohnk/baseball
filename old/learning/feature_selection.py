@@ -9,7 +9,7 @@ from sklearn.metrics import make_scorer, mean_squared_error
 from sklearn.model_selection import cross_validate
 from sklearn.preprocessing import PowerTransformer
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from logging_config import log
+from old.logging_config import log
 from multiprocessing import cpu_count
 
 

@@ -1,10 +1,9 @@
 import pickle
-import traceback
 
 from boilerplate import cleanup_methods, data_types
 from glob import glob
 from os.path import join, basename, exists
-from logging_config import log
+from old.logging_config import log
 import pandas as pd
 from numpy import nan
 
