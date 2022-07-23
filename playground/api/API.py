@@ -1,15 +1,18 @@
 # game_details = "https://baseballsavant.mlb.com/statcast_search/csv?all=true&game_pk={}&type=details"
 # game_dates = "https://statsapi.mlb.com/api/v1/schedule?startDate=01/01/{}&endDate=12/31/{}&sportId=1"
 #
+import asyncio
+import math
 from collections.abc import Iterable
-
+from datetime import datetime
 import aiohttp
 from abc import ABC, abstractmethod
 from typing import Awaitable
-from aiohttp import ClientResponse, ClientSession, BaseConnector
+from aiohttp import ClientResponse, ClientSession, BaseConnector, ClientResponseError
 from aiohttp_client_cache import CachedSession, FileBackend
 import playground.tasks.TaskGraph as tg
 from playground.tasks.TaskGraph import Node
+from email.utils import parsedate_to_datetime
 
 
 class API(ABC):
@@ -45,7 +48,7 @@ class API(ABC):
     async def run(self):
         await self._async_init()
         try:
-            return await self.tree.start(raise_exception=True)
+            return await self.tree.start()
         finally:
             await self.session.close()
 
@@ -57,12 +60,11 @@ class API(ABC):
     async def collect(self, *responses):
         pass
 
-    @staticmethod
-    async def _check_request(response: ClientResponse) -> bool:
+    async def _check_request(self, response: ClientResponse) -> bool:
         return response is None
 
     def _generate_session(self) -> ClientSession:
-        return ClientSession(connector=self._generate_connection())
+        return ClientSession(connector=self._generate_connection(), raise_for_status=True)
 
     def _generate_connection(self) -> BaseConnector:
         return aiohttp.TCPConnector(limit=self.conn_limit)
@@ -108,10 +110,53 @@ class CachedAPI(API, ABC):
 
 class RetryAPI(API, ABC):
 
-    def __init__(self, max_retries=1):
+    def __init__(self, max_retries=1, **kwargs):
         self.max_retries = max_retries
         self._retries = {}
+        super().__init__(**kwargs)
+
+    async def _check_request(self, response: ClientResponse) -> bool:
+        if response is None:
+            return True
+        if response.status >= 500 or response.status == 429 or response.status == 301:
+            if response.url not in self._retries:
+                self._retries[response.url] = 0
+
+            self._retries[response.url] += 1
+
+            if self._retries[response.url] >= self.max_retries:
+                raise ClientResponseError(request_info=response.request_info, status=response.status, message=response.reason, headers=response.headers, history=(response,))
+
+            if "Retry-After" in response.headers and self.get_int(response.headers["Retry-After"]) is not None:
+                await asyncio.sleep(self.get_int(response.headers["Retry-After"]))
+            elif "Retry-After" in response.headers and self.get_date(response.headers["Retry-After"]) is not None:
+                wake = self.get_date(response.headers["Retry-After"])
+                while datetime.now() < wake:
+                    td = wake - datetime.now()
+                    await asyncio.sleep(td.total_seconds() * 0.99)
+            else:
+                await asyncio.sleep(math.pow(2, self._retries[response.url]))
+
+            return True
+        else:
+            return False
+
 
     @staticmethod
-    async def _retry_request(response):
-        return response is None
+    def get_int(o):
+        if isinstance(o, int):
+            return o
+        if isinstance(o, str) and o.isdigit():
+            return int(o)
+        return None
+
+    @staticmethod
+    def get_date(o):
+        try:
+            return parsedate_to_datetime(o)
+        except Exception:
+            return None
+
+    def _generate_session(self) -> ClientSession:
+        return ClientSession(connector=self._generate_connection(), raise_for_status=False)
+
