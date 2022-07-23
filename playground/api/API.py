@@ -9,7 +9,7 @@ import aiohttp
 from abc import ABC, abstractmethod
 from typing import Awaitable
 from aiohttp import ClientResponse, ClientSession, BaseConnector, ClientResponseError
-from aiohttp_client_cache import CachedSession, FileBackend
+from aiohttp_client_cache import CachedSession, FileBackend, CacheBackend
 import playground.tasks.TaskGraph as tg
 from playground.tasks.TaskGraph import Node
 from email.utils import parsedate_to_datetime
@@ -81,8 +81,8 @@ class API(ABC):
 
 class CachedAPI(API, ABC):
 
-    def __init__(self, cache_backend=None, **kwargs):
-        self.cache_backend = cache_backend
+    def __init__(self, cache_backend: CacheBackend = None, **kwargs):
+        self.cache_backend: CacheBackend = cache_backend
         super().__init__(**kwargs)
 
     async def _async_init(self):
@@ -96,12 +96,10 @@ class CachedAPI(API, ABC):
     def _generate_cache(self):
         return FileBackend(cache_name=self._generate_cache_name(), urls_expire_after=self._generate_expiration())
 
-    @staticmethod
-    def _generate_expiration():
+    def _generate_expiration(self):
         return {}
 
-    @staticmethod
-    def _generate_cache_name():
+    def _generate_cache_name(self):
         return "http_cache"
 
     def _generate_session(self):

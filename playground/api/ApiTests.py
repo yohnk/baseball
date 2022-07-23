@@ -1,5 +1,6 @@
 import asyncio
 import math
+import os
 import time
 import unittest
 from email.utils import format_datetime
@@ -8,7 +9,13 @@ from threading import Thread
 from typing import Awaitable
 from aiohttp import ClientResponseError
 from datetime import datetime, timedelta
-from playground.api.API import API, RetryAPI
+
+from aiohttp_client_cache import FileBackend
+
+from playground.api.API import API, RetryAPI, CachedAPI
+import random
+import string
+import shutil
 
 
 class WebServer(BaseHTTPRequestHandler):
@@ -25,6 +32,12 @@ class WebServer(BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header("Retry-After", self.path.replace("/retry/", ""))
             self.end_headers()
+        elif "/random" in self.path:
+            self.send_response(200)
+            self.end_headers()
+            rand_str = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
+            print(rand_str)
+            self.wfile.write(bytes(rand_str, "utf8"))
         elif "/retry_date/" in self.path:
             seconds = int(self.path.replace("/retry_date/", ""))
             self.send_response(429)
@@ -65,6 +78,33 @@ class RetryGet(RetryAPI):
 
     def _generate_urls(self):
         return ["http://localhost:8080"]
+
+
+class CacheGet(CachedAPI):
+
+    async def handle(self, http_body: Awaitable[bytes]):
+        data = await http_body
+        return data.decode("utf8")
+
+    def collect(self, *responses):
+        if len(responses) == 1:
+            return responses[0]
+        else:
+            return responses
+
+    def _generate_urls(self):
+        return ["http://localhost:8080/random"]
+
+    def _generate_cache(self):
+        return FileBackend(cache_name=self._generate_cache_name(), urls_expire_after=self._generate_expiration())
+
+    def _generate_cache_name(self):
+        return "testing_cache"
+
+    def _generate_expiration(self):
+        return {
+            "http://localhost:8080/random": 60 * 60 * 24
+        }
 
 
 class ApiTests(unittest.TestCase):
@@ -138,6 +178,26 @@ class ApiTests(unittest.TestCase):
         # Timing methods is gross, so shoot for a window
         self.assertTrue(7 > total >= 5)
         self.assertEqual(429, http.tree.exceptions[0].status)
+
+    async def _cache_helper(self):
+        http = CacheGet()
+        try:
+            shutil.rmtree(http._generate_cache_name(), ignore_errors=True)
+            r1 = await http.run()
+            self.assertEqual(1, len(os.listdir(http._generate_cache_name())))
+            http = CacheGet()
+            r2 = await http.run()
+            self.assertEqual(1, len(os.listdir(http._generate_cache_name())))
+            await http.cache_backend.clear()
+            http = CacheGet()
+            r3 = await http.run()
+            self.assertEqual(r1, r2)
+            self.assertNotEqual(r1, r3)
+        finally:
+            shutil.rmtree(http._generate_cache_name(), ignore_errors=True)
+
+    def test_cache(self):
+        asyncio.run(self._cache_helper())
 
 
 if __name__ == '__main__':
